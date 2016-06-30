@@ -17,9 +17,9 @@ import javax.xml.bind.annotation.XmlElement;
 public class Entity {
 
 	private String name;
-	private String global;
+	private boolean global;
 	private String postName;
-	private String isVirtual;
+	private boolean isVirtual;
 	private String parentName;
 	private String displayName;
 	private String description;
@@ -143,7 +143,7 @@ public class Entity {
 	/**
 	 * @return the name
 	 */
-	public String getGlobal() {
+	public boolean getGlobal() {
 		return global;
 	}
 
@@ -151,7 +151,7 @@ public class Entity {
 	 * @param name the name to set
 	 */
 	@XmlElement
-	public void setGlobal(String global) {
+	public void setGlobal(boolean global) {
 		this.global = global;
 	}
 
@@ -218,7 +218,7 @@ public class Entity {
 	/**
 	 * @return the isVirtual
 	 */
-	public String getIsVirtual() {
+	public boolean getIsVirtual() {
 		return isVirtual;
 	}
 
@@ -226,7 +226,7 @@ public class Entity {
 	 * @param isVirtual the isVirtual to set
 	 */
 	@XmlElement
-	public void setIsVirtual(String isVirtual) {
+	public void setIsVirtual(boolean isVirtual) {
 		this.isVirtual = isVirtual;
 	}
 

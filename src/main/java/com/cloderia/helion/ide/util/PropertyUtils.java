@@ -56,7 +56,7 @@ public class PropertyUtils {
 			// Process the fields in the entity
 			for(Field field : fieldsInEntity){
 				// Only process relationship fields
-				if(field.getRelationshipField().equals("Y")){
+				if(field.getRelationshipField()){
 					String targetEntityPostName = field.getDataType();
 					
 					for(Entity item: cloneOfEntitiesInModule){

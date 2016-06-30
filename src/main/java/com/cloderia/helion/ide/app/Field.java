@@ -15,18 +15,18 @@ public class Field {
 	private String javaName;
 	private String dataType;
 	private String size;
-	private String isVisible;
-	private String isFormField;
-	private String required;
-	private String createField;
-	private String editField;
-	private String viewField;
-	private String listField;
+	private boolean isVisible;
+	private boolean isFormField;
+	private boolean required;
+	private boolean createField;
+	private boolean editField;
+	private boolean viewField;
+	private boolean listField;
 	private String dataColumn;
 	private String description;
 	private String displayName;
 	private String optionsProvider;
-	private String relationshipField;
+	private boolean relationshipField;
 	
 	/**
 	 * 
@@ -53,7 +53,7 @@ public class Field {
 	/**
 	 * @return the isVisible
 	 */
-	public String getIsVisible() {
+	public boolean getIsVisible() {
 		return isVisible;
 	}
 
@@ -61,14 +61,14 @@ public class Field {
 	 * @param isVisible the isVisible to set
 	 */
 	@XmlElement
-	public void setIsVisible(String isVisible) {
+	public void setIsVisible(boolean isVisible) {
 		this.isVisible = isVisible;
 	}
 
 	/**
 	 * @return the isFormField
 	 */
-	public String getIsFormField() {
+	public boolean getIsFormField() {
 		return isFormField;
 	}
 
@@ -76,7 +76,7 @@ public class Field {
 	 * @param isFormField the isFormField to set
 	 */
 	@XmlElement
-	public void setIsFormField(String isFormField) {
+	public void setIsFormField(boolean isFormField) {
 		this.isFormField = isFormField;
 	}
 
@@ -84,7 +84,7 @@ public class Field {
 	/**
 	 * @return the createField
 	 */
-	public String getCreateField() {
+	public boolean getCreateField() {
 		return createField;
 	}
 
@@ -92,14 +92,14 @@ public class Field {
 	 * @param createField the dataType to set
 	 */
 	@XmlElement
-	public void setCreateField(String createField) {
+	public void setCreateField(boolean createField) {
 		this.createField = createField;
 	}
 
 	/**
 	 * @return the editField
 	 */
-	public String getEditField() {
+	public boolean getEditField() {
 		return editField;
 	}
 
@@ -107,14 +107,14 @@ public class Field {
 	 * @param editField the dataType to set
 	 */
 	@XmlElement
-	public void setEditField(String editField) {
+	public void setEditField(boolean editField) {
 		this.editField = editField;
 	}
 
 	/**
 	 * @return the viewField
 	 */
-	public String getViewField() {
+	public boolean getViewField() {
 		return viewField;
 	}
 
@@ -122,7 +122,7 @@ public class Field {
 	 * @param viewField the dataType to set
 	 */
 	@XmlElement
-	public void setViewField(String viewField) {
+	public void setViewField(boolean viewField) {
 		this.viewField = viewField;
 	}
 
@@ -130,7 +130,7 @@ public class Field {
 	/**
 	 * @return the listField
 	 */
-	public String getListField() {
+	public boolean getListField() {
 		return listField;
 	}
 
@@ -138,7 +138,7 @@ public class Field {
 	 * @param listField the dataType to set
 	 */
 	@XmlElement
-	public void setListField(String listField) {
+	public void setListField(boolean listField) {
 		this.listField = listField;
 	}
 
@@ -175,7 +175,7 @@ public class Field {
     /**
 	 * @return the dataType
 	 */
-	public String getRequired() {
+	public boolean getRequired() {
 		return required;
 	}
 
@@ -183,7 +183,7 @@ public class Field {
 	 * @param dataType the dataType to set
 	 */
 	@XmlElement
-	public void setRequired(String required) {
+	public void setRequired(boolean required) {
 		this.required = required;
 	}
 
@@ -236,7 +236,7 @@ public class Field {
 	/**
 	 * @return the relationshipField
 	 */
-	public String getRelationshipField() {
+	public boolean getRelationshipField() {
 		return relationshipField;
 	}
 
@@ -244,7 +244,7 @@ public class Field {
 	 * @param relationshipField the relationshipField to set
 	 */
 	@XmlElement
-	public void setRelationshipField(String relationshipField) {
+	public void setRelationshipField(boolean relationshipField) {
 		this.relationshipField = relationshipField;
 	}
 

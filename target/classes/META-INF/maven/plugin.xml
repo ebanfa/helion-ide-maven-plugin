@@ -41,11 +41,25 @@
           <description>The configuration file.</description>
         </parameter>
         <parameter>
+          <name>description</name>
+          <type>java.lang.String</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>The description.</description>
+        </parameter>
+        <parameter>
           <name>name</name>
           <type>java.lang.String</type>
           <required>false</required>
           <editable>true</editable>
-          <description>The name file.</description>
+          <description>The name.</description>
+        </parameter>
+        <parameter>
+          <name>packageName</name>
+          <type>java.lang.String</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>The packageName.</description>
         </parameter>
         <parameter>
           <name>targetDir</name>
@@ -65,7 +79,9 @@
       <configuration>
         <baseDir implementation="java.lang.String">${helion.baseDir}</baseDir>
         <config implementation="java.lang.String">${helion.config}</config>
+        <description implementation="java.lang.String">${helion.description}</description>
         <name implementation="java.lang.String">${helion.name}</name>
+        <packageName implementation="java.lang.String">${helion.packageName}</packageName>
         <targetDir implementation="java.lang.String">${helion.targetDir}</targetDir>
         <templateDir implementation="java.lang.String">${helion.templateDir}</templateDir>
       </configuration>
@@ -99,11 +115,25 @@
           <description>The configuration file.</description>
         </parameter>
         <parameter>
+          <name>description</name>
+          <type>java.lang.String</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>The description.</description>
+        </parameter>
+        <parameter>
           <name>name</name>
           <type>java.lang.String</type>
           <required>false</required>
           <editable>true</editable>
-          <description>The name file.</description>
+          <description>The name.</description>
+        </parameter>
+        <parameter>
+          <name>packageName</name>
+          <type>java.lang.String</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>The packageName.</description>
         </parameter>
         <parameter>
           <name>targetDir</name>
@@ -123,7 +153,9 @@
       <configuration>
         <baseDir implementation="java.lang.String">${helion.baseDir}</baseDir>
         <config implementation="java.lang.String">${helion.config}</config>
+        <description implementation="java.lang.String">${helion.description}</description>
         <name implementation="java.lang.String">${helion.name}</name>
+        <packageName implementation="java.lang.String">${helion.packageName}</packageName>
         <targetDir implementation="java.lang.String">${helion.targetDir}</targetDir>
         <templateDir implementation="java.lang.String">${helion.templateDir}</templateDir>
       </configuration>
@@ -157,11 +189,46 @@
           <description>The configuration file.</description>
         </parameter>
         <parameter>
+          <name>dbPassword</name>
+          <type>java.lang.String</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description></description>
+        </parameter>
+        <parameter>
+          <name>dbURL</name>
+          <type>java.lang.String</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description></description>
+        </parameter>
+        <parameter>
+          <name>dbUser</name>
+          <type>java.lang.String</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description></description>
+        </parameter>
+        <parameter>
+          <name>description</name>
+          <type>java.lang.String</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>The description.</description>
+        </parameter>
+        <parameter>
           <name>name</name>
           <type>java.lang.String</type>
           <required>false</required>
           <editable>true</editable>
-          <description>The name file.</description>
+          <description>The name.</description>
+        </parameter>
+        <parameter>
+          <name>packageName</name>
+          <type>java.lang.String</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>The packageName.</description>
         </parameter>
         <parameter>
           <name>targetDir</name>
@@ -181,7 +248,12 @@
       <configuration>
         <baseDir implementation="java.lang.String">${helion.baseDir}</baseDir>
         <config implementation="java.lang.String">${helion.config}</config>
+        <dbPassword implementation="java.lang.String">${helion.dbPassword}</dbPassword>
+        <dbURL implementation="java.lang.String">${helion.dbURL}</dbURL>
+        <dbUser implementation="java.lang.String">${helion.dbUser}</dbUser>
+        <description implementation="java.lang.String">${helion.description}</description>
         <name implementation="java.lang.String">${helion.name}</name>
+        <packageName implementation="java.lang.String">${helion.packageName}</packageName>
         <targetDir implementation="java.lang.String">${helion.targetDir}</targetDir>
         <templateDir implementation="java.lang.String">${helion.templateDir}</templateDir>
       </configuration>
@@ -331,6 +403,12 @@
       <artifactId>oro</artifactId>
       <type>jar</type>
       <version>2.0.8</version>
+    </dependency>
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <type>jar</type>
+      <version>5.1.21</version>
     </dependency>
     <dependency>
       <groupId>commons-io</groupId>

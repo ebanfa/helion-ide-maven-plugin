@@ -16,10 +16,23 @@ public abstract class AbstractHelionMojo extends AbstractMojo {
 	protected Configuration configuration;
 	
     /**
-     * The name file.
+     * The name.
      */
     @Parameter(property = "helion.name")
     protected String name;
+    
+    /**
+     * The description.
+     */
+    @Parameter(property = "helion.description")
+    protected String description;
+    
+
+    /**
+     * The packageName.
+     */
+    @Parameter(property = "helion.packageName")
+    protected String packageName;
     
     /**
      * The configuration file.
