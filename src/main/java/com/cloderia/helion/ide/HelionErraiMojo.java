@@ -3,8 +3,6 @@
  */
 package com.cloderia.helion.ide;
 
-import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Mojo;
 
 import com.cloderia.helion.ide.app.Application;
@@ -26,31 +24,18 @@ import com.cloderia.helion.ide.util.PropertyUtils;
 @Mojo(name="errai")
 public class HelionErraiMojo extends AbstractHelionMojo implements BuildService {
     
-
-	/* (non-Javadoc)
-	 * @see org.apache.maven.plugin.Mojo#execute()
-	 */
-	public void execute() throws MojoExecutionException, MojoFailureException {
-		getLog().info("Running goal Errai application generator");
-		application = IDEUtils.loadApplicationDefinition(config, templateDir);
-		execute(application);
-	}
 	
+	/* (non-Javadoc)
+	 * @see com.cloderia.helion.ide.AbstractHelionMojo#execute(com.cloderia.helion.ide.app.Application)
+	 */
 	public void execute(Application application) {
 		buiderConfig = initBulderConfig();
+		buiderConfig.setApplicationBuilder(this);
 		IDEUtils.createDirectoryIfNeeded(buiderConfig.getTargetDir());
 		configuration = IDEUtils.loadApplicationConfiguration(application);
 		doBuild(buiderConfig);
 	}
 	
-	public BuilderConfig initBulderConfig() {
-		buiderConfig = new BuilderConfig();
-		buiderConfig.setApplicationBuilder(this);
-		buiderConfig.setGenerateSourcesDir(targetDir);
-		buiderConfig.setTargetDir(targetDir.concat(name).concat("/"));
-		return buiderConfig;
-	}
-
 	/**
 	 * @param application
 	 */

@@ -3,11 +3,14 @@
  */
 package com.cloderia.helion.ide;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.apache.ddlutils.DatabaseOperationException;
 import org.apache.ddlutils.Platform;
 import org.apache.ddlutils.PlatformFactory;
 import org.apache.ddlutils.model.Column;
@@ -23,6 +26,7 @@ import com.cloderia.helion.ide.app.Entity;
 import com.cloderia.helion.ide.app.Field;
 import com.cloderia.helion.ide.app.Module;
 import com.cloderia.helion.ide.util.IDEUtils;
+import com.cloderia.helion.ide.util.StringUtils;
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 
 /**
@@ -49,18 +53,26 @@ public class DBToXMLEntityDataMojo  extends AbstractHelionMojo {
 
 
 	public void execute() throws MojoExecutionException, MojoFailureException {
+		Application application = new Application();
+		application.setName(name);
+		application.setPackageName(packageName);
+		application.setDescription(description);
+		application.setTemplatesDir(templateDir);
+		application.setGenerateSourcesDir(targetDir);
+		execute(application);
+	}
+
+	/* (non-Javadoc)
+	 * @see com.cloderia.helion.ide.AbstractHelionMojo#execute(com.cloderia.helion.ide.app.Application)
+	 */
+	@Override
+	public void execute(Application application) {
 		Database database = readDatabase(getMySQLDataSource());
 		Module module = new Module();
 		List<Entity> entities = new ArrayList<Entity>();
 		for(Table table: database.getTables()) entities.add(tableToEntity(table));
 		module.setEntities(entities);
-		Application application = new Application();
-		application.setName(name);
 		application.getModules().add(module);
-		application.setGenerateSourcesDir(targetDir);
-		application.setTemplatesDir(templateDir);
-		application.setPackageName(packageName);
-		application.setDescription(description);
 		IDEUtils.writeApplicationXML(config, application);
 	}
 
@@ -72,7 +84,7 @@ public class DBToXMLEntityDataMojo  extends AbstractHelionMojo {
 		Entity entity = new Entity();
 		entity.setGlobal(false);
 		entity.setIsVirtual(false);
-		entity.setName(table.getName());
+		entity.setName(StringUtils.tableNameToJavaClassName(table.getName()));
 		entity.setDescription(table.getDescription());
 		List<Field> fields = new ArrayList<Field>();
 		for(Column column : table.getColumns()) fields.add(columnToField(column));
@@ -104,7 +116,17 @@ public class DBToXMLEntityDataMojo  extends AbstractHelionMojo {
 	public Database readDatabase(DataSource dataSource)
 	{
 	    Platform platform = PlatformFactory.createNewPlatformInstance(dataSource);
-	    return platform.readModelFromDatabase("model");
+	    try {
+			Connection connection = dataSource.getConnection();
+			return platform.readModelFromDatabase(connection, null, null, null, null);
+		} catch (DatabaseOperationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    return  null;
 	}
 	
 	public DataSource getMySQLDataSource() {

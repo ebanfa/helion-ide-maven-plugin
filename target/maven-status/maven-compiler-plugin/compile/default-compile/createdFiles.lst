@@ -8,6 +8,7 @@ com/cloderia/helion/ide/builder/errai/ErraiModelBuilder.class
 com/cloderia/helion/ide/builder/errai/ErraiServiceBuilder.class
 com/cloderia/helion/ide/builder/errai/ErraiEndPointBuilder.class
 com/cloderia/helion/ide/util/IDEUtils.class
+com/cloderia/helion/ide/util/StringUtils.class
 com/cloderia/helion/ide/app/Entity.class
 com/cloderia/helion/ide/app/Field.class
 com/cloderia/helion/ide/app/Menu.class

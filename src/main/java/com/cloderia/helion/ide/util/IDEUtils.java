@@ -56,7 +56,6 @@ public class IDEUtils {
 			jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 
 			jaxbMarshaller.marshal(application, file);
-			jaxbMarshaller.marshal(application, System.out);
 
 		} catch (JAXBException e) {
 			e.printStackTrace();
@@ -71,7 +70,6 @@ public class IDEUtils {
 			File file = new File(config);
 			JAXBContext jaxbContext = JAXBContext.newInstance(Application.class);
 			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-			System.out.println(">>>>>>>>>>>>>>" + file.toString());
 			Application application = (Application) jaxbUnmarshaller.unmarshal(file);
 			return application;
 		} catch (JAXBException e) {

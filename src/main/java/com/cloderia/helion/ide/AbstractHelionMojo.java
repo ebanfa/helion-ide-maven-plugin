@@ -1,10 +1,13 @@
 package com.cloderia.helion.ide;
 
 import org.apache.maven.plugin.AbstractMojo;
+import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Parameter;
 
 import com.cloderia.helion.ide.app.Application;
 import com.cloderia.helion.ide.builder.BuilderConfig;
+import com.cloderia.helion.ide.util.IDEUtils;
 
 import freemarker.template.Configuration;
 
@@ -47,13 +50,22 @@ public abstract class AbstractHelionMojo extends AbstractMojo {
     protected String targetDir;
     
     /**
-     * The freemarker.
+     * The freemarker template.
      */
     @Parameter(property = "helion.templateDir")
     protected String templateDir;
     
+    /**
+     * The project base directory
+     */
     @Parameter(property = "helion.baseDir")
     protected String baseDir;
+
+    /**
+     *  The entity overrides configuration
+     */
+    @Parameter(property = "helion.entityOverrides")
+    protected String entityOverrides;
 
 	/**
 	 * @return the application
@@ -95,5 +107,22 @@ public abstract class AbstractHelionMojo extends AbstractMojo {
 	 */
 	public void setConfiguration(Configuration configuration) {
 		this.configuration = configuration;
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.apache.maven.plugin.Mojo#execute()
+	 */
+	public void execute() throws MojoExecutionException, MojoFailureException {
+		application = IDEUtils.loadApplicationDefinition(config, templateDir);
+		execute(application);
+	}
+	
+	public abstract void execute(Application application);
+	
+	public BuilderConfig initBulderConfig() {
+		buiderConfig = new BuilderConfig();
+		buiderConfig.setGenerateSourcesDir(targetDir);
+		buiderConfig.setTargetDir(targetDir.concat(name).concat("/"));
+		return buiderConfig;
 	}
 }

@@ -3,10 +3,10 @@
  */
 package com.cloderia.helion.ide;
 
-import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Mojo;
 
+import com.cloderia.helion.ide.app.Application;
+import com.cloderia.helion.ide.builder.BuildService;
 import com.cloderia.helion.ide.util.IDEConstants;
 import com.cloderia.helion.ide.util.IDEUtils;
 
@@ -15,15 +15,16 @@ import com.cloderia.helion.ide.util.IDEUtils;
  *
  */
 @Mojo(name="mvn-project")
-public class MavenProjectMojo extends AbstractHelionMojo {
-	
+public class MavenProjectMojo extends AbstractHelionMojo  implements BuildService{
 	
 	
 
 	/* (non-Javadoc)
-	 * @see org.apache.maven.plugin.Mojo#execute()
+	 * @see com.cloderia.helion.ide.builder.BuildService#execute(com.cloderia.helion.ide.app.Application)
 	 */
-	public void execute() throws MojoExecutionException, MojoFailureException {
+	public void execute(Application application) {
+		buiderConfig = initBulderConfig();
+		buiderConfig.setApplicationBuilder(this);
 		String projectBuildDir = targetDir.concat(name).concat("/");
 		IDEUtils.deleteDir(projectBuildDir);
 		IDEUtils.createDirectoryIfNeeded(projectBuildDir);
