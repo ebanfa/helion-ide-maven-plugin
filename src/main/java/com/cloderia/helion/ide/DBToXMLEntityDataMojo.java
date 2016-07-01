@@ -73,7 +73,44 @@ public class DBToXMLEntityDataMojo  extends AbstractHelionMojo {
 		for(Table table: database.getTables()) entities.add(tableToEntity(table));
 		module.setEntities(entities);
 		application.getModules().add(module);
+		application = processApplicationOverrides(application);
 		IDEUtils.writeApplicationXML(config, application);
+	}
+
+	private Application processApplicationOverrides(Application application) {
+		Application applicationOverrides = IDEUtils.loadApplicationXMLData(entityOverrides);
+		for(Module module: application.getModules()) {
+			for(Module moduleOverride: applicationOverrides.getModules()) {
+				processEntityOverrides(module, moduleOverride);
+			}
+		}
+		return application;
+	}
+
+	private void processEntityOverrides(Module module, Module moduleOverride) {
+		
+		for(Entity entity: module.getEntities()) {
+			for(Entity entityOverride: moduleOverride.getEntities()) {
+				if(entity.getName().equals(entityOverride.getName())) {
+					// Services overrides
+					if(entityOverride.getApiTemplate() != null) entity.setApiTemplate(entityOverride.getApiTemplate());
+					if(entityOverride.getApiImplTemplate() != null)	entity.setApiImplTemplate(entityOverride.getApiImplTemplate());
+					// End point overrides
+					if(entityOverride.getEndPointTemplate() != null) entity.setEndPointTemplate(entityOverride.getEndPointTemplate());
+					if(entityOverride.getEndPointImplTemplate() != null) entity.setEndPointImplTemplate(entityOverride.getEndPointImplTemplate());
+					// View overrides
+					if(entityOverride.getCreateViewTemplate() != null) entity.setCreatePageTemplate(entityOverride.getCreatePageTemplate());
+					if(entityOverride.getEditViewTemplate() != null) entity.setEditPageTemplate(entityOverride.getEditPageTemplate());
+					if(entityOverride.getSingleViewTemplate() != null) entity.setSingleViewTemplate(entityOverride.getSingleViewTemplate());
+					if(entityOverride.getListViewTemplate() != null) entity.setListViewTemplate(entityOverride.getListViewTemplate());
+					// Page overrides
+					if(entityOverride.getCreatePageTemplate() != null) entity.setCreatePageTemplate(entityOverride.getCreatePageTemplate());
+					if(entityOverride.getEditPageTemplate() != null) entity.setEditPageTemplate(entityOverride.getEditPageTemplate());
+					if(entityOverride.getViewPageTemplate() != null) entity.setViewPageTemplate(entityOverride.getViewPageTemplate());
+					if(entityOverride.getListPageTemplate() != null) entity.setListPageTemplate(entityOverride.getListPageTemplate());
+				}
+			}
+		}
 	}
 
 	/**

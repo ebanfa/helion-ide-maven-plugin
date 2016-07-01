@@ -415,6 +415,7 @@ public class Entity {
 	/**
 	 * @param editViewTemplate the editViewTemplate to set
 	 */
+	@XmlElement
 	public void setEditViewTemplate(String editViewTemplate) {
 		this.editViewTemplate = editViewTemplate;
 	}

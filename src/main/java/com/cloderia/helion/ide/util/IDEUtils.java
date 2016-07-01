@@ -63,11 +63,11 @@ public class IDEUtils {
 	}
 
 	/**
-	 * @param config
+	 * @param configFile
 	 */
-	private static Application loadApplicationXMLData(String config) {
+	public static Application loadApplicationXMLData(String configFile) {
 		try {
-			File file = new File(config);
+			File file = new File(configFile);
 			JAXBContext jaxbContext = JAXBContext.newInstance(Application.class);
 			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 			Application application = (Application) jaxbUnmarshaller.unmarshal(file);
