@@ -12,7 +12,7 @@ import javax.xml.bind.annotation.XmlElement;
  * @author adrian
  *
  */
-public class Module {
+public class Module implements ArtifactData {
 	
 	String name;
 		
@@ -69,6 +69,13 @@ public class Module {
 	@XmlElement(name="entity")
 	public void setEntities(List<Entity> entities) {
 		this.entities = entities;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.cloderia.helion.ide.app.ArtifactData#getArtifactDataType()
+	 */
+	public String getArtifactDataType() {
+		return "module";
 	}
 
 }

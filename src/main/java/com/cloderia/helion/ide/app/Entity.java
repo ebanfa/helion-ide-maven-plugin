@@ -14,7 +14,7 @@ import javax.xml.bind.annotation.XmlElement;
  * @author adrian
  *
  */
-public class Entity {
+public class Entity implements ArtifactData {
 
 	private String name;
 	private boolean global;
@@ -418,6 +418,13 @@ public class Entity {
 	@XmlElement
 	public void setEditViewTemplate(String editViewTemplate) {
 		this.editViewTemplate = editViewTemplate;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.cloderia.helion.ide.app.ArtifactData#getArtifactDataType()
+	 */
+	public String getArtifactDataType() {
+		return "entity";
 	}
 
 }

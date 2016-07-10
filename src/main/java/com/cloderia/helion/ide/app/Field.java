@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.XmlElement;
  * @author adrian
  *
  */
-public class Field {
+public class Field implements ArtifactData {
 
 	private String name;
 	private String javaName;
@@ -236,7 +236,7 @@ public class Field {
 	/**
 	 * @return the relationshipField
 	 */
-	public boolean getRelationshipField() {
+	public boolean isRelationshipField() {
 		return relationshipField;
 	}
 
@@ -260,6 +260,26 @@ public class Field {
 	 */
 	public void setJavaName(String javaName) {
 		this.javaName = javaName;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Field [name=" + name + ", javaName=" + javaName + ", dataType=" + dataType + ", size=" + size
+				+ ", isVisible=" + isVisible + ", isFormField=" + isFormField + ", required=" + required
+				+ ", createField=" + createField + ", editField=" + editField + ", viewField=" + viewField
+				+ ", listField=" + listField + ", dataColumn=" + dataColumn + ", description=" + description
+				+ ", displayName=" + displayName + ", optionsProvider=" + optionsProvider + ", relationshipField="
+				+ relationshipField + "]";
+	}
+
+	/* (non-Javadoc)
+	 * @see com.cloderia.helion.ide.app.ArtifactData#getArtifactDataType()
+	 */
+	public String getArtifactDataType() {
+		return "field";
 	}
 
 }

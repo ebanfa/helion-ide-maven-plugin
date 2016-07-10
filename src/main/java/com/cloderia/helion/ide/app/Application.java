@@ -14,9 +14,11 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  */
 @XmlRootElement(name="application")
-public class Application {
+public class Application implements ArtifactData {
 	
 	String name;
+	String groupId;
+	String artifactId;
 	String packageName;
 	String description;
 	String templatesDir;
@@ -134,5 +136,40 @@ public class Application {
 	@XmlElement(name="module")
 	public void setModules(List<Module> modules) {
 		this.modules = modules;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.cloderia.helion.ide.app.ArtifactData#getArtifactDataType()
+	 */
+	public String getArtifactDataType() {
+		return "application";
+	}
+
+	/**
+	 * @return the groupId
+	 */
+	public String getGroupId() {
+		return groupId;
+	}
+
+	/**
+	 * @param groupId the groupId to set
+	 */
+	public void setGroupId(String groupId) {
+		this.groupId = groupId;
+	}
+
+	/**
+	 * @return the artifactId
+	 */
+	public String getArtifactId() {
+		return artifactId;
+	}
+
+	/**
+	 * @param artifactId the artifactId to set
+	 */
+	public void setArtifactId(String artifactId) {
+		this.artifactId = artifactId;
 	}
 }

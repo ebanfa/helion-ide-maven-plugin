@@ -12,7 +12,7 @@ import javax.xml.bind.annotation.XmlElement;
  * @author adrian
  *
  */
-public class MenuGroup {
+public class MenuGroup implements ArtifactData {
 
 	private String name;
 	private String displayName;
@@ -181,5 +181,12 @@ public class MenuGroup {
 	@XmlElement(name="menu")
 	public void setMenus(List<Menu> menus) {
 		this.menus = menus;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.cloderia.helion.ide.app.ArtifactData#getArtifactDataType()
+	 */
+	public String getArtifactDataType() {
+		return "menugroup";
 	}
 }

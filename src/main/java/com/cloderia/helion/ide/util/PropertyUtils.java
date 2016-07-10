@@ -56,11 +56,11 @@ public class PropertyUtils {
 			// Process the fields in the entity
 			for(Field field : fieldsInEntity){
 				// Only process relationship fields
-				if(field.getRelationshipField()){
+				if(field.isRelationshipField()){
 					String targetEntityPostName = field.getDataType();
 					
 					for(Entity item: cloneOfEntitiesInModule){
-						if(item.getPostName().equals(targetEntityPostName)) {
+						if(item.getName().equals(targetEntityPostName)) {
 							String fieldName = field.getName(); //+ UUID.randomUUID().toString();
 							//item.getRelatedChildFields().put(fieldName, field);
 							item.getRelatedChildEntities().put(fieldName, entity);

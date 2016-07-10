@@ -5,52 +5,56 @@ package com.cloderia.helion.ide.builder.errai;
 
 import com.cloderia.helion.ide.app.Entity;
 import com.cloderia.helion.ide.app.Module;
-import com.cloderia.helion.ide.builder.BuilderConfig;
-import com.cloderia.helion.ide.builder.EntityBuilder;
+import com.cloderia.helion.ide.builder.AbstractArtifactBuilder;
+import com.cloderia.helion.ide.configuration.BuildConfiguration;
 import com.cloderia.helion.ide.util.IDEConstants;
-import com.cloderia.helion.ide.util.IDEUtils;
+import com.cloderia.helion.ide.util.IDEException;
 
 /**
  * @author adrian
  *
  */
-public class ErraiModelBuilder implements EntityBuilder {
-;
+public class ErraiModelBuilder extends AbstractArtifactBuilder {
 
-	
-	public void build(BuilderConfig config, Module module) {
-		for (Entity entity : module.getEntities()) {
-			config.setEntity(entity);
-			build(config, entity);
+	/* (non-Javadoc)
+	 * @see com.cloderia.helion.ide.builder.ArtifactBuilder#build(com.cloderia.helion.ide.configuration.BuildConfiguration)
+	 */
+	public void build(BuildConfiguration buildConfiguration) throws IDEException {
+		for(Module module : buildConfiguration.getApplication().getModules()){
+			build(buildConfiguration, module);
 		}
 	}
-
 	
-	public void build(BuilderConfig config, Entity entity) {
-		doBuildEntities(config, entity);
-		doBuildEntityOps(config, entity);
+	public void build(BuildConfiguration buildConfiguration, Module module) throws IDEException {
+		for (Entity entity : module.getEntities()) {
+			build(buildConfiguration, entity);
+		}
+	}
+	
+	public void build(BuildConfiguration buildConfiguration, Entity entity) throws IDEException {
+		doBuildEntities(buildConfiguration, entity);
+		doBuildEntityOps(buildConfiguration, entity);
 	}
 
 	/**
 	 * @param config
 	 * @param entity
+	 * @throws IDEException 
 	 */
-	private void doBuildEntities(BuilderConfig config, Entity entity) {
-		config.setOutputDir(IDEConstants.MODEL_DIR);
-		config.setInputFile("entities/errai/entity.ftl");
-		config.setOutputFile(entity.getName() + ".java");
-		IDEUtils.generateArtifact(config);
+	private void doBuildEntities(BuildConfiguration buildConfiguration, Entity entity) throws IDEException {
+		this.generateArtifact(buildConfiguration, entity, 
+			"entities/errai/entity.ftl", entity.getName() + ".java", IDEConstants.MODEL_DIR);
 	}
 
 	/**
 	 * @param config
 	 * @param entity
+	 * @throws IDEException 
 	 */
-	private void doBuildEntityOps(BuilderConfig config, Entity entity) {
-		config.setOutputDir(IDEConstants.OPS_DIR);
-		config.setInputFile("entities/errai/entity-ops.ftl");
-		config.setOutputFile(entity.getName() + "Operation.java");
-		IDEUtils.generateArtifact(config);
+	private void doBuildEntityOps(BuildConfiguration buildConfiguration, Entity entity) throws IDEException {
+		this.generateArtifact(buildConfiguration, entity, 
+			"entities/errai/entity-ops.ftl", entity.getName() + "Operation.java", IDEConstants.OPS_DIR);
 	}
+
 
 }

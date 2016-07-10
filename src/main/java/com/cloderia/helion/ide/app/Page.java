@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.XmlElement;
  * @author adrian
  *
  */
-public class Page {
+public class Page implements ArtifactData {
 
 	private String name;
 	private String displayName;
@@ -130,5 +130,12 @@ public class Page {
 	@XmlElement
 	public void setDisplayName(String displayName) {
 		this.displayName = displayName;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.cloderia.helion.ide.app.ArtifactData#getArtifactDataType()
+	 */
+	public String getArtifactDataType() {
+		return "page";
 	}
 }

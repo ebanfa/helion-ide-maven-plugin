@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.XmlElement;
  * @author adrian
  *
  */
-public class Menu {
+public class Menu implements ArtifactData {
 
 	private String name;
 	private String displayName;
@@ -145,5 +145,12 @@ public class Menu {
 	@XmlElement
 	public void setTargetTemplate(String targetTemplate) {
 		this.targetTemplate = targetTemplate;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.cloderia.helion.ide.app.ArtifactData#getArtifactDataType()
+	 */
+	public String getArtifactDataType() {
+		return "menu";
 	}
 }
