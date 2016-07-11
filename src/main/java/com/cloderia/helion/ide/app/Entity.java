@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * @author adrian
@@ -37,6 +38,7 @@ public class Entity implements ArtifactData {
 	private String endPointTemplate;
 	private String endPointImplTemplate;
 	private String relatedEntityFieldName;
+	private Module module;
 	private List<Field> fields = new ArrayList<Field>();
 	private List<Field> virtualFields = new ArrayList<Field>();
 	private Map<String, Field> relatedChildFields = new HashMap<String, Field>();
@@ -425,6 +427,39 @@ public class Entity implements ArtifactData {
 	 */
 	public String getArtifactDataType() {
 		return "entity";
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Entity [name=" + name + ", global=" + global + ", postName=" + postName + ", isVirtual=" + isVirtual
+				+ ", parentName=" + parentName + ", displayName=" + displayName + ", description=" + description
+				+ ", viewFilterTemplate=" + viewFilterTemplate + ", singleViewTemplate=" + singleViewTemplate
+				+ ", createViewTemplate=" + createViewTemplate + ", editViewTemplate=" + editViewTemplate
+				+ ", listViewTemplate=" + listViewTemplate + ", createPageTemplate=" + createPageTemplate
+				+ ", editPageTemplate=" + editPageTemplate + ", listPageTemplate=" + listPageTemplate
+				+ ", viewPageTemplate=" + viewPageTemplate + ", apiTemplate=" + apiTemplate + ", apiImplTemplate="
+				+ apiImplTemplate + ", endPointTemplate=" + endPointTemplate + ", endPointImplTemplate="
+				+ endPointImplTemplate + ", relatedEntityFieldName=" + relatedEntityFieldName + ", fields=" + fields
+				+ ", virtualFields=" + virtualFields + ", relatedChildFields=" + relatedChildFields
+				+ ", relatedChildEntities=" + relatedChildEntities + "]";
+	}
+
+	/**
+	 * @return the module
+	 */
+	public Module getModule() {
+		return module;
+	}
+
+	/**
+	 * @param module the module to set
+	 */
+	@XmlTransient
+	public void setModule(Module module) {
+		this.module = module;
 	}
 
 }

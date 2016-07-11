@@ -258,6 +258,7 @@ public class Field implements ArtifactData {
 	/**
 	 * @param javaName the javaName to set
 	 */
+	@XmlElement
 	public void setJavaName(String javaName) {
 		this.javaName = javaName;
 	}

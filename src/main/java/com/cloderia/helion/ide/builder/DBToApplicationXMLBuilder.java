@@ -52,7 +52,7 @@ public class DBToApplicationXMLBuilder implements ArtifactBuilder {
 	 */
 	public void build(BuildConfiguration buildConfiguration) throws IDEException {
 		Module module = new Module();
-		module.setEntities(loadEntitiesFromDB(buildConfiguration));
+		module.setEntities(loadEntitiesFromDB(buildConfiguration, module));
 		buildConfiguration.getApplication().getModules().add(module);
 		processApplicationOverrides(buildConfiguration);
 		generateApplicationXML(buildConfiguration);
@@ -68,13 +68,18 @@ public class DBToApplicationXMLBuilder implements ArtifactBuilder {
 
 	/**
 	 * @param buildConfiguration
+	 * @param module 
 	 * @return
 	 * @throws IDEException
 	 */
-	public List<Entity> loadEntitiesFromDB(BuildConfiguration buildConfiguration) throws IDEException {
+	public List<Entity> loadEntitiesFromDB(BuildConfiguration buildConfiguration, Module module) throws IDEException {
 		List<Entity> entities = new ArrayList<Entity>();
 		Table[] tables = readDatabase(getMySQLDataSource(buildConfiguration)).getTables();
-		for(Table table: tables) entities.add(tableToEntity(table));
+		for(Table table: tables){
+			Entity entity = tableToEntity(table);
+			entity.setModule(module);
+			entities.add(entity);
+		}
 		return entities;
 	}
 
@@ -164,7 +169,7 @@ public class DBToApplicationXMLBuilder implements ArtifactBuilder {
 		Field field = new Field();
 		field.setName(column.getName());
 		field.setDescription(column.getDescription());
-		field.setJavaName(column.getJavaName());
+		field.setJavaName(StringUtils.columnNameToJavaFieldName(column.getName()));
 		field.setRequired(column.isRequired()); 
 		field.setSize(column.getSize());
 		field.setIsFormField(true);
