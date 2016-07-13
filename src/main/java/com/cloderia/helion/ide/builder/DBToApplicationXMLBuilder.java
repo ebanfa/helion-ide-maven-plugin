@@ -157,6 +157,7 @@ public class DBToApplicationXMLBuilder implements ArtifactBuilder {
 		for(Field field : fields) {
 			if(foreignKey.getFirstReference().getLocalColumnName().equals(field.getName())) {
 				field.setRelationshipField(true);
+				field.setDataType(StringUtils.tableNameToJavaClassName(foreignKey.getForeignTableName()));
 			}
 		}
 	}

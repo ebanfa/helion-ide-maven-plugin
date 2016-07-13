@@ -24,8 +24,6 @@ public class ErraiEntityPageBuilder extends AbstractEntityArtifactBuilder {
 				|| entity.getSingleViewTemplate() != null || entity.getListViewTemplate() != null) {
 			this.doBuildPages(buildConfiguration, entity);
 		}
-		
-	
 	}
 
 	/**
@@ -56,5 +54,6 @@ public class ErraiEntityPageBuilder extends AbstractEntityArtifactBuilder {
 		this.generateArtifact(buildConfiguration, entity, editPageTempate, editOutputFile, htmlUIDir);
 		this.generateArtifact(buildConfiguration, entity, viewPageTempate, viewOutputFile, htmlUIDir);
 		this.generateArtifact(buildConfiguration, entity, listPageTempate, listOutputFile, htmlUIDir);
+		this.generateArtifact(buildConfiguration, entity, "html/errai/home.ftl", "home.html", htmlUIDir);
 	}
 }
