@@ -53,8 +53,9 @@ public abstract class AbstractIDEMojo extends AbstractMojo {
 			}
 	}
 	
-	protected Application initApplication(BuildConfiguration buildConfiguration){
-		Application application = new Application();
+	protected Application initApplication(BuildConfiguration buildConfiguration) throws IDEException{
+		Application application = IDEUtils.loadApplicationXMLData(
+				buildConfiguration.getProjectDir().concat("config/module-definitions.xml"));
 		application.setName(buildConfiguration.getName());
 		application.setGroupId(buildConfiguration.getGroupId());
 		application.setArtifactId(buildConfiguration.getArtifactId());

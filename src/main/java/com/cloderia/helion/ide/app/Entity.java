@@ -21,6 +21,7 @@ public class Entity implements ArtifactData {
 	private boolean global;
 	private String postName;
 	private boolean isVirtual;
+	private boolean hasOverride;
 	private String parentName;
 	private String displayName;
 	private String description;
@@ -460,6 +461,20 @@ public class Entity implements ArtifactData {
 	@XmlTransient
 	public void setModule(Module module) {
 		this.module = module;
+	}
+
+	/**
+	 * @return the hasOverride
+	 */
+	public boolean isHasOverride() {
+		return hasOverride;
+	}
+
+	/**
+	 * @param hasOverride the hasOverride to set
+	 */
+	public void setHasOverride(boolean hasOverride) {
+		this.hasOverride = hasOverride;
 	}
 
 }

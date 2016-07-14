@@ -20,8 +20,7 @@ public class ErraiEntityPageBuilder extends AbstractEntityArtifactBuilder {
 	 */
 	public void build(BuildConfiguration buildConfiguration, Entity entity) throws IDEException {
 		
-		if (entity.getCreateViewTemplate() != null || entity.getEditViewTemplate() != null
-				|| entity.getSingleViewTemplate() != null || entity.getListViewTemplate() != null) {
+		if (entity.isHasOverride()) {
 			this.doBuildPages(buildConfiguration, entity);
 		}
 	}
@@ -54,6 +53,6 @@ public class ErraiEntityPageBuilder extends AbstractEntityArtifactBuilder {
 		this.generateArtifact(buildConfiguration, entity, editPageTempate, editOutputFile, htmlUIDir);
 		this.generateArtifact(buildConfiguration, entity, viewPageTempate, viewOutputFile, htmlUIDir);
 		this.generateArtifact(buildConfiguration, entity, listPageTempate, listOutputFile, htmlUIDir);
-		this.generateArtifact(buildConfiguration, entity, "html/errai/home.ftl", "home.html", htmlUIDir);
+		//this.generateArtifact(buildConfiguration, entity, "html/errai/home.ftl", "home.html", htmlUIDir);
 	}
 }

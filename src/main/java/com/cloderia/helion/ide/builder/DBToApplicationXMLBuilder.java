@@ -38,7 +38,9 @@ public class DBToApplicationXMLBuilder implements ArtifactBuilder {
     public static final String VARCHAR = "VARCHAR";
     public static final String DECIMAL = "DECIMAL";
 	public static final String INTEGER = "INTEGER";
+	public static final String CHAR = "CHAR";
 
+	public static final String DATA_TYPE_FG = "flag";
 	public static final String DATA_TYPE_ID = "id";
 	public static final String DATA_TYPE_DATE = "date";
 	public static final String DATA_TYPE_INT = "number";
@@ -51,9 +53,23 @@ public class DBToApplicationXMLBuilder implements ArtifactBuilder {
 	 * @see com.cloderia.helion.ide.builder.ArtifactBuilder#build(com.cloderia.helion.ide.configuration.BuildConfiguration)
 	 */
 	public void build(BuildConfiguration buildConfiguration) throws IDEException {
-		Module module = new Module();
-		module.setEntities(loadEntitiesFromDB(buildConfiguration, module));
-		buildConfiguration.getApplication().getModules().add(module);
+		Application application = buildConfiguration.getApplication();
+		List<Entity> entitiesInDB = loadEntitiesFromDB(buildConfiguration);
+		List<Module> modulesForApplication = new ArrayList<Module>();
+		
+		for(Module module: application.getModules()) {
+			List<Entity> entitiesForModule = new ArrayList<Entity>();
+			for(Entity entityInModule: module.getEntities()) {
+				for(Entity entityInDB: entitiesInDB){
+					if(entityInModule.getName().equals(entityInDB.getName())) {
+						entityInDB.setModule(module);
+						entitiesForModule.add(entityInDB);
+					}
+				}
+			}
+			module.setEntities(entitiesForModule);
+			modulesForApplication.add(module);
+		}
 		processApplicationOverrides(buildConfiguration);
 		generateApplicationXML(buildConfiguration);
 	}
@@ -72,12 +88,11 @@ public class DBToApplicationXMLBuilder implements ArtifactBuilder {
 	 * @return
 	 * @throws IDEException
 	 */
-	public List<Entity> loadEntitiesFromDB(BuildConfiguration buildConfiguration, Module module) throws IDEException {
+	public List<Entity> loadEntitiesFromDB(BuildConfiguration buildConfiguration) throws IDEException {
 		List<Entity> entities = new ArrayList<Entity>();
 		Table[] tables = readDatabase(getMySQLDataSource(buildConfiguration)).getTables();
 		for(Table table: tables){
 			Entity entity = tableToEntity(table);
-			entity.setModule(module);
 			entities.add(entity);
 		}
 		return entities;
@@ -90,7 +105,8 @@ public class DBToApplicationXMLBuilder implements ArtifactBuilder {
 	 */
 	private Application processApplicationOverrides(BuildConfiguration buildConfiguration) throws IDEException {
 		Application application = buildConfiguration.getApplication();
-		Application applicationOverrides = IDEUtils.loadApplicationXMLData(buildConfiguration.getProjectDir().concat("config/application-overrides.xml"));
+		Application applicationOverrides = IDEUtils.loadApplicationXMLData(
+				buildConfiguration.getProjectDir().concat("config/entity-overrides.xml"));
 		for(Module module: application.getModules()) {
 			for(Module moduleOverride: applicationOverrides.getModules()) {
 				processEntityOverrides(module, moduleOverride);
@@ -107,6 +123,7 @@ public class DBToApplicationXMLBuilder implements ArtifactBuilder {
 		for(Entity entity: module.getEntities()) {
 			for(Entity entityOverride: moduleOverride.getEntities()) {
 				if(entity.getName().equals(entityOverride.getName())) {
+					entity.setHasOverride(true);
 					// Services overrides
 					if(entityOverride.getApiTemplate() != null) entity.setApiTemplate(entityOverride.getApiTemplate());
 					if(entityOverride.getApiImplTemplate() != null)	entity.setApiImplTemplate(entityOverride.getApiImplTemplate());
@@ -197,8 +214,15 @@ public class DBToApplicationXMLBuilder implements ArtifactBuilder {
 			return processDateColumn(field, column);
 		else if(column.getType().equals(VARCHAR))
 			return processTextColumn(field, column);
+		else if(column.getType().equals(CHAR))
+			return processCharColumn(field, column);
 		else 
 			return processTextColumn(field, column);
+	}
+
+	public Field processCharColumn(Field field, Column column) {
+		field.setDataType(DATA_TYPE_FG);
+		return field;
 	}
 
 	/**
@@ -206,14 +230,28 @@ public class DBToApplicationXMLBuilder implements ArtifactBuilder {
 	 * @param column
 	 */
 	private Field processTextColumn(Field field, Column column) {
-		if(column.getSizeAsInt() == 35)
-			if(column.getName().equalsIgnoreCase("entity_code"))
-				field.setDataType(DATA_TYPE_CODE);
-			else 
-				field.setDataType(DATA_TYPE_NAME);
-		else if (column.getSizeAsInt() == 255)
+		if(column.getName().equalsIgnoreCase("name")) {
+			field.setDataType(DATA_TYPE_CODE);
+		}
+		else if(column.getName().equalsIgnoreCase("entity_code")) {
+			field.setDataType(DATA_TYPE_NAME);
+		}
+		else if(column.getName().equalsIgnoreCase("description")) {
 			field.setDataType(DATA_TYPE_LG_TEXT);
-		
+		}
+		else {
+			if(column.getSizeAsInt() == 1)
+				field.setDataType(DATA_TYPE_FG);
+			if(column.getSizeAsInt() == 35)
+				field.setDataType(DATA_TYPE_CODE);
+			else if (column.getSizeAsInt() == 75)
+				field.setDataType(DATA_TYPE_NAME);
+			else if (column.getSizeAsInt() == 255)
+				field.setDataType(DATA_TYPE_LG_TEXT);
+			else {
+				field.setDataType(DATA_TYPE_NAME);
+			}
+		}
 		return field;
 	}
 
