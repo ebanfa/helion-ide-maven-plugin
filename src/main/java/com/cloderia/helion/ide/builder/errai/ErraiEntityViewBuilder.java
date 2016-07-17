@@ -21,7 +21,7 @@ public class ErraiEntityViewBuilder extends AbstractEntityArtifactBuilder {
 	@Override
 	public void build(BuildConfiguration buildConfiguration, Entity entity) throws IDEException {
 		
-		if (entity.isHasOverride()) {
+		if (entity.getHasOverride()) {
 			this.doBuildViews(buildConfiguration, entity);
 			this.doBuildViewComponents(buildConfiguration, entity);
 		}

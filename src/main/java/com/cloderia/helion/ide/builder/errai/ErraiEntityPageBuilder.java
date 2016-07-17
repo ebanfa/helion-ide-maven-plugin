@@ -20,7 +20,7 @@ public class ErraiEntityPageBuilder extends AbstractEntityArtifactBuilder {
 	 */
 	public void build(BuildConfiguration buildConfiguration, Entity entity) throws IDEException {
 		
-		if (entity.isHasOverride()) {
+		if (entity.getHasOverride()) {
 			this.doBuildPages(buildConfiguration, entity);
 		}
 	}

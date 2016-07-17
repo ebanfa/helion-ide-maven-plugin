@@ -39,6 +39,8 @@ public class DBToApplicationXMLBuilder implements ArtifactBuilder {
     public static final String DECIMAL = "DECIMAL";
 	public static final String INTEGER = "INTEGER";
 	public static final String CHAR = "CHAR";
+	public static final String DATETIME = "DATETIME";
+	public static final String TIMESTAMP = "TIMESTAMP";
 
 	public static final String DATA_TYPE_FG = "flag";
 	public static final String DATA_TYPE_ID = "id";
@@ -48,6 +50,10 @@ public class DBToApplicationXMLBuilder implements ArtifactBuilder {
 	public static final String DATA_TYPE_MONEY = "money";
 	public static final String DATA_TYPE_LG_TEXT = "text-lg";
 	public static final String DATA_TYPE_CODE = "alphanumeric";
+	public static final String DATA_TYPE_DATETIME = "datetime";
+	public static final String DATA_TYPE_TIMESTAMP = "timestamp";
+	private static final String DATA_TYPE_BIGINT = "bignumber";
+
 
 	/* (non-Javadoc)
 	 * @see com.cloderia.helion.ide.builder.ArtifactBuilder#build(com.cloderia.helion.ide.configuration.BuildConfiguration)
@@ -156,10 +162,13 @@ public class DBToApplicationXMLBuilder implements ArtifactBuilder {
 		entity.setGlobal(false);
 		entity.setIsVirtual(false);
 		entity.setName(StringUtils.tableNameToJavaClassName(table.getName()));
+		entity.setPostName(table.getName());
 		entity.setDescription(table.getDescription());
 		List<Field> fields = new ArrayList<Field>();
 		// Process columns
-		for(Column column : table.getColumns()) fields.add(columnToField(column));
+		for(Column column : table.getColumns()) {
+			if(!column.getName().equals("id")) fields.add(columnToField(column));
+		}
 		// Process foreign keys
 		for(ForeignKey foreignKey : table.getForeignKeys()) foreignKeyToField(foreignKey, fields);
 		entity.setFields(fields);
@@ -212,16 +221,25 @@ public class DBToApplicationXMLBuilder implements ArtifactBuilder {
 			return processDecimalColumn(field, column);
 		else if(column.getType().equals(DATE))
 			return processDateColumn(field, column);
+		else if(column.getType().equals(DATETIME))
+			return processDateColumn(field, column);
+		else if(column.getType().equals(TIMESTAMP))
+			return processDateColumn(field, column);
 		else if(column.getType().equals(VARCHAR))
 			return processTextColumn(field, column);
 		else if(column.getType().equals(CHAR))
 			return processCharColumn(field, column);
 		else 
-			return processTextColumn(field, column);
+			return processIntColumn(field, column);
 	}
 
 	public Field processCharColumn(Field field, Column column) {
-		field.setDataType(DATA_TYPE_FG);
+		if(column.getName().equalsIgnoreCase("rec_st")) {
+			field.setDataType(DATA_TYPE_CODE);
+		}
+		else {
+			field.setDataType(DATA_TYPE_FG);
+		}
 		return field;
 	}
 
@@ -231,10 +249,10 @@ public class DBToApplicationXMLBuilder implements ArtifactBuilder {
 	 */
 	private Field processTextColumn(Field field, Column column) {
 		if(column.getName().equalsIgnoreCase("name")) {
-			field.setDataType(DATA_TYPE_CODE);
+			field.setDataType(DATA_TYPE_NAME);
 		}
 		else if(column.getName().equalsIgnoreCase("entity_code")) {
-			field.setDataType(DATA_TYPE_NAME);
+			field.setDataType(DATA_TYPE_CODE);
 		}
 		else if(column.getName().equalsIgnoreCase("description")) {
 			field.setDataType(DATA_TYPE_LG_TEXT);
@@ -262,8 +280,10 @@ public class DBToApplicationXMLBuilder implements ArtifactBuilder {
 	private Field processIntColumn(Field field, Column column) {
 		if(column.isPrimaryKey())
 			field.setDataType(DATA_TYPE_ID);
-		else
+		else if(column.getSizeAsInt() < 12)
 			field.setDataType(DATA_TYPE_INT);
+		else
+			field.setDataType(DATA_TYPE_BIGINT);
 		return field;
 	}
 
@@ -272,7 +292,12 @@ public class DBToApplicationXMLBuilder implements ArtifactBuilder {
 	 * @param column
 	 */
 	private Field processDateColumn(Field field, Column column) {
-		field.setDataType(DATA_TYPE_DATE);
+		if(column.getType().equals(DATE))
+			field.setDataType(DATA_TYPE_DATE);
+		else if(column.getType().equals(DATETIME))
+			field.setDataType(DATA_TYPE_DATE);
+		else if(column.getType().equals(TIMESTAMP))
+			field.setDataType(DATA_TYPE_DATE);
 		return field;
 	}
 
