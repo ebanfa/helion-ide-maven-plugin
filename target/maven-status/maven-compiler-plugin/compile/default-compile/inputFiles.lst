@@ -14,6 +14,7 @@
 /home/adrian/Projects/helion-ide-maven-plugin/src/main/java/com/cloderia/helion/ide/builder/errai/ErraiServiceBuilder.java
 /home/adrian/Projects/helion-ide-maven-plugin/src/main/java/com/cloderia/helion/ide/app/Field.java
 /home/adrian/Projects/helion-ide-maven-plugin/src/main/java/com/cloderia/helion/ide/app/MenuBar.java
+/home/adrian/Projects/helion-ide-maven-plugin/src/main/java/com/cloderia/helion/ide/builder/errai/MiscProjectResourceBuilder.java
 /home/adrian/Projects/helion-ide-maven-plugin/src/main/java/com/cloderia/helion/ide/configuration/Database.java
 /home/adrian/Projects/helion-ide-maven-plugin/src/main/java/com/cloderia/helion/ide/util/IDEUtils.java
 /home/adrian/Projects/helion-ide-maven-plugin/src/main/java/com/cloderia/helion/ide/configuration/BuildConfiguration.java

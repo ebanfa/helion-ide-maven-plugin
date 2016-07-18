@@ -60,13 +60,13 @@ public class DBToApplicationXMLBuilder implements ArtifactBuilder {
 	 */
 	public void build(BuildConfiguration buildConfiguration) throws IDEException {
 		Application application = buildConfiguration.getApplication();
-		List<Entity> entitiesInDB = loadEntitiesFromDB(buildConfiguration);
+		application.setEntitiesInDB(loadEntitiesFromDB(buildConfiguration));
 		List<Module> modulesForApplication = new ArrayList<Module>();
 		
 		for(Module module: application.getModules()) {
 			List<Entity> entitiesForModule = new ArrayList<Entity>();
 			for(Entity entityInModule: module.getEntities()) {
-				for(Entity entityInDB: entitiesInDB){
+				for(Entity entityInDB: application.getEntitiesInDB()){
 					if(entityInModule.getName().equals(entityInDB.getName())) {
 						entityInDB.setModule(module);
 						entitiesForModule.add(entityInDB);
@@ -163,7 +163,10 @@ public class DBToApplicationXMLBuilder implements ArtifactBuilder {
 		entity.setIsVirtual(false);
 		entity.setName(StringUtils.tableNameToJavaClassName(table.getName()));
 		entity.setPostName(table.getName());
-		entity.setDescription(table.getDescription());
+		if(StringUtils.isValidString(table.getDescription()))
+			entity.setDescription(table.getDescription());
+		else
+			entity.setDescription(entity.getName());
 		List<Field> fields = new ArrayList<Field>();
 		// Process columns
 		for(Column column : table.getColumns()) {
@@ -195,10 +198,13 @@ public class DBToApplicationXMLBuilder implements ArtifactBuilder {
 	private Field columnToField(Column column) {
 		Field field = new Field();
 		field.setName(column.getName());
-		field.setDescription(column.getDescription());
 		field.setJavaName(StringUtils.columnNameToJavaFieldName(column.getName()));
+		if(StringUtils.isValidString(column.getDescription()))
+			field.setDescription(column.getDescription());
+		else
+			field.setDescription(field.getJavaName());
 		field.setRequired(column.isRequired()); 
-		field.setSize(column.getSize());
+		field.setSize(String.valueOf(column.getSizeAsInt()));
 		field.setIsFormField(true);
 		field.setIsVisible(true);
 		field.setListField(true);

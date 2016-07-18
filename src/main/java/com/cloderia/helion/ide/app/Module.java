@@ -15,6 +15,7 @@ import javax.xml.bind.annotation.XmlElement;
 public class Module implements ArtifactData {
 	
 	String name;
+	private String description;
 		
 	List<Page> pages = new ArrayList<Page>();
 	List<Entity> entities = new ArrayList<Entity>();
@@ -76,6 +77,21 @@ public class Module implements ArtifactData {
 	 */
 	public String getArtifactDataType() {
 		return "module";
+	}
+
+	/**
+	 * @return the description
+	 */
+	public String getDescription() {
+		return description;
+	}
+
+	/**
+	 * @param description the description to set
+	 */
+	@XmlElement
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 }

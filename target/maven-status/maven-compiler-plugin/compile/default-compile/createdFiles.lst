@@ -25,6 +25,7 @@ com/cloderia/helion/ide/HelionIDEMojo.class
 com/cloderia/helion/ide/builder/errai/ErraiEntityViewBuilder.class
 com/cloderia/helion/ide/generator/ArtifactGeneratorData.class
 com/cloderia/helion/ide/app/MenuBar.class
+com/cloderia/helion/ide/builder/errai/MiscProjectResourceBuilder.class
 com/cloderia/helion/ide/app/MenuGroup.class
 com/cloderia/helion/ide/builder/AbstractArtifactBuilder.class
 com/cloderia/helion/ide/util/IDEException.class

@@ -20,7 +20,7 @@ public class ErraiEntityPageBuilder extends AbstractEntityArtifactBuilder {
 	 */
 	public void build(BuildConfiguration buildConfiguration, Entity entity) throws IDEException {
 		
-		if (entity.getHasOverride()) {
+		if (entity.isHasOverride()) {
 			this.doBuildPages(buildConfiguration, entity);
 		}
 	}
@@ -36,8 +36,8 @@ public class ErraiEntityPageBuilder extends AbstractEntityArtifactBuilder {
 		String viewPageTempate = entity.getViewPageTemplate();
 		String listPageTempate = entity.getListPageTemplate();
 		
-		if(createPageTempate == null) createPageTempate = "html/errai/create-entity.ftl";
-		if(editPageTempate == null) editPageTempate = "html/errai/create-entity.ftl";
+		if(createPageTempate == null) createPageTempate = "html/errai/edit-entity.ftl";
+		if(editPageTempate == null) editPageTempate = "html/errai/edit-entity.ftl";
 		if(viewPageTempate == null) viewPageTempate = "html/errai/view-entity.ftl";
 		if(listPageTempate == null) listPageTempate = "html/errai/list-entity.ftl";
 		

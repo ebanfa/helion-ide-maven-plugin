@@ -38,9 +38,6 @@ public class ErraiProjectDirectoryBuilder extends AbstractArtifactBuilder {
 		this.generateArtifact(buildConfiguration, 
 				buildConfiguration.getApplication(), 
 				"html/errai/home.ftl", "dashboard-page.html", buildConfiguration.getTargetDir().concat(IDEConstants.UI_DIR + "/ui/"));
-		this.generateArtifact(buildConfiguration, 
-				buildConfiguration.getApplication(), 
-				"components/errai/side-bar.ftl", "SideBar.java", buildConfiguration.getTargetDir().concat(IDEConstants.UI_DIR + "/ui/"));
 	}
 
 	/**

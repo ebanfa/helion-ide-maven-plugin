@@ -24,6 +24,7 @@ public class Application implements ArtifactData {
 	String templatesDir;
 	String generateSourcesDir;
 	MenuBar menuBar;
+	List<Entity> entitiesInDB = new ArrayList<Entity>();
 	List<Module> modules = new ArrayList<Module>();
 
 	/**
@@ -171,5 +172,19 @@ public class Application implements ArtifactData {
 	 */
 	public void setArtifactId(String artifactId) {
 		this.artifactId = artifactId;
+	}
+
+	/**
+	 * @return the entitiesInDB
+	 */
+	public List<Entity> getEntitiesInDB() {
+		return entitiesInDB;
+	}
+
+	/**
+	 * @param entitiesInDB the entitiesInDB to set
+	 */
+	public void setEntitiesInDB(List<Entity> entitiesInDB) {
+		this.entitiesInDB = entitiesInDB;
 	}
 }

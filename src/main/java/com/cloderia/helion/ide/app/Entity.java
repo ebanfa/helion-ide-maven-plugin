@@ -466,7 +466,7 @@ public class Entity implements ArtifactData {
 	/**
 	 * @return the hasOverride
 	 */
-	public boolean getHasOverride() {
+	public boolean isHasOverride() {
 		return hasOverride;
 	}
 

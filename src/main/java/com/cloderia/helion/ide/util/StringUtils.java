@@ -32,4 +32,14 @@ public class StringUtils {
 		return WordUtils.uncapitalize(javaClassName);
 	}
 
+	public static boolean isValidString(String string) {
+		if(string == null)
+			return false;
+		else if (string.isEmpty())
+			return false;
+		else if (string.trim().equals(""))
+			return false;
+		return true;
+	}
+
 }
