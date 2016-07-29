@@ -6,6 +6,7 @@ com/cloderia/helion/ide/builder/ArtifactBuilder.class
 com/cloderia/helion/ide/generator/ArtifactGeneratorFactory.class
 com/cloderia/helion/ide/generator/FreeMarkerArtifactGenerator.class
 com/cloderia/helion/ide/app/Application.class
+com/cloderia/helion/ide/app/Navigation.class
 com/cloderia/helion/ide/builder/errai/ErraiEntityPageBuilder.class
 com/cloderia/helion/ide/builder/errai/ErraiModelBuilder.class
 com/cloderia/helion/ide/builder/errai/ErraiServiceBuilder.class
@@ -16,7 +17,6 @@ com/cloderia/helion/ide/util/IDEUtils.class
 com/cloderia/helion/ide/util/StringUtils.class
 com/cloderia/helion/ide/app/Entity.class
 com/cloderia/helion/ide/app/Field.class
-com/cloderia/helion/ide/app/Menu.class
 com/cloderia/helion/ide/generator/ArtifactGenerator.class
 com/cloderia/helion/ide/configuration/Database.class
 com/cloderia/helion/ide/app/Module.class
@@ -24,11 +24,9 @@ com/cloderia/helion/ide/AbstractIDEMojo.class
 com/cloderia/helion/ide/HelionIDEMojo.class
 com/cloderia/helion/ide/builder/errai/ErraiEntityViewBuilder.class
 com/cloderia/helion/ide/generator/ArtifactGeneratorData.class
-com/cloderia/helion/ide/app/MenuBar.class
+com/cloderia/helion/ide/app/NavItem.class
 com/cloderia/helion/ide/builder/errai/MiscProjectResourceBuilder.class
-com/cloderia/helion/ide/app/MenuGroup.class
 com/cloderia/helion/ide/builder/AbstractArtifactBuilder.class
 com/cloderia/helion/ide/util/IDEException.class
-com/cloderia/helion/ide/app/Page.class
 com/cloderia/helion/ide/builder/errai/ErraiProjectDirectoryBuilder.class
 com/cloderia/helion/ide/app/ArtifactData.class

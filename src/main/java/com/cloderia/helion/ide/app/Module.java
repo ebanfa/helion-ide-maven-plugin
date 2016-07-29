@@ -16,8 +16,9 @@ public class Module implements ArtifactData {
 	
 	String name;
 	private String description;
+	private String uiClass;
 		
-	List<Page> pages = new ArrayList<Page>();
+	private Navigation navigation;
 	List<Entity> entities = new ArrayList<Entity>();
 
 	/**
@@ -42,19 +43,20 @@ public class Module implements ArtifactData {
 		this.name = name;
 	}
 
+
 	/**
-	 * @return the pages
+	 * @return the navigation
 	 */
-	public List<Page> getPages() {
-		return pages;
+	@XmlElement
+	public Navigation getNavigation() {
+		return navigation;
 	}
 
 	/**
-	 * @param pages the pages to set
+	 * @param navigation the navigation to set
 	 */
-	@XmlElement(name="page")
-	public void setPages(List<Page> pages) {
-		this.pages = pages;
+	public void setNavigation(Navigation navigation) {
+		this.navigation = navigation;
 	}
 
 	/**
@@ -92,6 +94,21 @@ public class Module implements ArtifactData {
 	@XmlElement
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	/**
+	 * @return the cssClass
+	 */
+	public String getUiClass() {
+		return uiClass;
+	}
+
+	/**
+	 * @param cssClass the cssClass to set
+	 */
+	@XmlElement
+	public void setUiClass(String cssClass) {
+		this.uiClass = cssClass;
 	}
 
 }

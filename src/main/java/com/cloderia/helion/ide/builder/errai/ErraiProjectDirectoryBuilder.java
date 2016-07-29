@@ -16,6 +16,8 @@ import com.cloderia.helion.ide.util.IDEUtils;
  *
  */
 public class ErraiProjectDirectoryBuilder extends AbstractArtifactBuilder {
+	
+	public final static String APP_RESOURCE_DIR = "errai-logix/";
 
 	/*
 	 * (non-Javadoc)
@@ -35,9 +37,6 @@ public class ErraiProjectDirectoryBuilder extends AbstractArtifactBuilder {
 		this.generateArtifact(buildConfiguration, 
 				buildConfiguration.getApplication(), 
 				"misc/errai/read-md.ftl", "README.md", buildConfiguration.getTargetDir());
-		this.generateArtifact(buildConfiguration, 
-				buildConfiguration.getApplication(), 
-				"html/errai/home.ftl", "dashboard-page.html", buildConfiguration.getTargetDir().concat(IDEConstants.UI_DIR + "/ui/"));
 	}
 
 	/**
@@ -61,18 +60,18 @@ public class ErraiProjectDirectoryBuilder extends AbstractArtifactBuilder {
 	private void copyResources(BuildConfiguration buildConfiguration) {
 		String baseDir = buildConfiguration.getProjectDir();
 		String targetDir = buildConfiguration.getTargetDir();
-		IDEUtils.copyFileToDirectory(baseDir.concat(IDEConstants.BUILD_RESOURCES_DIR + "errai/pom.xml"), targetDir);
-		IDEUtils.copyFileToDirectory(baseDir.concat(IDEConstants.BUILD_RESOURCES_DIR + "errai/LICENSE"), targetDir);
-		IDEUtils.copyFileToDirectory(baseDir.concat(IDEConstants.BUILD_RESOURCES_DIR + "errai/README.md"), targetDir);
-		IDEUtils.copyFileToDirectory(baseDir.concat(IDEConstants.BUILD_RESOURCES_DIR + "errai/.project"), targetDir);
-		IDEUtils.copyFileToDirectory(baseDir.concat(IDEConstants.BUILD_RESOURCES_DIR + "errai/.classpath"), targetDir);
-		IDEUtils.copyDirectory(baseDir.concat(IDEConstants.BUILD_RESOURCES_DIR + "errai/.settings/"),
+		IDEUtils.copyFileToDirectory(baseDir.concat(IDEConstants.BUILD_RESOURCES_DIR + APP_RESOURCE_DIR + "pom.xml"), targetDir);
+		IDEUtils.copyFileToDirectory(baseDir.concat(IDEConstants.BUILD_RESOURCES_DIR + APP_RESOURCE_DIR + "LICENSE"), targetDir);
+		IDEUtils.copyFileToDirectory(baseDir.concat(IDEConstants.BUILD_RESOURCES_DIR + APP_RESOURCE_DIR + "README.md"), targetDir);
+		IDEUtils.copyFileToDirectory(baseDir.concat(IDEConstants.BUILD_RESOURCES_DIR + APP_RESOURCE_DIR + ".project"), targetDir);
+		IDEUtils.copyFileToDirectory(baseDir.concat(IDEConstants.BUILD_RESOURCES_DIR + APP_RESOURCE_DIR + ".classpath"), targetDir);
+		IDEUtils.copyDirectory(baseDir.concat(IDEConstants.BUILD_RESOURCES_DIR + APP_RESOURCE_DIR + ".settings/"),
 				targetDir.concat("/.settings/"));
-		IDEUtils.copyDirectory(baseDir.concat(IDEConstants.BUILD_RESOURCES_DIR + "errai/java/"),
+		IDEUtils.copyDirectory(baseDir.concat(IDEConstants.BUILD_RESOURCES_DIR + APP_RESOURCE_DIR + "java/"),
 				targetDir.concat(IDEConstants.JAVA_DIR));
-		IDEUtils.copyDirectory(baseDir.concat(IDEConstants.BUILD_RESOURCES_DIR + "errai/webapp/"),
+		IDEUtils.copyDirectory(baseDir.concat(IDEConstants.BUILD_RESOURCES_DIR + APP_RESOURCE_DIR + "webapp/"),
 				targetDir.concat(IDEConstants.WEBAPPS_DIR));
-		IDEUtils.copyDirectory(baseDir.concat(IDEConstants.BUILD_RESOURCES_DIR + "errai/resources/"),
+		IDEUtils.copyDirectory(baseDir.concat(IDEConstants.BUILD_RESOURCES_DIR + APP_RESOURCE_DIR + "resources/"),
 				targetDir.concat(IDEConstants.RESOURCES_DIR));
 	}
 	

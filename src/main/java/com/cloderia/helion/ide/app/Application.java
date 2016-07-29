@@ -23,7 +23,7 @@ public class Application implements ArtifactData {
 	String description;
 	String templatesDir;
 	String generateSourcesDir;
-	MenuBar menuBar;
+	Navigation menuBar;
 	List<Entity> entitiesInDB = new ArrayList<Entity>();
 	List<Module> modules = new ArrayList<Module>();
 
@@ -112,7 +112,7 @@ public class Application implements ArtifactData {
 	/**
 	 * @return the menuBar
 	 */
-	public MenuBar getMenuBar() {
+	public Navigation getMenuBar() {
 		return menuBar;
 	}
 
@@ -120,7 +120,7 @@ public class Application implements ArtifactData {
 	 * @param menuBar the menuBar to set
 	 */
 	@XmlElement
-	public void setMenuBar(MenuBar menuBar) {
+	public void setMenuBar(Navigation menuBar) {
 		this.menuBar = menuBar;
 	}
 

@@ -35,10 +35,10 @@ import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 public class DBToApplicationXMLBuilder implements ArtifactBuilder {
 	
 	public static final String DATE = "DATE";
+	public static final String CHAR = "CHAR";
     public static final String VARCHAR = "VARCHAR";
     public static final String DECIMAL = "DECIMAL";
 	public static final String INTEGER = "INTEGER";
-	public static final String CHAR = "CHAR";
 	public static final String DATETIME = "DATETIME";
 	public static final String TIMESTAMP = "TIMESTAMP";
 
@@ -112,7 +112,7 @@ public class DBToApplicationXMLBuilder implements ArtifactBuilder {
 	private Application processApplicationOverrides(BuildConfiguration buildConfiguration) throws IDEException {
 		Application application = buildConfiguration.getApplication();
 		Application applicationOverrides = IDEUtils.loadApplicationXMLData(
-				buildConfiguration.getProjectDir().concat("config/entity-overrides.xml"));
+				buildConfiguration.getProjectDir().concat("config/entity-config.xml"));
 		for(Module module: application.getModules()) {
 			for(Module moduleOverride: applicationOverrides.getModules()) {
 				processEntityOverrides(module, moduleOverride);
@@ -141,7 +141,7 @@ public class DBToApplicationXMLBuilder implements ArtifactBuilder {
 					if(entityOverride.getEditViewTemplate() != null) entity.setEditViewTemplate(entityOverride.getEditViewTemplate());
 					if(entityOverride.getSingleViewTemplate() != null) entity.setSingleViewTemplate(entityOverride.getSingleViewTemplate());
 					if(entityOverride.getListViewTemplate() != null) entity.setListViewTemplate(entityOverride.getListViewTemplate());
-					// Page overrides
+					// View overrides
 					if(entityOverride.getCreatePageTemplate() != null) {
 						entity.setCreatePageTemplate(entityOverride.getCreatePageTemplate());
 					}

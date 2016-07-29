@@ -9,22 +9,35 @@ import javax.xml.bind.annotation.XmlElement;
  * @author adrian
  *
  */
-public class Menu implements ArtifactData {
+public class NavItem implements ArtifactData {
 
+	private String type;
 	private String name;
 	private String displayName;
 	private String description;
-	private String active;
-	private String cssClass;
-	private String targetType;
+	private String uiClass;
 	private String target;
-	private String targetTemplate;
 
 	/**
 	 * 
 	 */
-	public Menu() {
+	public NavItem() {
 		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @return the type
+	 */
+	public String getType() {
+		return type;
+	}
+
+	/**
+	 * @param type the type to set
+	 */
+	@XmlElement
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	/**
@@ -41,7 +54,7 @@ public class Menu implements ArtifactData {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	/**
 	 * @return the displayName
 	 */
@@ -71,50 +84,20 @@ public class Menu implements ArtifactData {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
+
 	/**
-	 * @param active the active to set
+	 * @return the uiClass
+	 */
+	public String getUiClass() {
+		return uiClass;
+	}
+
+	/**
+	 * @param uiClass the uiClass to set
 	 */
 	@XmlElement
-	public void setActive(String active) {
-		this.active = active;
-	}
-
-	/**
-	 * @return the active
-	 */
-	public String getActive() {
-		return active;
-	}
-	
-	/**
-	 * @param cssClass the cssClass to set
-	 */
-	@XmlElement
-	public void setCssClass(String cssClass) {
-		this.cssClass = cssClass;
-	}
-
-	/**
-	 * @return the cssClass
-	 */
-	public String getCssClass() {
-		return cssClass;
-	}
-
-	/**
-	 * @return the targetType
-	 */
-	public String getTargetType() {
-		return targetType;
-	}
-
-	/**
-	 * @param targetType the targetType to set
-	 */
-	@XmlElement
-	public void setTargetType(String targetType) {
-		this.targetType = targetType;
+	public void setUiClass(String uiClass) {
+		this.uiClass = uiClass;
 	}
 
 	/**
@@ -132,25 +115,10 @@ public class Menu implements ArtifactData {
 		this.target = target;
 	}
 
-	/**
-	 * @return the targetTemplate
-	 */
-	public String getTargetTemplate() {
-		return targetTemplate;
-	}
-
-	/**
-	 * @param targetTemplate the targetTemplate to set
-	 */
-	@XmlElement
-	public void setTargetTemplate(String targetTemplate) {
-		this.targetTemplate = targetTemplate;
-	}
-
 	/* (non-Javadoc)
 	 * @see com.cloderia.helion.ide.app.ArtifactData#getArtifactDataType()
 	 */
 	public String getArtifactDataType() {
-		return "menu";
+		return "menugroup";
 	}
 }

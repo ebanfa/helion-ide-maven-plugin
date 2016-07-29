@@ -3,7 +3,12 @@
  */
 package com.cloderia.helion.ide.builder.errai;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 import com.cloderia.helion.ide.app.Entity;
+import com.cloderia.helion.ide.app.Field;
 import com.cloderia.helion.ide.builder.AbstractEntityArtifactBuilder;
 import com.cloderia.helion.ide.configuration.BuildConfiguration;
 import com.cloderia.helion.ide.util.IDEConstants;
@@ -22,6 +27,14 @@ public class ErraiEntityViewBuilder extends AbstractEntityArtifactBuilder {
 	public void build(BuildConfiguration buildConfiguration, Entity entity) throws IDEException {
 		
 		if (entity.isHasOverride()) {
+			Map<String, Field> uniqueFields = new HashMap<String, Field>();
+			for(Field field : entity.getFields()){
+				if(field.isRelationshipField()) {
+					if(!uniqueFields.containsKey(field.getDataType()))
+						uniqueFields.put(field.getDataType(), field);
+				}
+			}
+			entity.setVirtualFields(new ArrayList<Field>(uniqueFields.values()));
 			this.doBuildViews(buildConfiguration, entity);
 			this.doBuildViewComponents(buildConfiguration, entity);
 		}
@@ -68,6 +81,9 @@ public class ErraiEntityViewBuilder extends AbstractEntityArtifactBuilder {
 		
 		this.generateArtifact(buildConfiguration, entity, 
 				"components/errai/entity-list-display.ftl", entity.getName() + "ListItemDisplay.java", viewUIDir);
+		
+		this.generateArtifact(buildConfiguration, entity, 
+				"components/errai/entity-list-widget.ftl", entity.getName() + "ListWidget.java", viewUIDir);
 		
 		this.generateArtifact(buildConfiguration, entity, 
 				"components/errai/entity-editor.ftl", entity.getName() + "Editor.java", viewUIDir);
