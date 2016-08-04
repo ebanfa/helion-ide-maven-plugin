@@ -27,14 +27,6 @@ public class ErraiEntityViewBuilder extends AbstractEntityArtifactBuilder {
 	public void build(BuildConfiguration buildConfiguration, Entity entity) throws IDEException {
 		
 		if (entity.isHasOverride()) {
-			Map<String, Field> uniqueFields = new HashMap<String, Field>();
-			for(Field field : entity.getFields()){
-				if(field.isRelationshipField()) {
-					if(!uniqueFields.containsKey(field.getDataType()))
-						uniqueFields.put(field.getDataType(), field);
-				}
-			}
-			entity.setVirtualFields(new ArrayList<Field>(uniqueFields.values()));
 			this.doBuildViews(buildConfiguration, entity);
 			this.doBuildViewComponents(buildConfiguration, entity);
 		}
@@ -96,6 +88,9 @@ public class ErraiEntityViewBuilder extends AbstractEntityArtifactBuilder {
 		
 		this.generateArtifact(buildConfiguration, entity, 
 				"components/errai/base-entity-edit-page.ftl", "Base" + entity.getName() + "Page.java", viewUIDir);
+		
+		this.generateArtifact(buildConfiguration, entity, 
+				"components/errai/entity-list.ftl", entity.getName() + "List.java", viewUIDir);
 	}
 
 }

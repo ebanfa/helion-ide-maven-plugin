@@ -85,7 +85,7 @@ public class DBToApplicationXMLBuilder implements ArtifactBuilder {
 	 * @throws IDEException
 	 */
 	private void generateApplicationXML(BuildConfiguration buildConfiguration) throws IDEException {
-		IDEUtils.writeApplicationXML(buildConfiguration.getProjectDir().concat("config/application.xml"), buildConfiguration.getApplication());
+		IDEUtils.writeApplicationXML(buildConfiguration.getProjectDir().concat("config/logix/application.xml"), buildConfiguration.getApplication());
 	}
 
 	/**
@@ -112,7 +112,7 @@ public class DBToApplicationXMLBuilder implements ArtifactBuilder {
 	private Application processApplicationOverrides(BuildConfiguration buildConfiguration) throws IDEException {
 		Application application = buildConfiguration.getApplication();
 		Application applicationOverrides = IDEUtils.loadApplicationXMLData(
-				buildConfiguration.getProjectDir().concat("config/entity-config.xml"));
+				buildConfiguration.getProjectDir().concat("config/logix/entity-config.xml"));
 		for(Module module: application.getModules()) {
 			for(Module moduleOverride: applicationOverrides.getModules()) {
 				processEntityOverrides(module, moduleOverride);

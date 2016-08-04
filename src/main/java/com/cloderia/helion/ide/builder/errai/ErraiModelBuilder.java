@@ -3,7 +3,12 @@
  */
 package com.cloderia.helion.ide.builder.errai;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 import com.cloderia.helion.ide.app.Entity;
+import com.cloderia.helion.ide.app.Field;
 import com.cloderia.helion.ide.builder.AbstractEntityArtifactBuilder;
 import com.cloderia.helion.ide.configuration.BuildConfiguration;
 import com.cloderia.helion.ide.util.IDEConstants;
@@ -22,6 +27,16 @@ public class ErraiModelBuilder extends AbstractEntityArtifactBuilder {
 	 * @see com.cloderia.helion.ide.builder.AbstractEntityArtifactBuilder#build(com.cloderia.helion.ide.configuration.BuildConfiguration, com.cloderia.helion.ide.app.Entity)
 	 */
 	public void build(BuildConfiguration buildConfiguration, Entity entity) throws IDEException {
+		
+		Map<String, Field> uniqueFields = new HashMap<String, Field>();
+		for(Field field : entity.getFields()){
+			if(field.isRelationshipField()) {
+				if(!uniqueFields.containsKey(field.getDataType()))
+					uniqueFields.put(field.getDataType(), field);
+			}
+		}
+		entity.setVirtualFields(new ArrayList<Field>(uniqueFields.values()));
+		
 		this.generateArtifact(buildConfiguration, entity, ENTITIES_ERRAI_ENTITY_FTL, 
 				entity.getName() + ".java", buildConfiguration.getTargetDir().concat(IDEConstants.MODEL_DIR));
 		
