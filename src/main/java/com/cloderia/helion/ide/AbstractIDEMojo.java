@@ -6,10 +6,9 @@ import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Parameter;
 
 import com.cloderia.helion.ide.app.Application;
+import com.cloderia.helion.ide.app.Navigation;
 import com.cloderia.helion.ide.configuration.BuildConfiguration;
-import com.cloderia.helion.ide.generator.ArtifactGenerator;
 import com.cloderia.helion.ide.generator.ArtifactGeneratorFactory;
-import com.cloderia.helion.ide.generator.FreeMarkerArtifactGenerator;
 import com.cloderia.helion.ide.util.IDEException;
 import com.cloderia.helion.ide.util.IDEUtils;
 
@@ -41,16 +40,16 @@ public abstract class AbstractIDEMojo extends AbstractMojo {
 	 * @see org.apache.maven.plugin.Mojo#execute()
 	 */
 	public void execute() throws MojoExecutionException, MojoFailureException {
-			try {
-				BuildConfiguration buildConfiguration = IDEUtils.loadIDEConfiguration(ideConfiguration);
-				buildConfiguration.setArtifactGenerator(
-						ArtifactGeneratorFactory.getArtifactGenerator(buildConfiguration.getGeneratorName()));
-				
-				buildConfiguration.setApplication(initApplication(buildConfiguration));
-				execute(buildConfiguration);
-			} catch (IDEException e) {
-				e.printStackTrace();
-			}
+		try {
+			BuildConfiguration buildConfiguration = IDEUtils.loadIDEConfiguration(ideConfiguration);
+			buildConfiguration.setArtifactGenerator(
+					ArtifactGeneratorFactory.getArtifactGenerator(buildConfiguration.getGeneratorName()));
+			
+			buildConfiguration.setApplication(initApplication(buildConfiguration));
+			execute(buildConfiguration);
+		} catch (IDEException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	protected Application initApplication(BuildConfiguration buildConfiguration) throws IDEException{

@@ -19,7 +19,6 @@ public class ErraiEntityPageBuilder extends AbstractEntityArtifactBuilder {
 	 * @see com.cloderia.helion.ide.builder.AbstractEntityArtifactBuilder#build(com.cloderia.helion.ide.configuration.BuildConfiguration, com.cloderia.helion.ide.app.Entity)
 	 */
 	public void build(BuildConfiguration buildConfiguration, Entity entity) throws IDEException {
-		
 		if (entity.isHasOverride()) {
 			this.doBuildPages(buildConfiguration, entity);
 		}

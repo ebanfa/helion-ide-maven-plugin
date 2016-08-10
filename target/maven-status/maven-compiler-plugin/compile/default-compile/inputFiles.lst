@@ -5,6 +5,7 @@
 /home/adrian/Projects/helion-ide-maven-plugin/src/main/java/com/cloderia/helion/ide/HelionIDEMojo.java
 /home/adrian/Projects/helion-ide-maven-plugin/src/main/java/com/cloderia/helion/ide/builder/errai/ErraiEntityViewBuilder.java
 /home/adrian/Projects/helion-ide-maven-plugin/src/main/java/com/cloderia/helion/ide/builder/ArtifactBuilderFactory.java
+/home/adrian/Projects/helion-ide-maven-plugin/src/main/java/com/cloderia/helion/ide/builder/UIConfigurationBuilder.java
 /home/adrian/Projects/helion-ide-maven-plugin/src/main/java/com/cloderia/helion/ide/builder/ArtifactBuilder.java
 /home/adrian/Projects/helion-ide-maven-plugin/src/main/java/com/cloderia/helion/ide/generator/FreeMarkerArtifactGenerator.java
 /home/adrian/Projects/helion-ide-maven-plugin/src/main/java/com/cloderia/helion/ide/builder/AbstractArtifactBuilder.java
@@ -17,6 +18,7 @@
 /home/adrian/Projects/helion-ide-maven-plugin/src/main/java/com/cloderia/helion/ide/builder/errai/MiscProjectResourceBuilder.java
 /home/adrian/Projects/helion-ide-maven-plugin/src/main/java/com/cloderia/helion/ide/configuration/Database.java
 /home/adrian/Projects/helion-ide-maven-plugin/src/main/java/com/cloderia/helion/ide/util/IDEUtils.java
+/home/adrian/Projects/helion-ide-maven-plugin/src/main/java/com/cloderia/helion/ide/builder/EntityFieldBuilder.java
 /home/adrian/Projects/helion-ide-maven-plugin/src/main/java/com/cloderia/helion/ide/configuration/BuildConfiguration.java
 /home/adrian/Projects/helion-ide-maven-plugin/src/main/java/com/cloderia/helion/ide/AbstractIDEMojo.java
 /home/adrian/Projects/helion-ide-maven-plugin/src/main/java/com/cloderia/helion/ide/util/IDEConstants.java
@@ -26,6 +28,7 @@
 /home/adrian/Projects/helion-ide-maven-plugin/src/main/java/com/cloderia/helion/ide/builder/DBToApplicationXMLBuilder.java
 /home/adrian/Projects/helion-ide-maven-plugin/src/main/java/com/cloderia/helion/ide/builder/AbstractEntityArtifactBuilder.java
 /home/adrian/Projects/helion-ide-maven-plugin/src/main/java/com/cloderia/helion/ide/generator/ArtifactGeneratorFactory.java
+/home/adrian/Projects/helion-ide-maven-plugin/src/main/java/com/cloderia/helion/ide/app/RelatedEntity.java
 /home/adrian/Projects/helion-ide-maven-plugin/src/main/java/com/cloderia/helion/ide/builder/errai/ErraiProjectDirectoryBuilder.java
 /home/adrian/Projects/helion-ide-maven-plugin/src/main/java/com/cloderia/helion/ide/generator/ArtifactGenerator.java
 /home/adrian/Projects/helion-ide-maven-plugin/src/main/java/com/cloderia/helion/ide/app/Module.java

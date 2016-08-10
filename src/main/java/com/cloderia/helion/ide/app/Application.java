@@ -23,7 +23,7 @@ public class Application implements ArtifactData {
 	String description;
 	String templatesDir;
 	String generateSourcesDir;
-	Navigation menuBar;
+	Navigation navigation;
 	List<Entity> entitiesInDB = new ArrayList<Entity>();
 	List<Module> modules = new ArrayList<Module>();
 
@@ -110,21 +110,6 @@ public class Application implements ArtifactData {
 	}
 
 	/**
-	 * @return the menuBar
-	 */
-	public Navigation getMenuBar() {
-		return menuBar;
-	}
-
-	/**
-	 * @param menuBar the menuBar to set
-	 */
-	@XmlElement
-	public void setMenuBar(Navigation menuBar) {
-		this.menuBar = menuBar;
-	}
-
-	/**
 	 * @return the modules
 	 */
 	public List<Module> getModules() {
@@ -186,5 +171,20 @@ public class Application implements ArtifactData {
 	 */
 	public void setEntitiesInDB(List<Entity> entitiesInDB) {
 		this.entitiesInDB = entitiesInDB;
+	}
+
+	/**
+	 * @return the navigation
+	 */
+	public Navigation getNavigation() {
+		return navigation;
+	}
+
+	/**
+	 * @param navigation the navigation to set
+	 */
+	@XmlElement
+	public void setNavigation(Navigation navigation) {
+		this.navigation = navigation;
 	}
 }

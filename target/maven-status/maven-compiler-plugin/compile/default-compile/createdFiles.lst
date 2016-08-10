@@ -5,6 +5,7 @@ com/cloderia/helion/ide/builder/ArtifactBuilderFactory.class
 com/cloderia/helion/ide/builder/ArtifactBuilder.class
 com/cloderia/helion/ide/generator/ArtifactGeneratorFactory.class
 com/cloderia/helion/ide/generator/FreeMarkerArtifactGenerator.class
+com/cloderia/helion/ide/builder/UIConfigurationBuilder.class
 com/cloderia/helion/ide/app/Application.class
 com/cloderia/helion/ide/app/Navigation.class
 com/cloderia/helion/ide/builder/errai/ErraiEntityPageBuilder.class
@@ -14,11 +15,13 @@ com/cloderia/helion/ide/builder/errai/ErraiEndPointBuilder.class
 com/cloderia/helion/ide/builder/AbstractEntityArtifactBuilder.class
 com/cloderia/helion/ide/configuration/BuildConfiguration.class
 com/cloderia/helion/ide/util/IDEUtils.class
+com/cloderia/helion/ide/app/RelatedEntity.class
 com/cloderia/helion/ide/util/StringUtils.class
 com/cloderia/helion/ide/app/Entity.class
 com/cloderia/helion/ide/app/Field.class
 com/cloderia/helion/ide/generator/ArtifactGenerator.class
 com/cloderia/helion/ide/configuration/Database.class
+com/cloderia/helion/ide/builder/EntityFieldBuilder.class
 com/cloderia/helion/ide/app/Module.class
 com/cloderia/helion/ide/AbstractIDEMojo.class
 com/cloderia/helion/ide/HelionIDEMojo.class

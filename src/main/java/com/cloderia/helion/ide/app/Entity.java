@@ -42,6 +42,7 @@ public class Entity implements ArtifactData {
 	private Module module;
 	private List<Field> fields = new ArrayList<Field>();
 	private List<Field> virtualFields = new ArrayList<Field>();
+	private List<RelatedEntity> relatedEntity = new ArrayList<RelatedEntity>();
 	private Map<String, Field> relatedChildFields = new HashMap<String, Field>();
 	private Map<String, Entity> relatedChildEntities = new HashMap<String, Entity>();
 
@@ -475,6 +476,21 @@ public class Entity implements ArtifactData {
 	 */
 	public void setHasOverride(boolean hasOverride) {
 		this.hasOverride = hasOverride;
+	}
+
+	/**
+	 * @return the relatedEntity
+	 */
+	public List<RelatedEntity> getRelatedEntity() {
+		return relatedEntity;
+	}
+
+	/**
+	 * @param relatedEntity the relatedEntity to set
+	 */
+	@XmlElement
+	public void setRelatedEntity(List<RelatedEntity> relatedEntity) {
+		this.relatedEntity = relatedEntity;
 	}
 
 }

@@ -6,6 +6,7 @@ package com.cloderia.helion.ide.builder;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -53,6 +54,10 @@ public class DBToApplicationXMLBuilder implements ArtifactBuilder {
 	public static final String DATA_TYPE_DATETIME = "datetime";
 	public static final String DATA_TYPE_TIMESTAMP = "timestamp";
 	private static final String DATA_TYPE_BIGINT = "bignumber";
+	List<String> defaultCreateFields = Arrays.asList("name", "description", "effective_dt");
+	List<String> defaultEditFields = Arrays.asList("entity_code", "name", "description", "effective_dt");
+	List<String> defaultViewFields = Arrays.asList("entity_code", "name", "description", "effective_dt");
+	List<String> defaultListFields = Arrays.asList("entity_code", "name", "description", "effective_dt");
 
 
 	/* (non-Javadoc)
@@ -206,11 +211,32 @@ public class DBToApplicationXMLBuilder implements ArtifactBuilder {
 		field.setRequired(column.isRequired()); 
 		field.setSize(String.valueOf(column.getSizeAsInt()));
 		field.setIsFormField(true);
-		field.setIsVisible(true);
-		field.setListField(true);
-		field.setCreateField(true);
-		field.setEditField(true);
-		field.setViewField(true);
+		field.setIsVisible(false);
+		
+		if(defaultCreateFields.contains(field.getName())) {
+			field.setIsVisible(true);
+			field.setCreateField(true);
+		}
+		else field.setCreateField(false);
+		
+		if(defaultEditFields.contains(field.getName()))	{
+			field.setIsVisible(true);
+			field.setEditField(true);
+		}
+		else field.setEditField(false);
+		
+		if(defaultViewFields.contains(field.getName()))	{
+			field.setIsVisible(true);
+			field.setViewField(true);
+		}
+		else field.setViewField(false);
+		
+		if(defaultListFields.contains(field.getName())){
+			field.setIsVisible(true);
+			field.setListField(true);
+		}
+		else field.setListField(false);
+		
 		field.setRelationshipField(false);
 		return processColumnDataType(field, column);
 	}
