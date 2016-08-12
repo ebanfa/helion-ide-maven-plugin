@@ -45,6 +45,7 @@ public class ErraiEntityViewBuilder extends AbstractEntityArtifactBuilder {
 		if(editViewTempate == null) editViewTempate = "components/errai/edit-entity.ftl";
 		if(singleViewTempate == null) singleViewTempate = "components/errai/view-entity.ftl";
 		if(listViewTempate == null) listViewTempate = "components/errai/list-entity.ftl";
+		String dialogTemplateFile = "components/errai/entity-editor-dialog.ftl";
 		
 		String entityNameLC = entity.getName().toLowerCase();
 		String viewUIDir = buildConfiguration.getTargetDir().concat(IDEConstants.UI_DIR).concat(entityNameLC).concat("/");
@@ -53,13 +54,15 @@ public class ErraiEntityViewBuilder extends AbstractEntityArtifactBuilder {
 		String editOutputFile = "Edit" + entity.getName() + "Page.java";
 		String viewOutputFile = "View" + entity.getName() + "Page.java";
 		String listOutputFile = "List" + entity.getName() + "Page.java";
+		String dialogOutputFile = entity.getName() + "EditorDialog.java";
 		
 		this.generateArtifact(buildConfiguration, entity, createViewTempate, createOutputFile, viewUIDir);
 		this.generateArtifact(buildConfiguration, entity, editViewTempate, editOutputFile, viewUIDir);
 		this.generateArtifact(buildConfiguration, entity, singleViewTempate, viewOutputFile, viewUIDir);
 		this.generateArtifact(buildConfiguration, entity, listViewTempate, listOutputFile, viewUIDir);
+		this.generateArtifact(buildConfiguration, entity, dialogTemplateFile, dialogOutputFile, viewUIDir);
 		
-		this.processRelatedUIEntityRelationship(buildConfiguration, entity);
+		//this.processRelatedUIEntityRelationship(buildConfiguration, entity);
 		
 	}
 
