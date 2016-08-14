@@ -13,6 +13,7 @@ public class RelatedEntity {
 	
 	private String name;
 	private String description;
+	private Entity entity;
 
 	/**
 	 * @return the name
@@ -50,5 +51,19 @@ public class RelatedEntity {
 	@Override
 	public String toString() {
 		return "RelatedEntity [name=" + name + "]";
+	}
+
+	/**
+	 * @return the entity
+	 */
+	public Entity getEntity() {
+		return entity;
+	}
+
+	/**
+	 * @param entity the entity to set
+	 */
+	public void setEntity(Entity entity) {
+		this.entity = entity;
 	}
 }
