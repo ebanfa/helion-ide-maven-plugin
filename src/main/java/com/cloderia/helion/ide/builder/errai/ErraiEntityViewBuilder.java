@@ -40,11 +40,13 @@ public class ErraiEntityViewBuilder extends AbstractEntityArtifactBuilder {
 		String editViewTempate = entity.getEditViewTemplate();
 		String singleViewTempate = entity.getSingleViewTemplate();
 		String listViewTempate = entity.getListViewTemplate();
+		String baseViewTempate = entity.getBasePageTemplate();
 		
 		if(createViewTempate == null) createViewTempate = "components/errai/create-entity.ftl";
 		if(editViewTempate == null) editViewTempate = "components/errai/edit-entity.ftl";
 		if(singleViewTempate == null) singleViewTempate = "components/errai/view-entity.ftl";
 		if(listViewTempate == null) listViewTempate = "components/errai/list-entity.ftl";
+		if(baseViewTempate == null) baseViewTempate = "components/errai/base-entity-edit-page.ftl";
 		String dialogTemplateFile = "components/errai/entity-editor-dialog.ftl";
 		
 		String entityNameLC = entity.getName().toLowerCase();
@@ -55,12 +57,14 @@ public class ErraiEntityViewBuilder extends AbstractEntityArtifactBuilder {
 		String viewOutputFile = "View" + entity.getName() + "Page.java";
 		String listOutputFile = "List" + entity.getName() + "Page.java";
 		String dialogOutputFile = entity.getName() + "EditorDialog.java";
+		String basePageOutFile = "Base" + entity.getName() + "Page.java";
 		
 		this.generateArtifact(buildConfiguration, entity, createViewTempate, createOutputFile, viewUIDir);
 		this.generateArtifact(buildConfiguration, entity, editViewTempate, editOutputFile, viewUIDir);
 		this.generateArtifact(buildConfiguration, entity, singleViewTempate, viewOutputFile, viewUIDir);
 		this.generateArtifact(buildConfiguration, entity, listViewTempate, listOutputFile, viewUIDir);
 		this.generateArtifact(buildConfiguration, entity, dialogTemplateFile, dialogOutputFile, viewUIDir);
+		this.generateArtifact(buildConfiguration, entity,baseViewTempate, basePageOutFile, viewUIDir);
 		
 		//this.processRelatedUIEntityRelationship(buildConfiguration, entity);
 		
@@ -120,9 +124,6 @@ public class ErraiEntityViewBuilder extends AbstractEntityArtifactBuilder {
 		
 		this.generateArtifact(buildConfiguration, entity, 
 				"components/errai/entity-display.ftl", entity.getName() + "Display.java", viewUIDir);
-		
-		this.generateArtifact(buildConfiguration, entity, 
-				"components/errai/base-entity-edit-page.ftl", "Base" + entity.getName() + "Page.java", viewUIDir);
 		
 		this.generateArtifact(buildConfiguration, entity, 
 				"components/errai/entity-list.ftl", entity.getName() + "List.java", viewUIDir);

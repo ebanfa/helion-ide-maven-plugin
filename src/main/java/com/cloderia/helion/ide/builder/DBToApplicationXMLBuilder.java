@@ -146,6 +146,7 @@ public class DBToApplicationXMLBuilder implements ArtifactBuilder {
 					if(entityOverride.getEditViewTemplate() != null) entity.setEditViewTemplate(entityOverride.getEditViewTemplate());
 					if(entityOverride.getSingleViewTemplate() != null) entity.setSingleViewTemplate(entityOverride.getSingleViewTemplate());
 					if(entityOverride.getListViewTemplate() != null) entity.setListViewTemplate(entityOverride.getListViewTemplate());
+					if(entityOverride.getBasePageTemplate() != null) entity.setBasePageTemplate(entityOverride.getBasePageTemplate());
 					// View overrides
 					if(entityOverride.getCreatePageTemplate() != null) {
 						entity.setCreatePageTemplate(entityOverride.getCreatePageTemplate());
@@ -153,6 +154,7 @@ public class DBToApplicationXMLBuilder implements ArtifactBuilder {
 					if(entityOverride.getEditPageTemplate() != null) entity.setEditPageTemplate(entityOverride.getEditPageTemplate());
 					if(entityOverride.getViewPageTemplate() != null) entity.setViewPageTemplate(entityOverride.getViewPageTemplate());
 					if(entityOverride.getListPageTemplate() != null) entity.setListPageTemplate(entityOverride.getListPageTemplate());
+					if(entityOverride.getModelTemplate() != null) entity.setModelTemplate(entityOverride.getModelTemplate());
 				}
 			}
 		}

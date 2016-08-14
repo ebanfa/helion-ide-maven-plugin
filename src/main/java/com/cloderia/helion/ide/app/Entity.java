@@ -34,10 +34,12 @@ public class Entity implements ArtifactData {
 	private String editPageTemplate;
 	private String listPageTemplate;
 	private String viewPageTemplate;
+	private String basePageTemplate;
 	private String apiTemplate;
 	private String apiImplTemplate;
 	private String endPointTemplate;
 	private String endPointImplTemplate;
+	private String modelTemplate;
 	private String relatedEntityFieldName;
 	private Module module;
 	private List<Field> fields = new ArrayList<Field>();
@@ -431,23 +433,7 @@ public class Entity implements ArtifactData {
 		return "entity";
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "Entity [name=" + name + ", global=" + global + ", postName=" + postName + ", isVirtual=" + isVirtual
-				+ ", parentName=" + parentName + ", displayName=" + displayName + ", description=" + description
-				+ ", viewFilterTemplate=" + viewFilterTemplate + ", singleViewTemplate=" + singleViewTemplate
-				+ ", createViewTemplate=" + createViewTemplate + ", editViewTemplate=" + editViewTemplate
-				+ ", listViewTemplate=" + listViewTemplate + ", createPageTemplate=" + createPageTemplate
-				+ ", editPageTemplate=" + editPageTemplate + ", listPageTemplate=" + listPageTemplate
-				+ ", viewPageTemplate=" + viewPageTemplate + ", apiTemplate=" + apiTemplate + ", apiImplTemplate="
-				+ apiImplTemplate + ", endPointTemplate=" + endPointTemplate + ", endPointImplTemplate="
-				+ endPointImplTemplate + ", relatedEntityFieldName=" + relatedEntityFieldName + ", fields=" + fields
-				+ ", virtualFields=" + virtualFields + ", relatedChildFields=" + relatedChildFields
-				+ ", relatedChildEntities=" + relatedChildEntities + "]";
-	}
+	
 
 	/**
 	 * @return the module
@@ -491,6 +477,55 @@ public class Entity implements ArtifactData {
 	@XmlElement
 	public void setRelatedEntity(List<RelatedEntity> relatedEntity) {
 		this.relatedEntity = relatedEntity;
+	}
+
+	/**
+	 * @return the modelTemplate
+	 */
+	public String getModelTemplate() {
+		return modelTemplate;
+	}
+
+	/**
+	 * @param modelTemplate the modelTemplate to set
+	 */
+	@XmlElement
+	public void setModelTemplate(String modelTemplate) {
+		this.modelTemplate = modelTemplate;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Entity [name=" + name + ", global=" + global + ", postName=" + postName + ", isVirtual=" + isVirtual
+				+ ", hasOverride=" + hasOverride + ", parentName=" + parentName + ", displayName=" + displayName
+				+ ", description=" + description + ", viewFilterTemplate=" + viewFilterTemplate
+				+ ", singleViewTemplate=" + singleViewTemplate + ", createViewTemplate=" + createViewTemplate
+				+ ", editViewTemplate=" + editViewTemplate + ", listViewTemplate=" + listViewTemplate
+				+ ", createPageTemplate=" + createPageTemplate + ", editPageTemplate=" + editPageTemplate
+				+ ", listPageTemplate=" + listPageTemplate + ", viewPageTemplate=" + viewPageTemplate + ", apiTemplate="
+				+ apiTemplate + ", apiImplTemplate=" + apiImplTemplate + ", endPointTemplate=" + endPointTemplate
+				+ ", endPointImplTemplate=" + endPointImplTemplate + ", modelTemplate=" + modelTemplate
+				+ ", relatedEntityFieldName=" + relatedEntityFieldName + ", module=" + module + ", fields=" + fields
+				+ ", virtualFields=" + virtualFields + ", relatedEntity=" + relatedEntity + ", relatedChildFields="
+				+ relatedChildFields + ", relatedChildEntities=" + relatedChildEntities + "]";
+	}
+
+	/**
+	 * @return the basePageTemplate
+	 */
+	public String getBasePageTemplate() {
+		return basePageTemplate;
+	}
+
+	/**
+	 * @param basePageTemplate the basePageTemplate to set
+	 */
+	@XmlElement
+	public void setBasePageTemplate(String basePageTemplate) {
+		this.basePageTemplate = basePageTemplate;
 	}
 
 }
