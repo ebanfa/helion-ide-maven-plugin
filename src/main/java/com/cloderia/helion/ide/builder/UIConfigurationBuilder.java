@@ -25,7 +25,7 @@ public class UIConfigurationBuilder extends AbstractArtifactBuilder {
 	public void build(BuildConfiguration buildConfiguration) throws IDEException {
 		
 		Application application = IDEUtils.loadApplicationXMLData(
-				buildConfiguration.getProjectDir().concat("config/logix/ui-config.xml"));
+				buildConfiguration.getConfigDir().concat("ui-config.xml"));
 
 		List<Module> modulesInUIConfig = application.getModules();
 		buildConfiguration.getApplication().setNavigation(application.getNavigation());

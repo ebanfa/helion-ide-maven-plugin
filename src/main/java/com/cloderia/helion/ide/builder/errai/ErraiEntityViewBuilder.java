@@ -3,10 +3,7 @@
  */
 package com.cloderia.helion.ide.builder.errai;
 
-import com.cloderia.helion.ide.app.Application;
 import com.cloderia.helion.ide.app.Entity;
-import com.cloderia.helion.ide.app.Module;
-import com.cloderia.helion.ide.app.RelatedEntity;
 import com.cloderia.helion.ide.builder.AbstractEntityArtifactBuilder;
 import com.cloderia.helion.ide.configuration.BuildConfiguration;
 import com.cloderia.helion.ide.util.IDEConstants;
@@ -41,12 +38,14 @@ public class ErraiEntityViewBuilder extends AbstractEntityArtifactBuilder {
 		String singleViewTempate = entity.getSingleViewTemplate();
 		String listViewTempate = entity.getListViewTemplate();
 		String baseViewTempate = entity.getBasePageTemplate();
+		String editorTempate = entity.getEditorTemplate();
 		
 		if(createViewTempate == null) createViewTempate = "components/errai/create-entity.ftl";
 		if(editViewTempate == null) editViewTempate = "components/errai/edit-entity.ftl";
 		if(singleViewTempate == null) singleViewTempate = "components/errai/view-entity.ftl";
 		if(listViewTempate == null) listViewTempate = "components/errai/list-entity.ftl";
 		if(baseViewTempate == null) baseViewTempate = "components/errai/base-entity-edit-page.ftl";
+		if(editorTempate == null) editorTempate = "components/errai/entity-editor.ftl";
 		String dialogTemplateFile = "components/errai/entity-editor-dialog.ftl";
 		
 		String entityNameLC = entity.getName().toLowerCase();
@@ -58,13 +57,15 @@ public class ErraiEntityViewBuilder extends AbstractEntityArtifactBuilder {
 		String listOutputFile = "List" + entity.getName() + "Page.java";
 		String dialogOutputFile = entity.getName() + "EditorDialog.java";
 		String basePageOutFile = "Base" + entity.getName() + "Page.java";
+		String editorOutFile = entity.getName() + "Editor.java";
 		
 		this.generateArtifact(buildConfiguration, entity, createViewTempate, createOutputFile, viewUIDir);
 		this.generateArtifact(buildConfiguration, entity, editViewTempate, editOutputFile, viewUIDir);
 		this.generateArtifact(buildConfiguration, entity, singleViewTempate, viewOutputFile, viewUIDir);
 		this.generateArtifact(buildConfiguration, entity, listViewTempate, listOutputFile, viewUIDir);
 		this.generateArtifact(buildConfiguration, entity, dialogTemplateFile, dialogOutputFile, viewUIDir);
-		this.generateArtifact(buildConfiguration, entity,baseViewTempate, basePageOutFile, viewUIDir);
+		this.generateArtifact(buildConfiguration, entity, baseViewTempate, basePageOutFile, viewUIDir);
+		this.generateArtifact(buildConfiguration, entity, editorTempate, editorOutFile, viewUIDir);
 		
 		
 		
@@ -85,8 +86,8 @@ public class ErraiEntityViewBuilder extends AbstractEntityArtifactBuilder {
 		this.generateArtifact(buildConfiguration, entity, 
 				"components/errai/entity-list-widget.ftl", entity.getName() + "ListWidget.java", viewUIDir);
 		
-		this.generateArtifact(buildConfiguration, entity, 
-				"components/errai/entity-editor.ftl", entity.getName() + "Editor.java", viewUIDir);
+		/*this.generateArtifact(buildConfiguration, entity, 
+				"components/errai/entity-editor.ftl", entity.getName() + "Editor.java", viewUIDir);*/
 		
 		this.generateArtifact(buildConfiguration, entity, 
 				"components/errai/entity-presenter.ftl", entity.getName() + "Presenter.java", viewUIDir);

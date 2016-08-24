@@ -27,6 +27,7 @@ public class BuildConfiguration {
 	private String version;
 	private String description;
 	private String projectDir;
+	private String configDir;
 	private String targetDir;
 	private String templatesDir;
 	private String generatorName;
@@ -244,5 +245,20 @@ public class BuildConfiguration {
 		return "BuildConfiguration [name=" + name + ", groupId=" + groupId + ", artifactId=" + artifactId + ", version="
 				+ version + ", description=" + description + ", projectDir=" + projectDir + ", targetDir=" + targetDir
 				+ ", templatesDir=" + templatesDir + ", database=" + database + ", builders=" + builder + "]";
+	}
+
+	/**
+	 * @return the configDir
+	 */
+	public String getConfigDir() {
+		return configDir;
+	}
+
+	/**
+	 * @param configDir the configDir to set
+	 */
+	@XmlElement
+	public void setConfigDir(String configDir) {
+		this.configDir = configDir;
 	}
 }

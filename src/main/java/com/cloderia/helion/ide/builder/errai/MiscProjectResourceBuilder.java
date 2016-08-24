@@ -27,7 +27,7 @@ public class MiscProjectResourceBuilder extends AbstractArtifactBuilder {
 				"components/errai/side-bar.ftl", "SideBar.java", buildConfiguration.getTargetDir().concat(IDEConstants.UI_DIR + "/ui/"));
 		
 		Application application = IDEUtils.loadApplicationXMLData(
-				buildConfiguration.getProjectDir().concat("config/logix/ui-config.xml"));
+				buildConfiguration.getConfigDir().concat("ui-config.xml"));
 		
 		this.generateArtifact(buildConfiguration, application, "html/errai/home.ftl", 
 				"dashboard-page.html", buildConfiguration.getTargetDir().concat(IDEConstants.UI_DIR + "/ui/"));

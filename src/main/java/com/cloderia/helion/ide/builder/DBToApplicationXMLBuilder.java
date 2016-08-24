@@ -90,7 +90,7 @@ public class DBToApplicationXMLBuilder implements ArtifactBuilder {
 	 * @throws IDEException
 	 */
 	private void generateApplicationXML(BuildConfiguration buildConfiguration) throws IDEException {
-		IDEUtils.writeApplicationXML(buildConfiguration.getProjectDir().concat("config/logix/application.xml"), buildConfiguration.getApplication());
+		IDEUtils.writeApplicationXML(buildConfiguration.getConfigDir().concat("application.xml"), buildConfiguration.getApplication());
 	}
 
 	/**
@@ -117,7 +117,7 @@ public class DBToApplicationXMLBuilder implements ArtifactBuilder {
 	private Application processApplicationOverrides(BuildConfiguration buildConfiguration) throws IDEException {
 		Application application = buildConfiguration.getApplication();
 		Application applicationOverrides = IDEUtils.loadApplicationXMLData(
-				buildConfiguration.getProjectDir().concat("config/logix/entity-config.xml"));
+				buildConfiguration.getConfigDir().concat("entity-config.xml"));
 		for(Module module: application.getModules()) {
 			for(Module moduleOverride: applicationOverrides.getModules()) {
 				processEntityOverrides(module, moduleOverride);
@@ -147,6 +147,9 @@ public class DBToApplicationXMLBuilder implements ArtifactBuilder {
 					if(entityOverride.getSingleViewTemplate() != null) entity.setSingleViewTemplate(entityOverride.getSingleViewTemplate());
 					if(entityOverride.getListViewTemplate() != null) entity.setListViewTemplate(entityOverride.getListViewTemplate());
 					if(entityOverride.getBasePageTemplate() != null) entity.setBasePageTemplate(entityOverride.getBasePageTemplate());
+					if(entityOverride.getEditorTemplate() != null) {
+						entity.setEditorTemplate(entityOverride.getEditorTemplate());
+					}
 					// View overrides
 					if(entityOverride.getCreatePageTemplate() != null) {
 						entity.setCreatePageTemplate(entityOverride.getCreatePageTemplate());

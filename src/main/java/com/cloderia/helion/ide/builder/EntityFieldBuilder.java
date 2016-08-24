@@ -24,7 +24,7 @@ public class EntityFieldBuilder extends AbstractArtifactBuilder{
 	public void build(BuildConfiguration buildConfiguration) throws IDEException {
 		Application application = buildConfiguration.getApplication();
 		Application applicationOverrides = IDEUtils.loadApplicationXMLData(
-				buildConfiguration.getProjectDir().concat("config/logix/entity-config.xml"));
+				buildConfiguration.getConfigDir().concat("entity-config.xml"));
 		for(Module module: application.getModules()) {
 			for(Module moduleOverride: applicationOverrides.getModules()) {
 				processEntityOverrides(module, moduleOverride);

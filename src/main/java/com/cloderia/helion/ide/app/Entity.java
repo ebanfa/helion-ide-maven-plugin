@@ -32,6 +32,7 @@ public class Entity implements ArtifactData {
 	private String listViewTemplate;
 	private String createPageTemplate;
 	private String editPageTemplate;
+	private String editorTemplate;
 	private String listPageTemplate;
 	private String viewPageTemplate;
 	private String basePageTemplate;
@@ -526,6 +527,21 @@ public class Entity implements ArtifactData {
 	@XmlElement
 	public void setBasePageTemplate(String basePageTemplate) {
 		this.basePageTemplate = basePageTemplate;
+	}
+
+	/**
+	 * @return the editorTemplate
+	 */
+	public String getEditorTemplate() {
+		return editorTemplate;
+	}
+
+	/**
+	 * @param editorTemplate the editorTemplate to set
+	 */
+	@XmlElement
+	public void setEditorTemplate(String editorTemplate) {
+		this.editorTemplate = editorTemplate;
 	}
 
 }
