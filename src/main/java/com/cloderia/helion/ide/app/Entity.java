@@ -27,17 +27,20 @@ public class Entity implements ArtifactData {
 	private String description;
 	private String viewFilterTemplate;
 	private String singleViewTemplate;
+	private String singleViewModelTemplate;
+	private String singlePageTemplate;
 	private String createViewTemplate;
+	private String createViewModelTemplate;
+	private String createViewActionTemplate;
 	private String editViewTemplate;
 	private String listViewTemplate;
 	private String createPageTemplate;
 	private String editPageTemplate;
 	private String editorTemplate;
 	private String listPageTemplate;
-	private String viewPageTemplate;
 	private String basePageTemplate;
-	private String apiTemplate;
-	private String apiImplTemplate;
+	private String serviceTemplate;
+	private String serviceImplTemplate;
 	private String endPointTemplate;
 	private String endPointImplTemplate;
 	private String modelTemplate;
@@ -87,6 +90,21 @@ public class Entity implements ArtifactData {
 	}
 
 	/**
+	 * @return the singleViewModelTemplate
+	 */
+	public String getSingleViewModelTemplate() {
+		return singleViewModelTemplate;
+	}
+
+	/**
+	 * @param singleViewModelTemplate the singleViewModelTemplate to set
+	 */
+	@XmlElement
+	public void setSingleViewModelTemplate(String singleViewModelTemplate) {
+		this.singleViewModelTemplate = singleViewModelTemplate;
+	}
+
+	/**
 	 * @return the viewFilterTemplate
 	 */
 	public String getViewFilterTemplate() {
@@ -116,6 +134,36 @@ public class Entity implements ArtifactData {
 		this.createViewTemplate = createViewTemplate;
 	}
 
+
+	/**
+	 * @return the createViewModelTemplate
+	 */
+	public String getCreateViewModelTemplate() {
+		return createViewModelTemplate;
+	}
+
+	/**
+	 * @param createViewModelTemplate the createViewModelTemplate to set
+	 */
+	@XmlElement
+	public void setCreateViewModelTemplate(String createViewModelTemplate) {
+		this.createViewModelTemplate = createViewModelTemplate;
+	}
+	/**
+	 * @return the createViewActionTemplate
+	 */
+	public String getCreateViewActionTemplate() {
+		return createViewActionTemplate;
+	}
+
+	/**
+	 * @param createViewActionTemplate the createViewActionTemplate to set
+	 */
+	@XmlElement
+	public void setCreateViewActionTemplate(String createViewActionTemplate) {
+		this.createViewActionTemplate = createViewActionTemplate;
+	}
+
 	/**
 	 * @return the listViewTemplate
 	 */
@@ -133,18 +181,18 @@ public class Entity implements ArtifactData {
 
 	
 	/**
-	 * @return the apiTemplate
+	 * @return the serviceTemplate
 	 */
-	public String getApiTemplate() {
-		return apiTemplate;
+	public String getServiceTemplate() {
+		return serviceTemplate;
 	}
 
 	/**
-	 * @param apiTemplate the apiTemplate to set
+	 * @param serviceTemplate the serviceTemplate to set
 	 */
 	@XmlElement
-	public void setApiTemplate(String apiTemplate) {
-		this.apiTemplate = apiTemplate;
+	public void setServiceTemplate(String serviceTemplate) {
+		this.serviceTemplate = serviceTemplate;
 	}
 
 	/**
@@ -324,18 +372,18 @@ public class Entity implements ArtifactData {
 	}
 
 	/**
-	 * @return the viewPageTemplate
+	 * @return the singlePageTemplate
 	 */
-	public String getViewPageTemplate() {
-		return viewPageTemplate;
+	public String getSinglePageTemplate() {
+		return singlePageTemplate;
 	}
 
 	/**
-	 * @param viewPageTemplate the viewPageTemplate to set
+	 * @param singlePageTemplate the singlePageTemplate to set
 	 */
 	@XmlElement
-	public void setViewPageTemplate(String viewPageTemplate) {
-		this.viewPageTemplate = viewPageTemplate;
+	public void setSinglePageTemplate(String singlePageTemplate) {
+		this.singlePageTemplate = singlePageTemplate;
 	}
 
 	/**
@@ -368,18 +416,18 @@ public class Entity implements ArtifactData {
 	}
 
 	/**
-	 * @return the apiImplTemplate
+	 * @return the serviceImplTemplate
 	 */
-	public String getApiImplTemplate() {
-		return apiImplTemplate;
+	public String getServiceImplTemplate() {
+		return serviceImplTemplate;
 	}
 
 	/**
-	 * @param apiImplTemplate the apiImplTemplate to set
+	 * @param serviceImplTemplate the serviceImplTemplate to set
 	 */
 	@XmlElement
-	public void setApiImplTemplate(String apiImplTemplate) {
-		this.apiImplTemplate = apiImplTemplate;
+	public void setServiceImplTemplate(String serviceImplTemplate) {
+		this.serviceImplTemplate = serviceImplTemplate;
 	}
 
 	/**
@@ -506,8 +554,8 @@ public class Entity implements ArtifactData {
 				+ ", singleViewTemplate=" + singleViewTemplate + ", createViewTemplate=" + createViewTemplate
 				+ ", editViewTemplate=" + editViewTemplate + ", listViewTemplate=" + listViewTemplate
 				+ ", createPageTemplate=" + createPageTemplate + ", editPageTemplate=" + editPageTemplate
-				+ ", listPageTemplate=" + listPageTemplate + ", viewPageTemplate=" + viewPageTemplate + ", apiTemplate="
-				+ apiTemplate + ", apiImplTemplate=" + apiImplTemplate + ", endPointTemplate=" + endPointTemplate
+				+ ", listPageTemplate=" + listPageTemplate + ", singlePageTemplate=" + singlePageTemplate + ", serviceTemplate="
+				+ serviceTemplate + ", serviceImplTemplate=" + serviceImplTemplate + ", endPointTemplate=" + endPointTemplate
 				+ ", endPointImplTemplate=" + endPointImplTemplate + ", modelTemplate=" + modelTemplate
 				+ ", relatedEntityFieldName=" + relatedEntityFieldName + ", module=" + module + ", fields=" + fields
 				+ ", virtualFields=" + virtualFields + ", relatedEntity=" + relatedEntity + ", relatedChildFields="

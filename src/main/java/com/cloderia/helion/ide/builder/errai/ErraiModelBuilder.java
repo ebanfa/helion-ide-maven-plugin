@@ -48,36 +48,6 @@ public class ErraiModelBuilder extends AbstractEntityArtifactBuilder {
 		this.generateArtifact(buildConfiguration, entity, ENTITIES_ERRAI_ENTITY_OPS_FTL, 
 				entity.getName() + "Operation.java", buildConfiguration.getTargetDir().concat(IDEConstants.OPS_DIR));
 	}
-	/**
-	 * @param buildConfiguration
-	 * @param entity
-	 * @throws IDEException
-	 */
-	protected void processRelatedUIEntityRelationship(BuildConfiguration buildConfiguration, Entity entity)
-			throws IDEException {
-		Application application = buildConfiguration.getApplication();
-		for(RelatedEntity relatedEntity: entity.getRelatedEntity()){
-			Entity relatedEntityObject = this.findEntityInApplication(relatedEntity.getName(), application);
-			relatedEntity.setEntity(relatedEntityObject);
-			
-			/*if(relatedEntityObject!=null){
-				String dialogTemplateFile = "components/errai/entity-editor-dialog.ftl";
-				String dialogOutputFile = relatedEntityObject.getName() + "EditorDialog.java";
-				String relatedEntityNameLC = relatedEntityObject.getName().toLowerCase();
-				String relatedEntityViewUIDir = buildConfiguration.getTargetDir().concat(IDEConstants.UI_DIR).concat(relatedEntityNameLC).concat("/");
-				this.generateArtifact(buildConfiguration, relatedEntityObject, dialogTemplateFile, dialogOutputFile, relatedEntityViewUIDir);
-			}*/
-		}
-	}
 	
-	public Entity findEntityInApplication(String name, Application application){
-		for(Module module: application.getModules()){
-			for(Entity entity: module.getEntities()){
-				if(entity.getName().equals(name)){
-					return entity;
-				}
-			}
-		}
-		return null;
-	}
+	
 }

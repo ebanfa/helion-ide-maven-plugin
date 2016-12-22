@@ -60,6 +60,7 @@ public class FreeMarkerArtifactGenerator implements ArtifactGenerator {
 			Map<String, Object> root = new HashMap<String, Object>();
 			if(artifactGeneratorData.getData() != null)
 				root.put(artifactGeneratorData.getData().getArtifactDataType(), artifactGeneratorData.getData());
+			// This is for templates the need a reference to the application object
 			root.put("applicationRef", buildConfiguration.getApplication());
 			IDEUtils.createDirectoryIfNeeded(artifactGeneratorData.getOutputDir());
 			Template template = configuration.getTemplate(artifactGeneratorData.getInputFile());

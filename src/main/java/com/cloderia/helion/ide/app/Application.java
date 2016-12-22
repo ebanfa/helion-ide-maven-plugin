@@ -19,12 +19,9 @@ public class Application implements ArtifactData {
 	String name;
 	String groupId;
 	String artifactId;
-	String packageName;
 	String description;
 	String templatesDir;
-	String generateSourcesDir;
-	Navigation navigation;
-	List<Entity> entitiesInDB = new ArrayList<Entity>();
+	MenuBar menuBar;
 	List<Module> modules = new ArrayList<Module>();
 
 	/**
@@ -65,21 +62,6 @@ public class Application implements ArtifactData {
 	}
 
 	/**
-	 * @return the packageName
-	 */
-	public String getPackageName() {
-		return packageName;
-	}
-
-	/**
-	 * @param packageName the packageName to set
-	 */
-	@XmlElement
-	public void setPackageName(String packageName) {
-		this.packageName = packageName;
-	}
-
-	/**
 	 * @return the templatesDir
 	 */
 	public String getTemplatesDir() {
@@ -94,20 +76,6 @@ public class Application implements ArtifactData {
 		this.templatesDir = templates;
 	}
 
-	/**
-	 * @return the generateSourcesDir
-	 */
-	public String getGenerateSourcesDir() {
-		return generateSourcesDir;
-	}
-
-	/**
-	 * @param generateSourcesDir the generateSourcesDir to set
-	 */
-	@XmlElement
-	public void setGenerateSourcesDir(String generateSourcesDir) {
-		this.generateSourcesDir = generateSourcesDir;
-	}
 
 	/**
 	 * @return the modules
@@ -122,6 +90,21 @@ public class Application implements ArtifactData {
 	@XmlElement(name="module")
 	public void setModules(List<Module> modules) {
 		this.modules = modules;
+	}
+
+	/**
+	 * @return the menuBar
+	 */
+	public MenuBar getMenuBar() {
+		return menuBar;
+	}
+
+	/**
+	 * @param menuBar the menuBar to set
+	 */
+	@XmlElement
+	public void setMenuBar(MenuBar menuBar) {
+		this.menuBar = menuBar;
 	}
 
 	/* (non-Javadoc)
@@ -159,32 +142,14 @@ public class Application implements ArtifactData {
 		this.artifactId = artifactId;
 	}
 
-	/**
-	 * @return the entitiesInDB
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
 	 */
-	public List<Entity> getEntitiesInDB() {
-		return entitiesInDB;
+	@Override
+	public String toString() {
+		return "Application [name=" + name + ", groupId=" + groupId + ", artifactId=" + artifactId + ", description="
+				+ description + ", templatesDir=" + templatesDir + ", menuBar=" + menuBar + ", modules=" + modules
+				+ "]";
 	}
 
-	/**
-	 * @param entitiesInDB the entitiesInDB to set
-	 */
-	public void setEntitiesInDB(List<Entity> entitiesInDB) {
-		this.entitiesInDB = entitiesInDB;
-	}
-
-	/**
-	 * @return the navigation
-	 */
-	public Navigation getNavigation() {
-		return navigation;
-	}
-
-	/**
-	 * @param navigation the navigation to set
-	 */
-	@XmlElement
-	public void setNavigation(Navigation navigation) {
-		this.navigation = navigation;
-	}
 }

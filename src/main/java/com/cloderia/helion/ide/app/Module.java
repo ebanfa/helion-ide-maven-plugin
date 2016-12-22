@@ -14,18 +14,21 @@ import javax.xml.bind.annotation.XmlElement;
  */
 public class Module implements ArtifactData {
 	
-	String name;
+	private String name;
 	private String description;
 	private String uiClass;
 		
 	private Navigation navigation;
+	List<Page> pages = new ArrayList<Page>();
+	List<Action> actions = new ArrayList<Action>();
 	List<Entity> entities = new ArrayList<Entity>();
+	List<Service> services = new ArrayList<Service>();
+	List<UiComponent> uiComponents = new ArrayList<UiComponent>();
 
 	/**
 	 * 
 	 */
 	public Module() {
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -74,6 +77,66 @@ public class Module implements ArtifactData {
 		this.entities = entities;
 	}
 
+	/**
+	 * @return the services
+	 */
+	public List<Service> getServices() {
+		return services;
+	}
+
+	/**
+	 * @param services the services to set
+	 */
+	@XmlElement(name="service")
+	public void setServices(List<Service> services) {
+		this.services = services;
+	}
+
+	/**
+	 * @return the pages
+	 */
+	public List<Page> getPages() {
+		return pages;
+	}
+
+	/**
+	 * @param pages the pages to set
+	 */
+	@XmlElement(name="page")
+	public void setPages(List<Page> pages) {
+		this.pages = pages;
+	}
+
+	/**
+	 * @return the actions
+	 */
+	public List<Action> getActions() {
+		return actions;
+	}
+
+	/**
+	 * @param actions the actions to set
+	 */
+	@XmlElement(name="action")
+	public void setActions(List<Action> actions) {
+		this.actions = actions;
+	}
+
+	/**
+	 * @return the uiComponents
+	 */
+	public List<UiComponent> getUiComponents() {
+		return uiComponents;
+	}
+
+	/**
+	 * @param uiComponents the uiComponents to set
+	 */
+	@XmlElement(name="uiComponent")
+	public void setUiComponents(List<UiComponent> uiComponents) {
+		this.uiComponents = uiComponents;
+	}
+
 	/* (non-Javadoc)
 	 * @see com.cloderia.helion.ide.app.ArtifactData#getArtifactDataType()
 	 */
@@ -110,5 +173,14 @@ public class Module implements ArtifactData {
 	public void setUiClass(String cssClass) {
 		this.uiClass = cssClass;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 
+	@Override
+	public String toString() {
+		return "Module [name=" + name + ", description=" + description + ", uiClass=" + uiClass + ", navigation="
+				+ navigation + ", entities=" + entities + "]";
+	}*/
 
 }

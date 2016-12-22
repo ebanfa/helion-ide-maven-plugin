@@ -3,7 +3,7 @@
  */
 package com.cloderia.helion.ide.util;
 
-import org.apache.commons.lang.WordUtils;
+//import org.apache.commons.lang.WordUtils;
 
 /**
  * @author adrian
@@ -12,7 +12,7 @@ import org.apache.commons.lang.WordUtils;
 public class StringUtils {
 	
 	public static String tableNameToJavaClassName(String tableName) {
-		tableName = WordUtils.capitalize(tableName);
+		//tableName = WordUtils.capitalize(tableName);
 		String[] parts = tableName.split("_");
 		if(parts.length == 1) return tableName;
 		String javaClassName = "";
@@ -27,9 +27,10 @@ public class StringUtils {
 		if(parts.length == 1) return colName;
 		String javaClassName = "";
 		for (int i = 0; i < parts.length; i++) {
-			javaClassName = javaClassName.concat(WordUtils.capitalize(parts[i])); 
+			//javaClassName = javaClassName.concat(WordUtils.capitalize(parts[i])); 
 		}
-		return WordUtils.uncapitalize(javaClassName);
+		return colName;
+		//return WordUtils.uncapitalize(javaClassName);
 	}
 
 	public static boolean isValidString(String string) {

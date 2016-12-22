@@ -32,7 +32,7 @@ public class ErraiEntityPageBuilder extends AbstractEntityArtifactBuilder {
 	private void doBuildPages(BuildConfiguration buildConfiguration, Entity entity) throws IDEException {
 		String createPageTempate = entity.getCreatePageTemplate();
 		String editPageTempate = entity.getEditPageTemplate();
-		String viewPageTempate = entity.getViewPageTemplate();
+		String viewPageTempate = entity.getSinglePageTemplate();
 		String listPageTempate = entity.getListPageTemplate();
 		
 		if(createPageTempate == null) createPageTempate = "html/errai/edit-entity.ftl";

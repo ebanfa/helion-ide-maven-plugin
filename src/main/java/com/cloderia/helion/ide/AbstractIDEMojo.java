@@ -6,7 +6,6 @@ import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Parameter;
 
 import com.cloderia.helion.ide.app.Application;
-import com.cloderia.helion.ide.app.Navigation;
 import com.cloderia.helion.ide.configuration.BuildConfiguration;
 import com.cloderia.helion.ide.generator.ArtifactGeneratorFactory;
 import com.cloderia.helion.ide.util.IDEException;
@@ -42,23 +41,16 @@ public abstract class AbstractIDEMojo extends AbstractMojo {
 	public void execute() throws MojoExecutionException, MojoFailureException {
 		try {
 			BuildConfiguration buildConfiguration = IDEUtils.loadIDEConfiguration(ideConfiguration);
+			// Load the configured artifact generator
 			buildConfiguration.setArtifactGenerator(
 					ArtifactGeneratorFactory.getArtifactGenerator(buildConfiguration.getGeneratorName()));
-			
-			buildConfiguration.setApplication(initApplication(buildConfiguration));
+			// Load the application configuration file
+			buildConfiguration.setApplication(
+					IDEUtils.loadApplicationXMLData(buildConfiguration.getConfigFile()));
 			execute(buildConfiguration);
 		} catch (IDEException e) {
 			e.printStackTrace();
 		}
-	}
-	
-	protected Application initApplication(BuildConfiguration buildConfiguration) throws IDEException{
-		Application application = IDEUtils.loadApplicationXMLData(
-				buildConfiguration.getConfigDir().concat("module-config.xml"));
-		application.setName(buildConfiguration.getName());
-		application.setGroupId(buildConfiguration.getGroupId());
-		application.setArtifactId(buildConfiguration.getArtifactId());
-		return application;
 	}
 	/**
 	 * @param buildConfiguration
