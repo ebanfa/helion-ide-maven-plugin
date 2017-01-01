@@ -171,22 +171,4 @@ public class IDEUtils {
 		}
 	}
 	
-	/**
-	 * @param buildConfiguration
-	 * @return
-	 */
-	public static Configuration loadFMConfiguration(BuildConfiguration buildConfiguration) {
-		/* Create and adjust the configuration */
-		Configuration configuration = new Configuration();
-		try {
-			configuration.setDirectoryForTemplateLoading(new File(buildConfiguration.getTemplatesDir()));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		configuration.setObjectWrapper(new DefaultObjectWrapper());
-		configuration.setDefaultEncoding("UTF-8");
-		configuration.setTemplateExceptionHandler(TemplateExceptionHandler.HTML_DEBUG_HANDLER);
-		configuration.setIncompatibleImprovements(new Version(2, 3, 20));
-		return configuration;
-	}
 }

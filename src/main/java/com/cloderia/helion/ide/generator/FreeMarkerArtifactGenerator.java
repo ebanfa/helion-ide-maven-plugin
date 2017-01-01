@@ -14,6 +14,10 @@ import com.cloderia.helion.ide.configuration.BuildConfiguration;
 import com.cloderia.helion.ide.util.IDEException;
 import com.cloderia.helion.ide.util.IDEUtils;
 
+import freemarker.cache.ClassTemplateLoader;
+import freemarker.cache.FileTemplateLoader;
+import freemarker.cache.MultiTemplateLoader;
+import freemarker.cache.TemplateLoader;
 import freemarker.template.Configuration;
 import freemarker.template.DefaultObjectWrapper;
 import freemarker.template.Template;
@@ -38,11 +42,17 @@ public class FreeMarkerArtifactGenerator implements ArtifactGenerator {
 	public Configuration loadFMConfiguration(BuildConfiguration buildConfiguration) throws IDEException {
 		try {
 			configuration = new Configuration();
-			configuration.setDirectoryForTemplateLoading(new File(buildConfiguration.getTemplatesDir()));
-			configuration.setObjectWrapper(new DefaultObjectWrapper());
+			int count = 0;
+			TemplateLoader[] loaders = new TemplateLoader[buildConfiguration.getTemplateDir().size()];
+			for (String templateDir : buildConfiguration.getTemplateDir()) {
+				loaders[count] = new FileTemplateLoader(new File(templateDir));
+				count++;
+			}
 			configuration.setDefaultEncoding("UTF-8");
-			configuration.setTemplateExceptionHandler(TemplateExceptionHandler.HTML_DEBUG_HANDLER);
+			configuration.setObjectWrapper(new DefaultObjectWrapper());
 			configuration.setIncompatibleImprovements(new Version(2, 3, 20));
+			configuration.setTemplateLoader(new MultiTemplateLoader(loaders));
+			configuration.setTemplateExceptionHandler(TemplateExceptionHandler.HTML_DEBUG_HANDLER);
 			return configuration;
 		} catch (IOException e) {
 			throw new IDEException(e.getMessage());

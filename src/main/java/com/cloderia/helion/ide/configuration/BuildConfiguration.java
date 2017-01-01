@@ -29,7 +29,7 @@ public class BuildConfiguration {
 	private String projectDir;
 	private String configFile;
 	private String targetDir;
-	private String templatesDir;
+	private List<String> templateDir;
 	private String generatorName;
 	private Database database;
 	private List<String> builder;
@@ -163,18 +163,18 @@ public class BuildConfiguration {
 	}
 
 	/**
-	 * @return the templatesDir
+	 * @return the templateDir
 	 */
-	public String getTemplatesDir() {
-		return templatesDir;
+	public List<String> getTemplateDir() {
+		return templateDir;
 	}
 
 	/**
-	 * @param templatesDir the templatesDir to set
+	 * @param templateDir the templateDir to set
 	 */
 	@XmlElement
-	public void setTemplatesDir(String templatesDir) {
-		this.templatesDir = templatesDir;
+	public void setTemplateDir(List<String> templateDir) {
+		this.templateDir = templateDir;
 	}
 
 	/**
@@ -252,13 +252,5 @@ public class BuildConfiguration {
 		this.artifactGenerator = artifactGenerator;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "BuildConfiguration [name=" + name + ", groupId=" + groupId + ", artifactId=" + artifactId + ", version="
-				+ version + ", description=" + description + ", projectDir=" + projectDir + ", targetDir=" + targetDir
-				+ ", templatesDir=" + templatesDir + ", database=" + database + ", builders=" + builder + "]";
-	}
+	
 }
