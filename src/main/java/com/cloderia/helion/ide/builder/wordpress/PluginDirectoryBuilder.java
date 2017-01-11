@@ -40,6 +40,7 @@ public class PluginDirectoryBuilder extends AbstractArtifactBuilder {
 		IDEUtils.createDirectoryIfNeeded(targetDir.concat(IDEConstants.WP_UICOMPONENT_TEMPLATES_DIR));
 		IDEUtils.createDirectoryIfNeeded(targetDir.concat(IDEConstants.WP_UICOMPONENT_HTML_TEMPLATES_DIR));
 		
+		IDEUtils.copyDirectory(destinationDir.concat(IDEConstants.WP_EVENT_DIR), targetDir.concat(IDEConstants.WP_EVENT_DIR));
 		IDEUtils.copyDirectory(destinationDir.concat(IDEConstants.WP_MODEL_DIR), targetDir.concat(IDEConstants.WP_MODEL_DIR));
 		IDEUtils.copyDirectory(destinationDir.concat(IDEConstants.WP_PERSISTENCE_DIR), targetDir.concat(IDEConstants.WP_PERSISTENCE_DIR));
 		IDEUtils.copyDirectory(destinationDir.concat(IDEConstants.WP_SERVICE_DIR), targetDir.concat(IDEConstants.WP_SERVICE_DIR));

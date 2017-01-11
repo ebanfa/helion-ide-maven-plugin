@@ -18,7 +18,6 @@ public class MenuGroup {
 	private String name;
 	private String displayName;
 	private String description;
-	private String admin;
 	private String type;
 	private String active;
 	private String cssClass;
@@ -27,6 +26,7 @@ public class MenuGroup {
 	private String targetTemplate;
 
 	List<Menu> menus = new ArrayList<Menu>();
+	List<String> roles = new ArrayList<String>();
 
 	/**
 	 * 
@@ -78,21 +78,6 @@ public class MenuGroup {
 	@XmlElement
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	/**
-	 * @return the admin
-	 */
-	public String getAdmin() {
-		return admin;
-	}
-
-	/**
-	 * @param type the type to set
-	 */
-	@XmlElement
-	public void setAdmin(String admin) {
-		this.admin = admin;
 	}
 
 	/**
@@ -199,5 +184,20 @@ public class MenuGroup {
 	@XmlElement(name="menu")
 	public void setMenus(List<Menu> menus) {
 		this.menus = menus;
+	}
+
+	/**
+	 * @return the roles
+	 */
+	public List<String> getRoles() {
+		return roles;
+	}
+
+	/**
+	 * @param roles the roles to set
+	 */
+	@XmlElement(name="role")
+	public void setRoles(List<String> roles) {
+		this.roles = roles;
 	}
 }

@@ -15,6 +15,7 @@ public class Service implements ArtifactData {
 	private String name;
 	private String description;
 	private String uiGroup;
+	private String listens;
 	private String serviceTemplate;
 
 	/**
@@ -66,6 +67,21 @@ public class Service implements ArtifactData {
 	@XmlElement
 	public void setUiGroup(String uiGroup) {
 		this.uiGroup = uiGroup;
+	}
+
+	/**
+	 * @return the listens
+	 */
+	public String getListens() {
+		return listens;
+	}
+
+	/**
+	 * @param listens the listens to set
+	 */
+	@XmlElement
+	public void setListens(String listens) {
+		this.listens = listens;
 	}
 
 	/**

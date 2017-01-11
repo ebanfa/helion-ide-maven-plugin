@@ -16,7 +16,9 @@ public class Page implements ArtifactData {
 	private String uiGroup;
 	private String pageTemplate;
 	private String viewTemplate;
+	private String viewModelTemplate;
 	private String viewActionTemplate;
+	private Boolean generateTemplate;
 
 	/**
 	 * 
@@ -115,6 +117,21 @@ public class Page implements ArtifactData {
 	}
 
 	/**
+	 * @return the viewModelTemplate
+	 */
+	public String getViewModelTemplate() {
+		return viewModelTemplate;
+	}
+
+	/**
+	 * @param viewModelTemplate the viewModelTemplate to set
+	 */
+	@XmlElement
+	public void setViewModelTemplate(String viewModelTemplate) {
+		this.viewModelTemplate = viewModelTemplate;
+	}
+
+	/**
 	 * @return the viewActionTemplate
 	 */
 	public String getViewActionTemplate() {
@@ -127,6 +144,21 @@ public class Page implements ArtifactData {
 	@XmlElement
 	public void setViewActionTemplate(String viewActionTemplate) {
 		this.viewActionTemplate = viewActionTemplate;
+	}
+
+	/**
+	 * @return the generateTemplate
+	 */
+	public Boolean getGenerateTemplate() {
+		return generateTemplate;
+	}
+
+	/**
+	 * @param generateTemplate the generateTemplate to set
+	 */
+	@XmlElement
+	public void setGenerateTemplate(Boolean generateTemplate) {
+		this.generateTemplate = generateTemplate;
 	}
 
 	/* (non-Javadoc)

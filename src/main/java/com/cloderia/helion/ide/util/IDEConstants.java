@@ -32,6 +32,7 @@ public class IDEConstants {
 	public static final String WP_UICOMPONENT_TEMPLATES_DIR = WP_UI_DIR.concat("uicomponent/");
 	public static final String WP_ADMIN_DIR = "includes/admin/";
 	public static final String WP_UTIL_DIR = "includes/util/";
+	public static final String WP_EVENT_DIR = "includes/event/";
 	public static final String WP_FONT_DIR = "fonts/";
 	public static final String PHP_EXT = ".php";
 	

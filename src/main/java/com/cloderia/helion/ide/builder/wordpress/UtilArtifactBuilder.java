@@ -18,12 +18,16 @@ public class UtilArtifactBuilder extends AbstractArtifactBuilder {
 	public static final String SERVICE_MAP_PHP = "ServiceMap.php";
 	public static final String COMMAND_MAP_PHP = "ActionMap.php";
 	public static final String MENU_MAP_PHP = "MenuMap.php";
+	public static final String ADMIN_MENU_PHP = "MenuUtil.php";
 	public static final String VIEW_MAP_PHP = "ViewMap.php";
 	public static final String ENQUEUE_UTIL_PHP = "EnqueueUtil.php";
+	public static final String EVENTS_MAP_FILE = "EventMap.php";
 	public static final String TEMPLATE_LOADER_PHP = "TemplateLoader.php";
 	public static final String UI_COMPONENT_MAP_PHP = "UIComponentMap.php";
 	public static final String RESOURCE_BUNDLE_PHP = "ResourceBundle.php";
+	public static final String EVENTS_MAP_TMP_FILE = "includes/util/event-map-php.ftl";
 	public static final String MENU_MAP_TEMPLATE_FILE = "includes/util/menu-map-php.ftl";
+	public static final String ADMIN_MENU_UTIL_TEMPLATE_FILE = "includes/util/admin-menu-util-php.ftl";
 	public static final String SERVICE_MAP_TEMPLATE_FILE = "includes/util/service-map-php.ftl";
 	public static final String ENQUEUE_UTIL_TEMPLATE_FILE = "includes/util/enqueue-util-php.ftl";
 	public static final String COMMAND_MAP_TEMPLATE_FILE = "includes/util/action-map-php.ftl";
@@ -42,6 +46,9 @@ public class UtilArtifactBuilder extends AbstractArtifactBuilder {
 		// Enqueue Util
 		this.generateArtifact(buildConfiguration, application, 
 				ENQUEUE_UTIL_TEMPLATE_FILE, ENQUEUE_UTIL_PHP, targetDir.concat(IDEConstants.WP_UTIL_DIR));
+		// Event Map
+		this.generateArtifact(buildConfiguration, application, 
+			EVENTS_MAP_TMP_FILE, EVENTS_MAP_FILE, targetDir.concat(IDEConstants.WP_UTIL_DIR));
 		// Service Map
 		this.generateArtifact(buildConfiguration, application, 
 				SERVICE_MAP_TEMPLATE_FILE, SERVICE_MAP_PHP, targetDir.concat(IDEConstants.WP_UTIL_DIR));
@@ -63,6 +70,9 @@ public class UtilArtifactBuilder extends AbstractArtifactBuilder {
 		// The menu map
 		this.generateArtifact(buildConfiguration, application, 
 				MENU_MAP_TEMPLATE_FILE, MENU_MAP_PHP, targetDir.concat(IDEConstants.WP_UTIL_DIR));
+		// The admin menu util
+		this.generateArtifact(buildConfiguration, application, 
+				ADMIN_MENU_UTIL_TEMPLATE_FILE, ADMIN_MENU_PHP, targetDir.concat(IDEConstants.WP_UTIL_DIR));
 
 	}
 

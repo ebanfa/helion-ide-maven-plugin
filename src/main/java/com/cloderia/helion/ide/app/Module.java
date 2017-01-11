@@ -21,6 +21,7 @@ public class Module implements ArtifactData {
 	private Navigation navigation;
 	List<Page> pages = new ArrayList<Page>();
 	List<Action> actions = new ArrayList<Action>();
+	List<String> events = new ArrayList<String>();
 	List<Entity> entities = new ArrayList<Entity>();
 	List<Service> services = new ArrayList<Service>();
 	List<UiComponent> uiComponents = new ArrayList<UiComponent>();
@@ -90,6 +91,21 @@ public class Module implements ArtifactData {
 	@XmlElement(name="service")
 	public void setServices(List<Service> services) {
 		this.services = services;
+	}
+
+	/**
+	 * @return the events
+	 */
+	public List<String> getEvents() {
+		return events;
+	}
+
+	/**
+	 * @param events the events to set
+	 */
+	@XmlElement(name="event")
+	public void setEvents(List<String> events) {
+		this.events = events;
 	}
 
 	/**

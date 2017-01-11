@@ -161,6 +161,16 @@ public class IDEUtils {
 		}
 	}
 
+	public static void copyFileToFile(String srcDir, String dstDir) {
+		File source = new File(srcDir);
+		File destination = new File(dstDir);
+		try {
+			FileUtils.copyFile(source, destination);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 	public static void copyFileToDirectory(String srcDir, String dstDir) {
 		File source = new File(srcDir);
 		File destination = new File(dstDir);
