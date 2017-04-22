@@ -34,7 +34,8 @@ public class PageArtifactBuilder extends AbstractArtifactBuilder {
 				this.generateArtifact(buildConfiguration, page, page.getViewTemplate(), page.getName().concat("View.php"), viewDir);
 				if(page.getViewModelTemplate() != null)
 					this.generateArtifact(buildConfiguration, page, page.getViewModelTemplate(), page.getName().concat("ViewModel.php"), viewDir);
-				this.generateArtifact(buildConfiguration, page, page.getViewActionTemplate(), page.getName().concat("Action.php"), actionDir);
+				if(page.getViewActionTemplate() != null)
+					this.generateArtifact(buildConfiguration, page, page.getViewActionTemplate(), page.getName().concat("Action.php"), actionDir);
 				
 			}
 		}

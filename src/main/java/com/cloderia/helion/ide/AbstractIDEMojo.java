@@ -5,9 +5,11 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Parameter;
 
-import com.cloderia.helion.ide.app.Application;
 import com.cloderia.helion.ide.configuration.BuildConfiguration;
+import com.cloderia.helion.ide.generator.ArtifactGenerator;
 import com.cloderia.helion.ide.generator.ArtifactGeneratorFactory;
+import com.cloderia.helion.ide.loader.ArtifactDataLoader;
+import com.cloderia.helion.ide.loader.ArtifactDataLoaderFactory;
 import com.cloderia.helion.ide.util.IDEException;
 import com.cloderia.helion.ide.util.IDEUtils;
 
@@ -40,14 +42,20 @@ public abstract class AbstractIDEMojo extends AbstractMojo {
 	 */
 	public void execute() throws MojoExecutionException, MojoFailureException {
 		try {
-			BuildConfiguration buildConfiguration = IDEUtils.loadIDEConfiguration(ideConfiguration);
-			// Load the configured artifact generator
-			buildConfiguration.setArtifactGenerator(
-					ArtifactGeneratorFactory.getArtifactGenerator(buildConfiguration.getGeneratorName()));
 			// Load the application configuration file
-			buildConfiguration.setApplication(
-					IDEUtils.loadApplicationXMLData(buildConfiguration.getConfigFile()));
+			BuildConfiguration buildConfiguration = IDEUtils.loadIDEConfiguration(ideConfiguration);
+			
+			// The target directory is the project directory concatenated with the lowercased project name
+			String targetDir = buildConfiguration.getProjectDir().concat("target/");
+			buildConfiguration.setTargetDir(targetDir.concat(buildConfiguration.getArtifactId().concat("/")));
+			
+			ArtifactDataLoader artifactDataLoader = ArtifactDataLoaderFactory.getArtifactLoader(buildConfiguration.getLoader().getName());
+			ArtifactGenerator artifactGenerator = ArtifactGeneratorFactory.getArtifactGenerator(buildConfiguration.getGeneratorName());
+
+			buildConfiguration.setArtifactGenerator(artifactGenerator);
+			buildConfiguration.setApplication(artifactDataLoader.loadArtifactsData(buildConfiguration));
 			execute(buildConfiguration);
+			
 		} catch (IDEException e) {
 			e.printStackTrace();
 		}

@@ -28,6 +28,7 @@ public class Entity implements ArtifactData {
 	private String viewFilterTemplate;
 	private String singleViewTemplate;
 	private String singleViewModelTemplate;
+	private String singleViewActionTemplate;
 	private String singlePageTemplate;
 	private String createViewTemplate;
 	private String createViewModelTemplate;
@@ -149,6 +150,22 @@ public class Entity implements ArtifactData {
 	public void setCreateViewModelTemplate(String createViewModelTemplate) {
 		this.createViewModelTemplate = createViewModelTemplate;
 	}
+
+	/**
+	 * @return the singleViewActionTemplate
+	 */
+	public String getSingleViewActionTemplate() {
+		return singleViewActionTemplate;
+	}
+
+	/**
+	 * @param singleViewActionTemplate the singleViewActionTemplate to set
+	 */
+	@XmlElement
+	public void setSingleViewActionTemplate(String singleViewActionTemplate) {
+		this.singleViewActionTemplate = singleViewActionTemplate;
+	}
+
 	/**
 	 * @return the createViewActionTemplate
 	 */

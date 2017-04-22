@@ -34,6 +34,14 @@ public class EntityActionArtifactBuilder extends AbstractEntityArtifactBuilder {
 			this.buildAction(buildConfiguration, entity,  actionName, entity.getCreateViewActionTemplate(), targetDir);
 		else
 			this.buildAction(buildConfiguration, entity, actionName, CREATE_COMMAND_TEMPLATE_FTL, targetDir);
+
+		// View command
+		if(entity.getSingleViewActionTemplate() != null)
+			this.generateArtifact(buildConfiguration, entity, entity.getSingleViewActionTemplate(), 
+				"View".concat(actionName).concat(IDEConstants.PHP_EXT), targetDir.concat(IDEConstants.WP_COMMAND_DIR));
+		else
+			this.generateArtifact(buildConfiguration, entity, VIEW_COMMAND_TEMPLATE_FTL, 
+				"View".concat(actionName).concat(IDEConstants.PHP_EXT), targetDir.concat(IDEConstants.WP_COMMAND_DIR));
 		
 		// List command
 		this.generateArtifact(buildConfiguration, entity, LIST_COMMAND_TEMPLATE_FTL, 
@@ -42,8 +50,8 @@ public class EntityActionArtifactBuilder extends AbstractEntityArtifactBuilder {
 		this.generateArtifact(buildConfiguration, entity, EDIT_COMMAND_TEMPLATE_FTL, 
 				"Edit".concat(actionName).concat(IDEConstants.PHP_EXT), targetDir.concat(IDEConstants.WP_COMMAND_DIR));
 		// View command
-		this.generateArtifact(buildConfiguration, entity, VIEW_COMMAND_TEMPLATE_FTL, 
-				"View".concat(actionName).concat(IDEConstants.PHP_EXT), targetDir.concat(IDEConstants.WP_COMMAND_DIR));
+		/*this.generateArtifact(buildConfiguration, entity, VIEW_COMMAND_TEMPLATE_FTL, 
+				"View".concat(actionName).concat(IDEConstants.PHP_EXT), targetDir.concat(IDEConstants.WP_COMMAND_DIR));*/
 		// Delete command
 		this.generateArtifact(buildConfiguration, entity, DELETE_COMMAND_TEMPLATE_FTL, 
 				"Delete".concat(actionName).concat(IDEConstants.PHP_EXT), targetDir.concat(IDEConstants.WP_COMMAND_DIR));

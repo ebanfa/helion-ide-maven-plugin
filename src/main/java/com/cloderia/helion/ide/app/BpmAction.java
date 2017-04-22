@@ -4,26 +4,23 @@
 package com.cloderia.helion.ide.app;
 
 import javax.xml.bind.annotation.XmlElement;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author adrian
  *
  */
-public class Service implements ArtifactData {
+public class BpmAction implements ArtifactData {
 	
 
 	private String name;
 	private String description;
 	private String uiGroup;
-	private String serviceTemplate;
-	List<String> listens = new ArrayList<String>();
+	private String actionTemplate;
 
 	/**
 	 * 
 	 */
-	public Service() {
+	public BpmAction() {
 	}
 
 	/**
@@ -72,40 +69,25 @@ public class Service implements ArtifactData {
 	}
 
 	/**
-	 * @return the listens
+	 * @return the actionTemplate
 	 */
-	public List<String> getListens() {
-		return listens;
+	public String getActionTemplate() {
+		return actionTemplate;
 	}
 
 	/**
-	 * @param listens the listens to set
+	 * @param actionTemplate the actionTemplate to set
 	 */
 	@XmlElement
-	public void setListens(List<String> listens) {
-		this.listens = listens;
-	}
-
-	/**
-	 * @return the serviceTemplate
-	 */
-	public String getServiceTemplate() {
-		return serviceTemplate;
-	}
-
-	/**
-	 * @param serviceTemplate the serviceTemplate to set
-	 */
-	@XmlElement
-	public void setServiceTemplate(String serviceTemplate) {
-		this.serviceTemplate = serviceTemplate;
+	public void setActionTemplate(String actionTemplate) {
+		this.actionTemplate = actionTemplate;
 	}
 
 	/* (non-Javadoc)
 	 * @see com.cloderia.helion.ide.app.ArtifactData#getArtifactDataType()
 	 */
 	public String getArtifactDataType() {
-		return "service";
+		return "bpmaction";
 	}
 
 }

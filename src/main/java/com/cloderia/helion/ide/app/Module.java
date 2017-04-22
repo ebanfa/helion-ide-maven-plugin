@@ -20,10 +20,11 @@ public class Module implements ArtifactData {
 		
 	private Navigation navigation;
 	List<Page> pages = new ArrayList<Page>();
-	List<Action> actions = new ArrayList<Action>();
 	List<String> events = new ArrayList<String>();
+	List<Action> actions = new ArrayList<Action>();
 	List<Entity> entities = new ArrayList<Entity>();
 	List<Service> services = new ArrayList<Service>();
+	List<BpmAction> bpmActions = new ArrayList<BpmAction>();
 	List<UiComponent> uiComponents = new ArrayList<UiComponent>();
 
 	/**
@@ -136,6 +137,21 @@ public class Module implements ArtifactData {
 	@XmlElement(name="action")
 	public void setActions(List<Action> actions) {
 		this.actions = actions;
+	}
+
+	/**
+	 * @return the actions
+	 */
+	public List<BpmAction> getBpmActions() {
+		return bpmActions;
+	}
+
+	/**
+	 * @param actions the actions to set
+	 */
+	@XmlElement(name="bpmAction")
+	public void setBpmActions(List<BpmAction> bpmActions) {
+		this.bpmActions = bpmActions;
 	}
 
 	/**

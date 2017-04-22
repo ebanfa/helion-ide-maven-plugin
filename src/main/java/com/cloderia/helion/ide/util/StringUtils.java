@@ -3,6 +3,8 @@
  */
 package com.cloderia.helion.ide.util;
 
+import org.apache.commons.lang3.text.WordUtils;
+
 //import org.apache.commons.lang.WordUtils;
 
 /**
@@ -27,10 +29,9 @@ public class StringUtils {
 		if(parts.length == 1) return colName;
 		String javaClassName = "";
 		for (int i = 0; i < parts.length; i++) {
-			//javaClassName = javaClassName.concat(WordUtils.capitalize(parts[i])); 
+			javaClassName = javaClassName.concat(WordUtils.capitalize(parts[i])); 
 		}
-		return colName;
-		//return WordUtils.uncapitalize(javaClassName);
+		return WordUtils.uncapitalize(javaClassName);
 	}
 
 	public static boolean isValidString(String string) {

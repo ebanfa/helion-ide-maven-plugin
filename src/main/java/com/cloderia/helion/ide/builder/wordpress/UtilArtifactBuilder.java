@@ -19,6 +19,7 @@ public class UtilArtifactBuilder extends AbstractArtifactBuilder {
 	public static final String COMMAND_MAP_PHP = "ActionMap.php";
 	public static final String MENU_MAP_PHP = "MenuMap.php";
 	public static final String ADMIN_MENU_PHP = "MenuUtil.php";
+	public static final String ADMIN_PAGE_PHP = "admin_page.php";
 	public static final String VIEW_MAP_PHP = "ViewMap.php";
 	public static final String ENQUEUE_UTIL_PHP = "EnqueueUtil.php";
 	public static final String EVENTS_MAP_FILE = "EventMap.php";
@@ -27,6 +28,7 @@ public class UtilArtifactBuilder extends AbstractArtifactBuilder {
 	public static final String RESOURCE_BUNDLE_PHP = "ResourceBundle.php";
 	public static final String EVENTS_MAP_TMP_FILE = "includes/util/event-map-php.ftl";
 	public static final String MENU_MAP_TEMPLATE_FILE = "includes/util/menu-map-php.ftl";
+	public static final String ADMIN_PAGE_TEMPLATE_FILE = "includes/util/admin-page-php.ftl";
 	public static final String ADMIN_MENU_UTIL_TEMPLATE_FILE = "includes/util/admin-menu-util-php.ftl";
 	public static final String SERVICE_MAP_TEMPLATE_FILE = "includes/util/service-map-php.ftl";
 	public static final String ENQUEUE_UTIL_TEMPLATE_FILE = "includes/util/enqueue-util-php.ftl";
@@ -43,6 +45,7 @@ public class UtilArtifactBuilder extends AbstractArtifactBuilder {
 	public void build(BuildConfiguration buildConfiguration) throws IDEException {
 		String targetDir = buildConfiguration.getTargetDir();
 		Application application = buildConfiguration.getApplication();
+		String artifactDir = application.getArtifactId().concat("/");
 		// Enqueue Util
 		this.generateArtifact(buildConfiguration, application, 
 				ENQUEUE_UTIL_TEMPLATE_FILE, ENQUEUE_UTIL_PHP, targetDir.concat(IDEConstants.WP_UTIL_DIR));
@@ -73,6 +76,9 @@ public class UtilArtifactBuilder extends AbstractArtifactBuilder {
 		// The admin menu util
 		this.generateArtifact(buildConfiguration, application, 
 				ADMIN_MENU_UTIL_TEMPLATE_FILE, ADMIN_MENU_PHP, targetDir.concat(IDEConstants.WP_UTIL_DIR));
+		// The admin page
+		this.generateArtifact(buildConfiguration, application, 
+				artifactDir.concat(ADMIN_PAGE_TEMPLATE_FILE), ADMIN_PAGE_PHP, targetDir.concat(IDEConstants.WP_UTIL_DIR));
 
 	}
 

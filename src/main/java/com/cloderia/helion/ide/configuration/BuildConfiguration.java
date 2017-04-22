@@ -31,7 +31,7 @@ public class BuildConfiguration {
 	private String targetDir;
 	private List<String> templateDir;
 	private String generatorName;
-	private Database database;
+	private ArtifactLoader loader;
 	private List<String> builder;
 	private Application application;
 	private ArtifactGenerator artifactGenerator;
@@ -193,21 +193,6 @@ public class BuildConfiguration {
 	}
 
 	/**
-	 * @return the database
-	 */
-	public Database getDatabase() {
-		return database;
-	}
-
-	/**
-	 * @param database the database to set
-	 */
-	@XmlElement
-	public void setDatabase(Database database) {
-		this.database = database;
-	}
-
-	/**
 	 * @return the builders
 	 */
 	public List<String> getBuilder() {
@@ -250,6 +235,21 @@ public class BuildConfiguration {
 	@XmlTransient
 	public void setArtifactGenerator(ArtifactGenerator artifactGenerator) {
 		this.artifactGenerator = artifactGenerator;
+	}
+
+	/**
+	 * @return the loader
+	 */
+	public ArtifactLoader getLoader() {
+		return loader;
+	}
+
+	/**
+	 * @param loader the loader to set
+	 */
+	@XmlElement
+	public void setLoader(ArtifactLoader loader) {
+		this.loader = loader;
 	}
 
 	
