@@ -69,6 +69,7 @@ public class XMLArtifactDataLoader implements ArtifactDataLoader {
 		for (Field field : entity.getFields()) {
 			this.preProcessField(field);
 		}
+		System.out.println(">>>>>>>>>>>>>>>>>>>" + entity.getName() + "::::" + entity.getIsVirtual());
 		entity.setModule(module);
 		entity.setPostName(entity.getName().toLowerCase());
 	}
@@ -77,6 +78,7 @@ public class XMLArtifactDataLoader implements ArtifactDataLoader {
 	 * @param field
 	 */
 	private void preProcessField(Field field) {
+		if(field.isValidateRequired()){}
 		field.setJavaName(StringUtils.columnNameToJavaFieldName(field.getName()));
 		if(field.getName().equals("name")) field.setSize("75");
 		else if(field.getName().equals("entity_code")) field.setSize("35");

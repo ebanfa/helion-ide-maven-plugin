@@ -26,7 +26,8 @@ public class Field implements ArtifactData {
 	private String description;
 	private String displayName;
 	private String optionsProvider;
-	private boolean relationshipField;
+	private boolean relationshipField = false;
+	private boolean validateRequired = false;
 	
 	/**
 	 * 
@@ -281,6 +282,20 @@ public class Field implements ArtifactData {
 	 */
 	public String getArtifactDataType() {
 		return "field";
+	}
+
+	/**
+	 * @return the validateRequired
+	 */
+	public boolean isValidateRequired() {
+		return validateRequired;
+	}
+
+	/**
+	 * @param validateRequired the validateRequired to set
+	 */
+	public void setValidateRequired(boolean validateRequired) {
+		this.validateRequired = validateRequired;
 	}
 
 }

@@ -22,6 +22,7 @@ public class Entity implements ArtifactData {
 	private String postName;
 	private boolean isVirtual;
 	private boolean hasOverride;
+	private boolean hasUI;
 	private String parentName;
 	private String displayName;
 	private String description;
@@ -29,22 +30,26 @@ public class Entity implements ArtifactData {
 	private String singleViewTemplate;
 	private String singleViewModelTemplate;
 	private String singleViewActionTemplate;
+	private String singleDisplayTemplate;
 	private String singlePageTemplate;
 	private String createViewTemplate;
 	private String createViewModelTemplate;
 	private String createViewActionTemplate;
 	private String editViewTemplate;
-	private String listViewTemplate;
 	private String createPageTemplate;
 	private String editPageTemplate;
 	private String editorTemplate;
 	private String listPageTemplate;
+	private String listViewTemplate;
+	private String listItemTemplate;
 	private String basePageTemplate;
 	private String serviceTemplate;
 	private String serviceImplTemplate;
+	private String entityServiceImplTemplate;
 	private String endPointTemplate;
 	private String endPointImplTemplate;
 	private String modelTemplate;
+	private String entityOpsTemplate;
 	private String relatedEntityFieldName;
 	private Module module;
 	private List<Field> fields = new ArrayList<Field>();
@@ -419,6 +424,21 @@ public class Entity implements ArtifactData {
 	}
 
 	/**
+	 * @return the listItemTemplate
+	 */
+	public String getListItemTemplate() {
+		return listItemTemplate;
+	}
+
+	/**
+	 * @param listItemTemplate the listItemTemplate to set
+	 */
+	@XmlElement
+	public void setListItemTemplate(String listItemTemplate) {
+		this.listItemTemplate = listItemTemplate;
+	}
+
+	/**
 	 * @return the relatedChildFields
 	 */
 	public Map<String, Field> getRelatedChildFields() {
@@ -445,6 +465,21 @@ public class Entity implements ArtifactData {
 	@XmlElement
 	public void setServiceImplTemplate(String serviceImplTemplate) {
 		this.serviceImplTemplate = serviceImplTemplate;
+	}
+
+	/**
+	 * @return
+	 */
+	public String getEntityServiceImplTemplate() {
+		return entityServiceImplTemplate;
+	}
+
+	/**
+	 * @param entityServiceImplTemplate
+	 */
+	@XmlElement
+	public void setEntityServiceImplTemplate(String entityServiceImplTemplate) {
+		this.entityServiceImplTemplate = entityServiceImplTemplate;
 	}
 
 	/**
@@ -607,6 +642,48 @@ public class Entity implements ArtifactData {
 	@XmlElement
 	public void setEditorTemplate(String editorTemplate) {
 		this.editorTemplate = editorTemplate;
+	}
+
+	/**
+	 * @return the singleDisplayTemplate
+	 */
+	public String getSingleDisplayTemplate() {
+		return singleDisplayTemplate;
+	}
+
+	/**
+	 * @param singleDisplayTemplate the singleDisplayTemplate to set
+	 */
+	public void setSingleDisplayTemplate(String singleDisplayTemplate) {
+		this.singleDisplayTemplate = singleDisplayTemplate;
+	}
+
+	/**
+	 * @return the entityOpsTemplate
+	 */
+	public String getEntityOpsTemplate() {
+		return entityOpsTemplate;
+	}
+
+	/**
+	 * @param entityOpsTemplate the entityOpsTemplate to set
+	 */
+	public void setEntityOpsTemplate(String entityOpsTemplate) {
+		this.entityOpsTemplate = entityOpsTemplate;
+	}
+
+	/**
+	 * @return the hasUI
+	 */
+	public boolean isHasUI() {
+		return hasUI;
+	}
+
+	/**
+	 * @param hasUI the hasUI to set
+	 */
+	public void setHasUI(boolean hasUI) {
+		this.hasUI = hasUI;
 	}
 
 }
