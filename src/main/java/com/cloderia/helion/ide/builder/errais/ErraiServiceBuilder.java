@@ -28,9 +28,13 @@ public class ErraiServiceBuilder extends AbstractEntityArtifactBuilder {
 		String apiImplTempate = (entity.getServiceImplTemplate() != null) ? entity.getServiceImplTemplate() : SERVICES_ERRAI_IMPLEMENTATION_FTL;
 		String entityApiImplTempate = (entity.getEntityServiceImplTemplate() != null) ? entity.getEntityServiceImplTemplate() : SERVICES_ERRAI_ENTITY_IMPLEMENTATION_FTL;
 		
-		this.generateArtifact(buildConfiguration, entity, apiTempate, entity.getName() + "StorageService.java", buildConfiguration.getTargetDir().concat(IDEConstants.INTERFACE_DIR));
-		this.generateArtifact(buildConfiguration, entity, apiImplTempate, entity.getName() + "StorageServiceImpl.java", buildConfiguration.getTargetDir().concat(IDEConstants.IMPLEMENTATION_DIR));
-		this.generateArtifact(buildConfiguration, entity, entityApiImplTempate, entity.getName() + "EntityService.java", buildConfiguration.getTargetDir().concat(IDEConstants.IMPLEMENTATION_DIR));
+		if(entity.isHasEndpoint())
+			this.generateArtifact(buildConfiguration, entity, apiTempate, entity.getName() + "RESTService.java", buildConfiguration.getTargetDir().concat(IDEConstants.INTERFACE_DIR));
+
+		if(entity.isHasServices()) {
+			this.generateArtifact(buildConfiguration, entity, apiImplTempate, entity.getName() + "RESTServiceImpl.java", buildConfiguration.getTargetDir().concat(IDEConstants.IMPLEMENTATION_DIR));
+			this.generateArtifact(buildConfiguration, entity, entityApiImplTempate, entity.getName() + "EntityService.java", buildConfiguration.getTargetDir().concat(IDEConstants.IMPLEMENTATION_DIR));
+		}
 	}
 
 }

@@ -23,6 +23,8 @@ public class Entity implements ArtifactData {
 	private boolean isVirtual;
 	private boolean hasOverride;
 	private boolean hasUI;
+	private boolean hasEndpoint;
+	private boolean hasServices;
 	private String parentName;
 	private String displayName;
 	private String description;
@@ -684,6 +686,34 @@ public class Entity implements ArtifactData {
 	 */
 	public void setHasUI(boolean hasUI) {
 		this.hasUI = hasUI;
+	}
+
+	/**
+	 * @return the hasEndpoint
+	 */
+	public boolean isHasEndpoint() {
+		return hasEndpoint;
+	}
+
+	/**
+	 * @param hasEndpoint the hasEndpoint to set
+	 */
+	public void setHasEndpoint(boolean hasEndpoint) {
+		this.hasEndpoint = hasEndpoint;
+	}
+
+	/**
+	 * @return the hasServices
+	 */
+	public boolean isHasServices() {
+		return hasServices;
+	}
+
+	/**
+	 * @param hasServices the hasServices to set
+	 */
+	public void setHasServices(boolean hasServices) {
+		this.hasServices = hasServices;
 	}
 
 }

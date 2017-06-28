@@ -50,8 +50,8 @@ public class IDEConstants {
 	public static final String PACKAGE_DIR = JAVA_DIR + "com/cloderia/helion/";
 	public static final String OPS_DIR = JAVA_DIR + "com/cloderia/helion/client/shared/operation/";
 	public static final String MODEL_DIR = JAVA_DIR + "com/cloderia/helion/client/shared/model/";
-	public static final String INTERFACE_DIR = IDEConstants.JAVA_DIR + "com/cloderia/helion/client/shared/service/";
-	public static final String IMPLEMENTATION_DIR = IDEConstants.JAVA_DIR + "com/cloderia/helion/server/service/";
+	public static final String INTERFACE_DIR = IDEConstants.JAVA_DIR + "com/cloderia/helion/client/shared/service/entity/";
+	public static final String IMPLEMENTATION_DIR = IDEConstants.JAVA_DIR + "com/cloderia/helion/server/service/entity/";
 	public static final String REST_INTERFACE_DIR = IDEConstants.JAVA_DIR + "com/cloderia/helion/client/shared/endpoint/";
 	public static final String REST_IMPLEMENTATION_DIR = IDEConstants.JAVA_DIR + "com/cloderia/helion/server/endpoint/";
 	public static final String UI_DIR = IDEConstants.JAVA_DIR + "com/cloderia/helion/client/local/";
