@@ -7,7 +7,7 @@ import java.util.List;
 
 import org.apache.maven.plugins.annotations.Mojo;
 
-import com.cloderia.helion.ide.builder.ArtifactBuilder;
+import com.cloderia.helion.ide.builder.ArtifactProcessor;
 import com.cloderia.helion.ide.builder.ArtifactBuilderFactory;
 import com.cloderia.helion.ide.configuration.BuildConfiguration;
 import com.cloderia.helion.ide.util.IDEException;
@@ -23,9 +23,9 @@ public class HelionIDEMojo extends AbstractIDEMojo {
 	 * @see com.cloderia.helion.ide.IDEMojo#execute(com.cloderia.helion.ide.configuration.BuildConfiguration)
 	 */
 	public void execute(BuildConfiguration buildConfiguration) throws IDEException {
-		List<ArtifactBuilder> artifactBuilders = ArtifactBuilderFactory.getArtifactBuilders(buildConfiguration);
-		for(ArtifactBuilder artifactBuilder : artifactBuilders) {
-			artifactBuilder.build(buildConfiguration);
+		List<ArtifactProcessor> artifactProcessors = ArtifactBuilderFactory.getArtifactBuilders(buildConfiguration);
+		for(ArtifactProcessor artifactProcessor : artifactProcessors) {
+			artifactProcessor.execute(buildConfiguration);
 		}
 	}
 }

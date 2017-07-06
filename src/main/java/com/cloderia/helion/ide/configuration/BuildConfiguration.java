@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-import com.cloderia.helion.ide.app.Application;
+import com.cloderia.helion.ide.artifact.Application;
 import com.cloderia.helion.ide.generator.ArtifactGenerator;
 
 /**

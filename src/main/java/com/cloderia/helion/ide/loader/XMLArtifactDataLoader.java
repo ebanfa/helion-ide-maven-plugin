@@ -4,15 +4,19 @@
 package com.cloderia.helion.ide.loader;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
-import com.cloderia.helion.ide.app.Application;
-import com.cloderia.helion.ide.app.Entity;
-import com.cloderia.helion.ide.app.Field;
-import com.cloderia.helion.ide.app.Module;
+import com.cloderia.helion.ide.artifact.Application;
+import com.cloderia.helion.ide.artifact.Entity;
+import com.cloderia.helion.ide.artifact.Field;
+import com.cloderia.helion.ide.artifact.Module;
 import com.cloderia.helion.ide.configuration.ArtifactLoader;
 import com.cloderia.helion.ide.configuration.BuildConfiguration;
 import com.cloderia.helion.ide.util.IDEException;
@@ -47,8 +51,11 @@ public class XMLArtifactDataLoader implements ArtifactDataLoader {
 	 * @return
 	 */
 	private void preProcess(Application application) {
-		for (Module module : application.getModules()) {
-			this.preProcessModule(module);
+		List<Module> modules = application.getModules();
+		Module[] modulesArray = modules.toArray(new Module[0]);
+		for (int i = 0; i < modulesArray.length; i++) {
+			System.out.println(">>>>>>>>>>>>>>>>>>>" + modulesArray[i].getName());
+			preProcessModule(modulesArray[i]);
 		}
 	}
 
@@ -69,7 +76,7 @@ public class XMLArtifactDataLoader implements ArtifactDataLoader {
 		for (Field field : entity.getFields()) {
 			this.preProcessField(field);
 		}
-		System.out.println(">>>>>>>>>>>>>>>>>>>" + entity.getName() + "::::" + entity.getIsVirtual());
+		//System.out.println(">>>>>>>>>>>>>>>>>>>" + entity.getName() + "::::" + entity.getIsVirtual());
 		entity.setModule(module);
 		entity.setPostName(entity.getName().toLowerCase());
 	}

@@ -3,7 +3,7 @@
  */
 package com.cloderia.helion.ide.loader;
 
-import com.cloderia.helion.ide.app.Application;
+import com.cloderia.helion.ide.artifact.Application;
 import com.cloderia.helion.ide.configuration.BuildConfiguration;
 import com.cloderia.helion.ide.util.IDEException;
 

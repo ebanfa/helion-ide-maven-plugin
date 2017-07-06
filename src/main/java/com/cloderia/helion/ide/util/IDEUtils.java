@@ -13,7 +13,7 @@ import javax.xml.bind.Unmarshaller;
 
 import org.apache.commons.io.FileUtils;
 
-import com.cloderia.helion.ide.app.Application;
+import com.cloderia.helion.ide.artifact.Application;
 import com.cloderia.helion.ide.configuration.BuildConfiguration;
 
 import freemarker.template.Configuration;
@@ -37,7 +37,8 @@ public class IDEUtils {
 	public static final String FM_CONTEXT_DATA_APPLICATION = null;
 	public static final String FM_CONTEXT_DATA_ENTITY = null;
 	public static final String FM_CONTEXT_DATA_MODULE = null;
-
+	
+	
 	/**
 	 * @param templateDir
 	 * @return

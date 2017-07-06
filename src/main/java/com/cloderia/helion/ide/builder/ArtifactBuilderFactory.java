@@ -16,11 +16,11 @@ public class ArtifactBuilderFactory {
 	
 	private static String builderPackage = "";
 	
-	public static List<ArtifactBuilder> getArtifactBuilders(BuildConfiguration buildConfiguration) {
-		List<ArtifactBuilder> builders = new ArrayList<ArtifactBuilder>();
+	public static List<ArtifactProcessor> getArtifactBuilders(BuildConfiguration buildConfiguration) {
+		List<ArtifactProcessor> builders = new ArrayList<ArtifactProcessor>();
 		for(String builderName: buildConfiguration.getBuilder()) {
 			try {
-				builders.add((ArtifactBuilder) Class.forName(builderName).newInstance());
+				builders.add((ArtifactProcessor) Class.forName(builderName).newInstance());
 			} catch (InstantiationException e) {
 				e.printStackTrace();
 			} catch (IllegalAccessException e) {

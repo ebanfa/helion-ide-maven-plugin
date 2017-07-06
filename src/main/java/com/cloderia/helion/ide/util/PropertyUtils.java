@@ -6,9 +6,9 @@ package com.cloderia.helion.ide.util;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.cloderia.helion.ide.app.Entity;
-import com.cloderia.helion.ide.app.Field;
-import com.cloderia.helion.ide.app.Module;
+import com.cloderia.helion.ide.artifact.Entity;
+import com.cloderia.helion.ide.artifact.Field;
+import com.cloderia.helion.ide.artifact.Module;
 
 /**
  * @author adrian
