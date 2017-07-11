@@ -14,6 +14,8 @@ import javax.xml.bind.Unmarshaller;
 import org.apache.commons.io.FileUtils;
 
 import com.cloderia.helion.ide.artifact.Application;
+import com.cloderia.helion.ide.artifact.Entity;
+import com.cloderia.helion.ide.artifact.Module;
 import com.cloderia.helion.ide.configuration.BuildConfiguration;
 
 import freemarker.template.Configuration;
@@ -38,6 +40,14 @@ public class IDEUtils {
 	public static final String FM_CONTEXT_DATA_ENTITY = null;
 	public static final String FM_CONTEXT_DATA_MODULE = null;
 	
+
+	/**
+	 * @param entity
+	 */
+	public static String getModulePath(Entity entity) {
+		Module module = entity.getModule();
+		return module.getName().toLowerCase().concat("/");
+	}
 	
 	/**
 	 * @param templateDir
