@@ -3,7 +3,7 @@
  */
 package com.cloderia.helion.ide.generator;
 
-import com.cloderia.helion.ide.artifact.ArtifactData;
+import com.cloderia.helion.ide.data.ArtifactData;
 
 /**
  * @author adrian

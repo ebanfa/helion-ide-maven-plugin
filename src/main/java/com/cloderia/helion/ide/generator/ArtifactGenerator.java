@@ -3,8 +3,8 @@
  */
 package com.cloderia.helion.ide.generator;
 
-import com.cloderia.helion.ide.configuration.BuildConfiguration;
-import com.cloderia.helion.ide.util.IDEException;
+import com.cloderia.helion.ide.IDEException;
+import com.cloderia.helion.ide.build.BuildContext;
 
 /**
  * @author adrian
@@ -12,6 +12,6 @@ import com.cloderia.helion.ide.util.IDEException;
  */
 public interface ArtifactGenerator {
 	
-	public void generateArtifact(BuildConfiguration buildConfiguration, ArtifactGeneratorData artifactData) throws IDEException;
+	public void generateArtifact(BuildContext context, ArtifactGeneratorData artifactData) throws IDEException;
 
 }

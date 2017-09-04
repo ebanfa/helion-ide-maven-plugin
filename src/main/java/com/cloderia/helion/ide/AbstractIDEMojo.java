@@ -5,17 +5,12 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Parameter;
 
-import com.cloderia.helion.ide.configuration.BuildConfiguration;
-import com.cloderia.helion.ide.generator.ArtifactGenerator;
-import com.cloderia.helion.ide.generator.ArtifactGeneratorFactory;
-import com.cloderia.helion.ide.loader.ArtifactDataLoader;
-import com.cloderia.helion.ide.loader.ArtifactDataLoaderFactory;
-import com.cloderia.helion.ide.util.IDEException;
-import com.cloderia.helion.ide.util.IDEUtils;
+import com.cloderia.helion.ide.build.BuildContext;
+import com.cloderia.helion.ide.util.IDEUtil;
 
 public abstract class AbstractIDEMojo extends AbstractMojo {
 
-	private BuildConfiguration buildConfiguration;
+	private BuildContext buildContext;
 	
     /**
      * The buildConfiguration.
@@ -26,15 +21,15 @@ public abstract class AbstractIDEMojo extends AbstractMojo {
 	/**
 	 * @return the buiderConfig
 	 */
-	public BuildConfiguration getBuildConfiguration() {
-		return buildConfiguration;
+	public BuildContext getBuildConfiguration() {
+		return buildContext;
 	}
 
 	/**
 	 * @param buiderConfig the buiderConfig to set
 	 */
-	public void setBuildConfiguration(BuildConfiguration buildConfiguration) {
-		this.buildConfiguration = buildConfiguration;
+	public void setBuildConfiguration(BuildContext buildContext) {
+		this.buildContext = buildContext;
 	}
 	
 	/* (non-Javadoc)
@@ -42,20 +37,7 @@ public abstract class AbstractIDEMojo extends AbstractMojo {
 	 */
 	public void execute() throws MojoExecutionException, MojoFailureException {
 		try {
-			// Load the application configuration file
-			BuildConfiguration buildConfiguration = IDEUtils.loadIDEConfiguration(ideConfiguration);
-			
-			// The target directory is the project directory concatenated with the lowercased project name
-			String targetDir = buildConfiguration.getProjectDir().concat("target/");
-			buildConfiguration.setTargetDir(targetDir.concat(buildConfiguration.getArtifactId().concat("/")));
-			
-			ArtifactDataLoader artifactDataLoader = ArtifactDataLoaderFactory.getArtifactLoader(buildConfiguration.getLoader().getName());
-			ArtifactGenerator artifactGenerator = ArtifactGeneratorFactory.getArtifactGenerator(buildConfiguration.getGeneratorName());
-
-			buildConfiguration.setArtifactGenerator(artifactGenerator);
-			buildConfiguration.setApplication(artifactDataLoader.loadArtifactsData(buildConfiguration));
-			execute(buildConfiguration);
-			
+			execute(IDEUtil.loadBuildData(ideConfiguration));
 		} catch (IDEException e) {
 			e.printStackTrace();
 		}
@@ -63,7 +45,7 @@ public abstract class AbstractIDEMojo extends AbstractMojo {
 	/**
 	 * @param buildConfiguration
 	 */
-	public abstract void execute(BuildConfiguration buildConfiguration) throws IDEException;
+	public abstract void execute(BuildContext buildContext) throws IDEException;
 	
 	
 }

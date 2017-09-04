@@ -3,7 +3,7 @@
  */
 package com.cloderia.helion.ide.generator;
 
-import com.cloderia.helion.ide.util.IDEException;
+import com.cloderia.helion.ide.IDEException;
 
 /**
  * @author adrian

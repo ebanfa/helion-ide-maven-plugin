@@ -7,10 +7,10 @@ import java.util.List;
 
 import org.apache.maven.plugins.annotations.Mojo;
 
-import com.cloderia.helion.ide.builder.ArtifactProcessor;
-import com.cloderia.helion.ide.builder.ArtifactBuilderFactory;
-import com.cloderia.helion.ide.configuration.BuildConfiguration;
-import com.cloderia.helion.ide.util.IDEException;
+import com.cloderia.helion.ide.build.BuildContext;
+import com.cloderia.helion.ide.build.HelionIDEBuildPipeline;
+import com.cloderia.helion.ide.build.processors.BuildProcessor;
+import com.cloderia.helion.ide.util.IDEUtil;
 
 /**
  * @author adrian
@@ -18,14 +18,21 @@ import com.cloderia.helion.ide.util.IDEException;
  */
 @Mojo(name="helion")
 public class HelionIDEMojo extends AbstractIDEMojo {
+
 	
-	/* (non-Javadoc)
-	 * @see com.cloderia.helion.ide.IDEMojo#execute(com.cloderia.helion.ide.configuration.BuildConfiguration)
-	 */
-	public void execute(BuildConfiguration buildConfiguration) throws IDEException {
-		List<ArtifactProcessor> artifactProcessors = ArtifactBuilderFactory.getArtifactBuilders(buildConfiguration);
-		for(ArtifactProcessor artifactProcessor : artifactProcessors) {
-			artifactProcessor.execute(buildConfiguration);
-		}
+	@Override
+	public void execute(BuildContext buildContext) throws IDEException {
+		build(buildContext);
 	}
+
+	/**
+	 * @param buildContext
+	 */
+	protected void build(BuildContext buildContext) {
+		List<BuildProcessor<BuildContext>> processors = IDEUtil.getBuildProcessors(buildContext);
+		System.out.println("######### Processors" + processors);
+		HelionIDEBuildPipeline pipeline = new HelionIDEBuildPipeline(processors);
+		pipeline.build(buildContext);
+	}
+	
 }
