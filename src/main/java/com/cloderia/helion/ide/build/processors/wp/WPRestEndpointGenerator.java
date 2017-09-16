@@ -17,7 +17,7 @@ import com.cloderia.helion.ide.util.IDEUtil;
  */
 public class WPRestEndpointGenerator extends AbstractBuildProcessorDecorator {
 
-	private static final String WP_REST_ENDPOINT_TMPL_FTL = "service/entity-endpoint-php.ftl";
+	private static final String WP_REST_ENDPOINT_TMPL_FTL = "service/${entity}-endpoint-php.ftl";
 
 	/**
 	 * @param processor

@@ -33,6 +33,7 @@ public class BuildContext {
 	private String resourcesDir;
 	private String uaResourcesDir;
 	private String wpResourcesDir;
+	private String wpUaResourcesDir;
 	private List<String> processor;
 	private List<String> templateDir;
 	private ApplicationData applicationData;
@@ -281,6 +282,21 @@ public class BuildContext {
 	 */
 	public void put(String key, Object value) {
 		this.contextData.put(key, value);
+	}
+
+	/**
+	 * @return the wpUaResourcesDir
+	 */
+	public String getWpUaResourcesDir() {
+		return wpUaResourcesDir;
+	}
+
+	/**
+	 * @param wpUaResourcesDir the wpUaResourcesDir to set
+	 */
+	@XmlElement
+	public void setWpUaResourcesDir(String wpUaResourcesDir) {
+		this.wpUaResourcesDir = wpUaResourcesDir;
 	}
 
 	

@@ -17,7 +17,7 @@ import com.cloderia.helion.ide.util.IDEUtil;
  */
 public class WPEntityServiceGenerator extends AbstractBuildProcessorDecorator {
 
-	private static final String WP_ENTITY_SERVICE_TMPL_FTL = "service/entity-service-php.ftl";
+	private static final String WP_ENTITY_SERVICE_TMPL_FTL = "service/${entity}-service-php.ftl";
 
 	/**
 	 * @param processor

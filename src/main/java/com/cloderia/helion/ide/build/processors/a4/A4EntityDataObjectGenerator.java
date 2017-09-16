@@ -17,7 +17,7 @@ import com.cloderia.helion.ide.util.IDEUtil;
  */
 public class A4EntityDataObjectGenerator extends AbstractBuildProcessorDecorator {
 
-	private static final String A4_ENTITY_DATA_OBJ_TMPL_FTL = "entities/entity-data-ts.ftl";
+	private static final String A4_ENTITY_DATA_OBJ_TMPL_FTL = "entities/${entity}-data-ts.ftl";
 
 	/**
 	 * @param processor
