@@ -21,9 +21,7 @@ public class A4ApplicationGenerator extends AbstractBuildProcessor<BuildContext>
 				new A4ProjectResourcesProcessor(
 				  new EntityFieldProcessor (
 				    new A4EntityDataObjectGenerator(
-				      new A4EntityServiceGenerator(
-				        new A4PortalEntityComponentGenerator(
-				          new BuildLogger()))))))
+				      new BuildLogger()))))
 			   .build(context);
 	}
 
