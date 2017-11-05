@@ -27,12 +27,12 @@ public class WPProjectConfigurationProcessor extends AbstractBuildProcessorDecor
 	@Override
 	protected BuildContext decorate(BuildContext context) {
 		System.out.println("############################## WPProjectConfigurationProcessor");
-		try {
-			String wpConfiguration = context.getProjectDir().concat(WP_BUILD_CONFIG);
-			context.put("wpConfigData", IDEUtil.loadApplicationData(wpConfiguration));
+		/* try {
+			//String wpConfiguration = context.getProjectDir().concat(WP_BUILD_CONFIG);
+			//context.put("wpConfigData", IDEUtil.loadApplicationData(wpConfiguration));
 		} catch (IDEException e) {
 			e.printStackTrace();
-		}
+		} */
 		return context;
 	}
 

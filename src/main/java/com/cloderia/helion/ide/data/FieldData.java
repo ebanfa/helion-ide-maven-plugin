@@ -26,6 +26,7 @@ public class FieldData implements ArtifactData {
 	private String description;
 	private String displayName;
 	private String optionsProvider;
+	private String relId;
 	private boolean relationshipField = false;
 	private boolean validateRequired = false;
 	private EntityData parentEntity;
@@ -234,6 +235,20 @@ public class FieldData implements ArtifactData {
 		this.displayName = displayName;
 	}
 
+
+	/**
+	 * @return the relId
+	 */
+	public String getRelId() {
+		return relId;
+	}
+
+	/**
+	 * @param relId the relId to set
+	 */
+	public void setRelId(String relId) {
+		this.relId = relId;
+	}
 
 	/**
 	 * @return the relationshipField

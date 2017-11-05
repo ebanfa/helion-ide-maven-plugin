@@ -21,6 +21,7 @@ public class ApplicationData implements ArtifactData {
 	String artifactId;
 	String description;
 	String templatesDir;
+	UiConfig uiConfig;
 	List<ModuleData> moduleDatas = new ArrayList<ModuleData>();
 
 	/**
@@ -73,6 +74,21 @@ public class ApplicationData implements ArtifactData {
 	@XmlElement
 	public void setTemplatesDir(String templates) {
 		this.templatesDir = templates;
+	}
+
+	/**
+	 * @return the uiConfig
+	 */
+	public UiConfig getUiConfig() {
+		return uiConfig;
+	}
+
+	/**
+	 * @param uiConfig the uiConfig to set
+	 */
+	@XmlElement
+	public void setUiConfig(UiConfig uiConfig) {
+		this.uiConfig = uiConfig;
 	}
 
 	/**

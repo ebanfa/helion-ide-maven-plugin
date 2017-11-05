@@ -4,6 +4,7 @@
 package com.cloderia.helion.ide.build.processors;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.cloderia.helion.ide.build.BuildContext;
@@ -52,6 +53,7 @@ public class EntityFieldProcessor extends AbstractBuildProcessorDecorator {
 					field.setSize("35");
 				if(field.isRelationshipField()){
 					field.setParentEntity(findEntityInApplication(field.getDataType(), context.getApplicationData()));
+					field.setRelId(String.valueOf(new Date().getTime()));
 				}
 			}
 		}

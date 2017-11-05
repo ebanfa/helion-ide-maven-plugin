@@ -16,14 +16,12 @@ public class WPApplicationGenerator extends AbstractBuildProcessor<BuildContext>
 	@Override
 	protected BuildContext doBuild(BuildContext context) {
 		System.out.println("############################## WPApplicationGenerator");
-		return new WPProjectConfigurationProcessor(
-				new WPProjectDirectoryBuilder(
-				  new WPProjectResourceProcessor(
-						new WPEntityModelGenerator (
-				    	new WPEntityServiceGenerator (
-				      	new WPRestEndpointGenerator (
-				        	new BuildLogger()))))))
-			   .build(context);
+		return new WPProjectDirectoryBuilder(
+			new WPProjectResourceProcessor(
+				new WPEntityModelGenerator (
+					new WPEntityServiceGenerator (
+						new BuildLogger()))))
+		.build(context);
 	}
 
 

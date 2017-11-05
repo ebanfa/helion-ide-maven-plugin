@@ -32,6 +32,15 @@ public class StringUtil {
 	public static String trailingSlashIt(String string) {
 		return string.concat("/");
 	}
+	
+	/**
+	 * @param string
+	 * @return
+	 */
+	public static String lowerCase(String string) {
+		return string.toLowerCase();
+	}
+
 
 	public static String columnNameToJavaFieldName(String colName) {
 		String[] parts = colName.split("_");

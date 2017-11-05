@@ -7,6 +7,7 @@ import com.cloderia.helion.ide.IDEException;
 import com.cloderia.helion.ide.build.BuildContext;
 import com.cloderia.helion.ide.build.processors.AbstractBuildProcessorDecorator;
 import com.cloderia.helion.ide.build.processors.BuildProcessor;
+import com.cloderia.helion.ide.data.ModuleData;
 import com.cloderia.helion.ide.util.FileUtil;
 import com.cloderia.helion.ide.util.IDEUtil;
 import com.cloderia.helion.ide.util.StringUtil;
@@ -26,6 +27,10 @@ public class A4ProjectResourcesProcessor extends AbstractBuildProcessorDecorator
 	
 	public static final String A4_APP_MODULE_TMPL_FTL = "misc/app-module-ts.ftl";
 	public static final String A4_APP_ROUTES_TMPL_FTL = "misc/app-routes-ts.ftl";
+
+	public static final String A4_MODULE_TMPL_FTL = "misc/module/module-ts.ftl";
+	public static final String A4_ROUTES_TMPL_FTL = "misc/module/routes-ts.ftl";
+	public static final String A4_MODULE_ROUTES_TMPL_FTL = "misc/module/module-routes-ts.ftl";
 	
 
 	public static final String A4_APP_COMPONENTS_DIR = A4_APP_RESOURCE_SRC_DIR + A4_APP_RESOURCE_SRC_APP_DIR + StringUtil.trailingSlashIt("components");
@@ -46,6 +51,9 @@ public class A4ProjectResourcesProcessor extends AbstractBuildProcessorDecorator
 	protected BuildContext decorate(BuildContext context) {
 		copyResources(context);
 		generateProjectArtefacts(context);
+		for(ModuleData moduleData: context.getApplicationData().getModules()){
+			this.generateModuleArtefacts(context, moduleData);
+		}
 		return context;
 	}
 	
@@ -86,6 +94,19 @@ public class A4ProjectResourcesProcessor extends AbstractBuildProcessorDecorator
 		FileUtil.copyFileToDirectory(resourcesDir.concat(".angular-cli.json"), targetDir);
 		FileUtil.copyFileToDirectory(resourcesDir.concat(".editorconfig"), targetDir);
 		FileUtil.copyFileToDirectory(resourcesDir.concat(".gitignore"), targetDir);
+	}
+	private void generateModuleArtefacts(BuildContext context, ModuleData moduleData){
+		try {
+			String moduleName = moduleData.getName().toLowerCase();
+			String appDir = context.getTargetDir().concat(A4ProjectDirectoryBuilder.A4_APP_DIR);
+			String moduleDir = appDir.concat(StringUtil.trailingSlashIt(moduleData.getName().toLowerCase()));
+			
+			IDEUtil.generateArtifact(context, moduleData, A4_MODULE_TMPL_FTL, moduleName.concat(".module.ts"), moduleDir);
+			IDEUtil.generateArtifact(context, moduleData, A4_ROUTES_TMPL_FTL, moduleName.concat(".routes.ts"), moduleDir);
+			IDEUtil.generateArtifact(context, moduleData, A4_MODULE_ROUTES_TMPL_FTL, moduleName.concat(".routing.module.ts"), moduleDir);
+		} catch (IDEException e) {
+			e.printStackTrace();
+		}
 	}
 	private void copySourceResources(String sourceDir){
 		//FileUtil.copyDirectory(resourcesDir.concat(A4_APP_RESOURCE_NODE_MODULES_DIR), targetDir.concat(A4_APP_RESOURCE_NODE_MODULES_DIR));

@@ -10,6 +10,7 @@ import com.cloderia.helion.ide.build.processors.BuildProcessor;
 import com.cloderia.helion.ide.data.EntityData;
 import com.cloderia.helion.ide.data.ModuleData;
 import com.cloderia.helion.ide.util.IDEUtil;
+import com.cloderia.helion.ide.util.StringUtil;
 
 /**
  * @author adrian
@@ -36,9 +37,15 @@ public class A4EntityDataObjectGenerator extends AbstractBuildProcessorDecorator
 			for(EntityData entity : moduleData.getEntities()) {
 				if(entity.isHasServices()) {
 					try {
+						
+
+						String moduleName = moduleData.getName().toLowerCase();
+						String appDir = context.getTargetDir().concat(A4ProjectDirectoryBuilder.A4_APP_DIR);
+						String moduleDir = appDir.concat(StringUtil.trailingSlashIt(moduleName));
+						String dataDir = moduleDir.concat(A4ProjectDirectoryBuilder.A4_DATA_DIR);
+						
 						String dataObjectTarget = entity.getLCName() + ".ts";
-						String moduleDir = componentDir.concat(IDEUtil.getEntityPath(entity));
-						IDEUtil.generateArtifact(context, entity, A4_ENTITY_DATA_OBJ_TMPL_FTL, dataObjectTarget, moduleDir);
+						IDEUtil.generateArtifact(context, entity, A4_ENTITY_DATA_OBJ_TMPL_FTL, dataObjectTarget, dataDir);
 					} catch (IDEException e) {
 						e.printStackTrace();
 					}
