@@ -122,38 +122,6 @@ public class ModuleArtifactsGenerator extends AbstractBuildProcessorDecorator {
 		System.out.println("Override not found " +  templateFile);
 		return false;
 	}
-
-
-	/* (non-Javadoc)
-	 * @see com.cloderia.helion.ide.build.processors.AbstractBuildProcessorDecorator#decorate(com.cloderia.helion.ide.build.BuildContext)
-	 */
-	/*@Override
-	protected BuildContext decorate(BuildContext context) {
-		for(ModuleData moduleData: context.getApplicationData().getModules()) {
-			String moduleId = moduleData.getName().toLowerCase();
-			String moduleDir = StringUtil.trailingSlashIt(moduleId);
-			moduleDir = context.getTargetDir().concat(A4ProjectDirectoryBuilder.A4_APP_DIR);
-			moduleDir = moduleDir.concat(StringUtil.trailingSlashIt(moduleId));
-			String pageDir = StringUtil.trailingSlashIt("components").concat(StringUtil.trailingSlashIt("page"));
-			String uiComponentDir = StringUtil.trailingSlashIt("components").concat(StringUtil.trailingSlashIt("ui-component"));
-			try {
-				IDEUtil.generateArtifact(context, moduleData, A4_MODULE_INDEX_TMPL_FTL, "index.ts", moduleDir);
-				IDEUtil.generateArtifact(context, moduleData, A4_MODULE_CONFIG_TMPL_FTL, moduleId.concat(".module.ts"), moduleDir);
-				IDEUtil.generateArtifact(context, moduleData, A4_MODULE_ROUTES_TMPL_FTL, moduleId.concat(".routes.ts"), moduleDir);
-				IDEUtil.generateArtifact(context, moduleData, A4_MODULE_ROUTES_MODULE_TMPL_FTL, moduleId.concat(".routing.module.ts"), moduleDir);
-				IDEUtil.generateArtifact(context, moduleData, A4_MODULE_ENTRY_PAGE_TMPL_FTL, moduleId.concat("-entry-page.component.ts"), moduleDir.concat(pageDir));
-				IDEUtil.generateArtifact(context, moduleData, A4_MODULE_ENTRY_PAGE_MODEL_TMPL_FTL, moduleId.concat("-entry-page-component-model.ts"), moduleDir.concat(pageDir));
-				IDEUtil.generateArtifact(context, moduleData, A4_MODULE_ENTRY_COMPONENT_TMPL_FTL, moduleId.concat("-entry.component.ts"), moduleDir.concat(uiComponentDir));
-				IDEUtil.generateArtifact(context, moduleData, A4_MODULE_ENTRY_COMPONENT_MODEL_TMPL_FTL, moduleId.concat("-entry-model-component.ts"), moduleDir.concat(uiComponentDir));
-
-				this.generateModelObjects(context, moduleData, moduleId, moduleDir, A4ProjectDirectoryBuilder.A4_DATA_DIR);
-				
-			} catch (IDEException e) {
-				e.printStackTrace();
-			}
-		}
-		return context;
-	}*/
 	
 	/**
 	 * @param context

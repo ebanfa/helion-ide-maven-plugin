@@ -44,7 +44,7 @@ public class A4ProjectDirectoryBuilder extends AbstractBuildProcessorDecorator {
 	@Override
 	protected BuildContext decorate(BuildContext context) {
 		// Build the angular4 directory structure
-		FileUtil.deleteDir(context.getTargetDir());
+		//FileUtil.deleteDir(context.getTargetDir());
 		FileUtil.createDirectoryIfNeeded(context.getTargetDir());
 		FileUtil.createDirectoryIfNeeded(context.getTargetDir().concat(A4_SRC_DIR));
 		FileUtil.createDirectoryIfNeeded(context.getTargetDir().concat(A4_APP_DIR));

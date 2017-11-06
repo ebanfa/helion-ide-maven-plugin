@@ -46,7 +46,7 @@ public class A4ProjectResourcesProcessor extends AbstractBuildProcessorDecorator
 			String targetDir = context.getTargetDir().concat(A4ProjectDirectoryBuilder.A4_APP_DIR);
 			IDEUtil.generateArtifact(context, context.getApplicationData(), A4_APP_MODULE_TMPL_FTL, "app.module.ts", targetDir);
 			IDEUtil.generateArtifact(context, context.getApplicationData(), A4_APP_ROUTES_TMPL_FTL, "app.routes.ts", targetDir);
-			IDEUtil.generateArtifact(context, context.getApplicationData(), A4_APP_ROUTES_MODULE_TMPL_FTL, "app.routes.module.ts", targetDir);
+			IDEUtil.generateArtifact(context, context.getApplicationData(), A4_APP_ROUTES_MODULE_TMPL_FTL, "app.routing.module.ts", targetDir);
 
 			String sourceDir = context.getResourcesDir().concat(A4ProjectDirectoryBuilder.A4_SRC_DIR);
 			FileUtil.copyDirectory(context.getResourcesDir().concat(A4ProjectDirectoryBuilder.A4_E2E_DIR), context.getTargetDir().concat(A4ProjectDirectoryBuilder.A4_E2E_DIR));
@@ -86,24 +86,6 @@ public class A4ProjectResourcesProcessor extends AbstractBuildProcessorDecorator
 	}
 
 }
-
-
-/*/home/adrian/Projects/helion-ide/src/main/resources/a4/src/app
-/home/adrian/Projects/helion-ide/src/main/resources/a4/src/assets
-/home/adrian/Projects/helion-ide/src/main/resources/a4/src/environments
-/home/adrian/Projects/helion-ide/src/main/resources/a4/src/favicon.ico
-/home/adrian/Projects/helion-ide/src/main/resources/a4/src/index.html
-/home/adrian/Projects/helion-ide/src/main/resources/a4/src/main.ts
-/home/adrian/Projects/helion-ide/src/main/resources/a4/src/polyfills.ts
-/home/adrian/Projects/helion-ide/src/main/resources/a4/src/styles.css
-/home/adrian/Projects/helion-ide/src/main/resources/a4/src/test.ts
-/home/adrian/Projects/helion-ide/src/main/resources/a4/src/tsconfig.app.json
-/home/adrian/Projects/helion-ide/src/main/resources/a4/src/tsconfig.spec.json
-/home/adrian/Projects/helion-ide/src/main/resources/a4/src/typings.d.ts
-
-
-
-*/
 
 
 
