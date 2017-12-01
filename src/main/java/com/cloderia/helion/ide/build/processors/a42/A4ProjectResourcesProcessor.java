@@ -61,7 +61,7 @@ public class A4ProjectResourcesProcessor extends AbstractBuildProcessorDecorator
 			FileUtil.copyFileToDirectory(context.getResourcesDir().concat("protractor.conf.js"), context.getTargetDir());
 			FileUtil.copyFileToDirectory(context.getResourcesDir().concat(".angular-cli.json"), context.getTargetDir());
 			FileUtil.copyFileToDirectory(context.getResourcesDir().concat(".editorconfig"), context.getTargetDir());
-			FileUtil.copyFileToDirectory(context.getResourcesDir().concat(".gitignore"), context.getTargetDir());
+			//FileUtil.copyFileToDirectory(context.getResourcesDir().concat(".gitignore"), context.getTargetDir());
 			
 			// Resources under source folder
 			FileUtil.copyFileToDirectory(sourceDir.concat("favicon.ico"), context.getTargetDir().concat(A4ProjectDirectoryBuilder.A4_SRC_DIR));

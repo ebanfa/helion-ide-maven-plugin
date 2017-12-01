@@ -24,6 +24,8 @@ public class A4ProjectDirectoryBuilder extends AbstractBuildProcessorDecorator {
 	public static final String A4_COMPONENTS_DIR = StringUtil.trailingSlashIt("components");
 	public static final String A4_PAGES_DIR = A4_COMPONENTS_DIR + StringUtil.trailingSlashIt("page");
 	public static final String A4_UICOMPONENTS_DIR = A4_COMPONENTS_DIR + StringUtil.trailingSlashIt("ui-component");
+	public static final String A4_FRONTPAGE_DIR = StringUtil.trailingSlashIt("front-page");
+
 
 	public static final String A4_E2E_DIR = StringUtil.trailingSlashIt("e2e");
 	public static final String A4_DIST_DIR = StringUtil.trailingSlashIt("dist");
@@ -59,13 +61,14 @@ public class A4ProjectDirectoryBuilder extends AbstractBuildProcessorDecorator {
 	private void processModules(BuildContext context){
 		String appDir = context.getTargetDir().concat(A4_APP_DIR);
 		for(ModuleData moduleData: context.getApplicationData().getModules()){
-			String moduleDirName = moduleData.getName().toLowerCase();
-			String moduleDir = appDir.concat(StringUtil.trailingSlashIt(moduleDirName));
+			String moduleDir = appDir.concat(StringUtil.trailingSlashIt(moduleData.getId()));
 			FileUtil.createDirectoryIfNeeded(moduleDir);
+			FileUtil.createDirectoryIfNeeded(moduleDir.concat(A4_DATA_DIR));
 			FileUtil.createDirectoryIfNeeded(moduleDir.concat(A4_PAGES_DIR));
 			FileUtil.createDirectoryIfNeeded(moduleDir.concat(A4_UICOMPONENTS_DIR));
 			FileUtil.createDirectoryIfNeeded(moduleDir.concat(A4_SERVICES_DIR));
-			FileUtil.createDirectoryIfNeeded(moduleDir.concat(A4_DATA_DIR));
+			FileUtil.createDirectoryIfNeeded(moduleDir.concat(A4_PAGES_DIR.concat(A4_FRONTPAGE_DIR)));
+			FileUtil.createDirectoryIfNeeded(moduleDir.concat(A4_UICOMPONENTS_DIR.concat(A4_FRONTPAGE_DIR)));
 		}
 	}
 	

@@ -40,20 +40,19 @@ public class ModuleArtifactsGenerator extends AbstractBuildProcessorDecorator {
 	@Override
 	protected BuildContext decorate(BuildContext context) {
 		for(ModuleData moduleData: context.getApplicationData().getModules()) {
-			String moduleId = StringUtil.lowerCase(moduleData.getName());
 			String moduleDir = this.getModuleOutputDirectory(context, moduleData);
-			String pageDir = StringUtil.trailingSlashIt("components").concat(StringUtil.trailingSlashIt("page"));
-			String uiComponentDir = StringUtil.trailingSlashIt("components").concat(StringUtil.trailingSlashIt("ui-component"));
+			String frontPageDir = StringUtil.trailingSlashIt("components").concat(StringUtil.trailingSlashIt("page/front-page"));
+			String frontPagePanelDir = StringUtil.trailingSlashIt("components").concat(StringUtil.trailingSlashIt("ui-component/front-page"));
 			String dataDir = moduleDir.concat(A4ProjectDirectoryBuilder.A4_DATA_DIR);
 			
 			this.generateModuleArtifact(context, moduleData, A4_MODULE_INDEX_TMPL_FTL, "index.ts", moduleDir);
-			this.generateModuleArtifact(context, moduleData, A4_MODULE_CONFIG_TMPL_FTL, moduleId.concat(".module.ts"), moduleDir);
-			this.generateModuleArtifact(context, moduleData, A4_MODULE_ROUTES_TMPL_FTL, moduleId.concat(".routes.ts"), moduleDir);
-			this.generateModuleArtifact(context, moduleData, A4_MODULE_ROUTES_MODULE_TMPL_FTL, moduleId.concat(".routing.module.ts"), moduleDir);
-			this.generateModuleArtifact(context, moduleData, A4_MODULE_ENTRY_PAGE_TMPL_FTL, moduleId.concat("-entry-page.component.ts"), moduleDir.concat(pageDir));
-			this.generateModuleArtifact(context, moduleData, A4_MODULE_ENTRY_PAGE_MODEL_TMPL_FTL, moduleId.concat("-entry-page-component-model.ts"), moduleDir.concat(pageDir));
-			this.generateModuleArtifact(context, moduleData, A4_MODULE_ENTRY_COMPONENT_TMPL_FTL, moduleId.concat("-entry.component.ts"), moduleDir.concat(uiComponentDir));
-			this.generateModuleArtifact(context, moduleData, A4_MODULE_ENTRY_COMPONENT_MODEL_TMPL_FTL, moduleId.concat("-entry-model-component.ts"), moduleDir.concat(uiComponentDir));
+			this.generateModuleArtifact(context, moduleData, A4_MODULE_CONFIG_TMPL_FTL, moduleData.getId().concat(".module.ts"), moduleDir);
+			this.generateModuleArtifact(context, moduleData, A4_MODULE_ROUTES_TMPL_FTL, moduleData.getId().concat(".routes.ts"), moduleDir);
+			this.generateModuleArtifact(context, moduleData, A4_MODULE_ROUTES_MODULE_TMPL_FTL, moduleData.getId().concat(".routing.module.ts"), moduleDir);
+			this.generateModuleArtifact(context, moduleData, A4_MODULE_ENTRY_PAGE_TMPL_FTL, "front-page.component.ts", moduleDir.concat(frontPageDir));
+			this.generateModuleArtifact(context, moduleData, A4_MODULE_ENTRY_PAGE_MODEL_TMPL_FTL, "front-page-component-model.ts", moduleDir.concat(frontPageDir));
+			this.generateModuleArtifact(context, moduleData, A4_MODULE_ENTRY_COMPONENT_TMPL_FTL, "front-page-panel.component.ts", moduleDir.concat(frontPagePanelDir));
+			this.generateModuleArtifact(context, moduleData, A4_MODULE_ENTRY_COMPONENT_MODEL_TMPL_FTL, "front-page-panel-model.ts", moduleDir.concat(frontPagePanelDir));
 			this.generateModelObjects(context, moduleData, dataDir);
 		}
 		return context;
@@ -64,10 +63,9 @@ public class ModuleArtifactsGenerator extends AbstractBuildProcessorDecorator {
 	 * @param moduleData
 	 */
 	protected String getModuleOutputDirectory(BuildContext context, ModuleData moduleData) {
-		String moduleId = moduleData.getName().toLowerCase();
-		String moduleDir = StringUtil.trailingSlashIt(moduleId);
+		String moduleDir = StringUtil.trailingSlashIt(moduleData.getId());
 		moduleDir = context.getTargetDir().concat(A4ProjectDirectoryBuilder.A4_APP_DIR);
-		moduleDir = moduleDir.concat(StringUtil.trailingSlashIt(moduleId));
+		moduleDir = moduleDir.concat(StringUtil.trailingSlashIt(moduleData.getId()));
 		System.out.println("Got module output directory" +  moduleDir);
 		return moduleDir;
 	}
@@ -102,17 +100,15 @@ public class ModuleArtifactsGenerator extends AbstractBuildProcessorDecorator {
 	protected String resolveBaseTemplateDir(BuildContext context, ModuleData moduleData, String template) {
 		String baseTemplateDir = StringUtil.trailingSlashIt("module");
 		if(this.hasOverrides(context, moduleData, template)) {
-			String moduleId = StringUtil.lowerCase(moduleData.getName());
-			baseTemplateDir =  "modules/".concat(StringUtil.trailingSlashIt(moduleId));
+			baseTemplateDir =  "modules/".concat(StringUtil.trailingSlashIt(moduleData.getId()));
 		}
 		return baseTemplateDir;
 	}
 	
 	private boolean hasOverrides(BuildContext context, ModuleData moduleData, String template){
-		String moduleId = StringUtil.lowerCase(moduleData.getName());
 		String projectPath = StringUtil.trailingSlashIt(context.getArtifactId());
 		String uaTemplateDirectory = context.getProjectDir().concat("templates/a4-portal/a4-ua/");
-		uaTemplateDirectory = uaTemplateDirectory.concat(projectPath).concat("modules/").concat(StringUtil.trailingSlashIt(moduleId));
+		uaTemplateDirectory = uaTemplateDirectory.concat(projectPath).concat("modules/").concat(StringUtil.trailingSlashIt(moduleData.getId()));
 		String templateFilePath = uaTemplateDirectory.concat(template);
 		File templateFile = new File(templateFilePath);
 		if(templateFile.exists()) {

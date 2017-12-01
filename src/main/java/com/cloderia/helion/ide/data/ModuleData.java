@@ -14,6 +14,7 @@ import javax.xml.bind.annotation.XmlElement;
  */
 public class ModuleData implements ArtifactData {
 	
+	private String id;
 	private String name;
 	private String description;
 	List<EntityData> entityDatas = new ArrayList<EntityData>();
@@ -22,6 +23,21 @@ public class ModuleData implements ArtifactData {
 	 * 
 	 */
 	public ModuleData() {
+	}
+
+	/**
+	 * @return the id
+	 */
+	public String getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	@XmlElement
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	/**
