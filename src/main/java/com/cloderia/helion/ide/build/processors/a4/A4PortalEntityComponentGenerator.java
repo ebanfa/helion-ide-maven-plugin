@@ -4,11 +4,11 @@
 package com.cloderia.helion.ide.build.processors.a4;
 
 import com.cloderia.helion.ide.IDEException;
+import com.cloderia.helion.ide.artifacts.Entity;
+import com.cloderia.helion.ide.artifacts.Module;
 import com.cloderia.helion.ide.build.BuildContext;
 import com.cloderia.helion.ide.build.processors.AbstractBuildProcessorDecorator;
 import com.cloderia.helion.ide.build.processors.BuildProcessor;
-import com.cloderia.helion.ide.data.EntityData;
-import com.cloderia.helion.ide.data.ModuleData;
 import com.cloderia.helion.ide.util.IDEUtil;
 
 /**
@@ -48,8 +48,8 @@ public class A4PortalEntityComponentGenerator extends AbstractBuildProcessorDeco
 	 */
 	protected BuildContext generateServices(BuildContext context, String componentDir) {
 		
-		for(ModuleData moduleData: context.getApplicationData().getModules()){
-			for(EntityData entity : moduleData.getEntities()) {
+		for(Module moduleData: context.getApplication().getModules()){
+			for(Entity entity : moduleData.getEntities()) {
 				if(entity.isHasUI()) {
 					try {
 						generateEntityComponents(context, entity, componentDir.concat(IDEUtil.getEntityPath(entity)));
@@ -68,7 +68,7 @@ public class A4PortalEntityComponentGenerator extends AbstractBuildProcessorDeco
 	 * @param moduleDir
 	 * @throws IDEException
 	 */
-	protected void generateEntityComponents(BuildContext context, EntityData entity, String moduleDir)
+	protected void generateEntityComponents(BuildContext context, Entity entity, String moduleDir)
 			throws IDEException {
 		String listHtmlTarget = "list-" + entity.getLCName() + ".component.html";
 		String listComponentTarget = "list-" + entity.getLCName() + ".component.ts";

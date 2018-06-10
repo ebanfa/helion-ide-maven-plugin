@@ -10,17 +10,18 @@ import java.util.List;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.bind.Marshaller;
 
 import com.cloderia.helion.ide.IDEException;
+import com.cloderia.helion.ide.artifacts.Application;
+import com.cloderia.helion.ide.artifacts.Artifact;
+import com.cloderia.helion.ide.artifacts.Entity;
+import com.cloderia.helion.ide.artifacts.Module;
 import com.cloderia.helion.ide.build.BuildContext;
 import com.cloderia.helion.ide.build.processors.BuildProcessor;
-import com.cloderia.helion.ide.data.ApplicationData;
-import com.cloderia.helion.ide.data.ArtifactData;
-import com.cloderia.helion.ide.data.EntityData;
-import com.cloderia.helion.ide.data.ModuleData;
-import com.cloderia.helion.ide.generator.ArtifactGenerator;
-import com.cloderia.helion.ide.generator.ArtifactGeneratorData;
-import com.cloderia.helion.ide.generator.FreeMarkerArtifactGenerator;
+import com.cloderia.helion.ide.generators.ArtifactGenerator;
+import com.cloderia.helion.ide.generators.ArtifactGeneratorData;
+import com.cloderia.helion.ide.generators.FreeMarkerArtifactGenerator;
 
 /**
  * @author adrian
@@ -29,7 +30,6 @@ import com.cloderia.helion.ide.generator.FreeMarkerArtifactGenerator;
 @SuppressWarnings("restriction")
 public class IDEUtil {
 
-	
 	/**
 	 * @param configFile
 	 * @return
@@ -47,24 +47,26 @@ public class IDEUtil {
 			throw new IDEException(e.getMessage());
 		}
 	}
-	
-	/* (non-Javadoc)
-	 * @see com.cloderia.helion.ide.loader.ArtifactDataLoader#loadArtifactsData(com.cloderia.helion.ide.configuration.BuildConfiguration)
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.cloderia.helion.ide.loader.ArtifactDataLoader#loadArtifactsData(com.
+	 * cloderia.helion.ide.configuration.BuildConfiguration)
 	 */
-	public static ApplicationData loadApplicationData(String configFile) throws IDEException {
+	public static Application loadApplicationData(String configFile) throws IDEException {
 		try {
-			JAXBContext jaxbContext = JAXBContext.newInstance(ApplicationData.class);
+			JAXBContext jaxbContext = JAXBContext.newInstance(Application.class);
 			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-			ApplicationData application = (ApplicationData) jaxbUnmarshaller.unmarshal(new File(configFile));
-			ArtifactUtil.preProcess(application);
+			Application application = (Application) jaxbUnmarshaller.unmarshal(new File(configFile));
+			//ArtifactUtil.preProcess(application);
 			return application;
 		} catch (JAXBException e) {
 			e.printStackTrace();
 			throw new IDEException(e.getMessage());
-			
+
 		}
 	}
-	
 
 	/**
 	 * @param buildContext
@@ -72,7 +74,7 @@ public class IDEUtil {
 	 */
 	public static List<BuildProcessor<BuildContext>> getBuildProcessors(BuildContext buildContext) {
 		List<BuildProcessor<BuildContext>> processors = new ArrayList<BuildProcessor<BuildContext>>();
-		for(String processor: buildContext.getProcessor()) {
+		for (String processor : buildContext.getProcessor()) {
 			try {
 				processors.add((BuildProcessor<BuildContext>) Class.forName(processor).newInstance());
 			} catch (InstantiationException e) {
@@ -85,27 +87,40 @@ public class IDEUtil {
 		}
 		return processors;
 	}
-	
+
 	/**
 	 * @param buildConfiguration
 	 * @throws IDEException
 	 */
-	public static void generateArtifact(BuildContext context, ArtifactData artifactData,
-			String inputFile, String outputFile, String outputDirectory) throws IDEException {
-		ArtifactGeneratorData generatorData = new ArtifactGeneratorData(artifactData, inputFile, outputFile, outputDirectory);
+	public static void generateArtifact(BuildContext context, Artifact artifactData, String inputFile,
+			String outputFile, String outputDirectory) throws IDEException {
+		ArtifactGeneratorData generatorData = new ArtifactGeneratorData(artifactData, inputFile, outputFile,
+				outputDirectory);
 		ArtifactGenerator artifactGenerator = new FreeMarkerArtifactGenerator();
 		artifactGenerator.generateArtifact(context, generatorData);
 	}
-	
+
+	public static void writeApplicationXML(String config, Application application) {
+		try {
+			File file = new File(config);
+			JAXBContext jaxbContext = JAXBContext.newInstance(Application.class);
+			Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+			jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+			jaxbMarshaller.marshal(application, file);
+		} catch (JAXBException e) {
+			e.printStackTrace();
+		}
+	}
+
 	/**
 	 * @param module
 	 * @return
 	 */
-	public static String getModulePath(ModuleData module){
+	public static String getModulePath(Module module) {
 		return module.getName().toLowerCase().concat("/");
 	}
-	
-	public static String getEntityPath(EntityData entity){
+
+	public static String getEntityPath(Entity entity) {
 		return getModulePath(entity.getModule()).concat(entity.getName().toLowerCase().concat("/"));
 	}
 }

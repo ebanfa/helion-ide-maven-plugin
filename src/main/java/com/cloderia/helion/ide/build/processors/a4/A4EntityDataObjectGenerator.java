@@ -4,11 +4,11 @@
 package com.cloderia.helion.ide.build.processors.a4;
 
 import com.cloderia.helion.ide.IDEException;
+import com.cloderia.helion.ide.artifacts.Entity;
+import com.cloderia.helion.ide.artifacts.Module;
 import com.cloderia.helion.ide.build.BuildContext;
 import com.cloderia.helion.ide.build.processors.AbstractBuildProcessorDecorator;
 import com.cloderia.helion.ide.build.processors.BuildProcessor;
-import com.cloderia.helion.ide.data.EntityData;
-import com.cloderia.helion.ide.data.ModuleData;
 import com.cloderia.helion.ide.util.IDEUtil;
 import com.cloderia.helion.ide.util.StringUtil;
 
@@ -33,8 +33,8 @@ public class A4EntityDataObjectGenerator extends AbstractBuildProcessorDecorator
 		String componentDir = context.getTargetDir().concat(
 				A4ProjectResourcesProcessor.A4_APP_DATA_OBJECCT_DIR);
 		// Loop through module down to entities and for each entity generate its artefacts
-		for(ModuleData moduleData: context.getApplicationData().getModules()) {
-			for(EntityData entity : moduleData.getEntities()) {
+		for(Module moduleData: context.getApplication().getModules()) {
+			for(Entity entity : moduleData.getEntities()) {
 				if(entity.isHasServices()) {
 					try {
 						

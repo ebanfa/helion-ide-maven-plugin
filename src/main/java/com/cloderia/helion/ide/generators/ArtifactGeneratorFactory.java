@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.cloderia.helion.ide.generator;
+package com.cloderia.helion.ide.generators;
 
 import com.cloderia.helion.ide.IDEException;
 

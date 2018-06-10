@@ -1,9 +1,9 @@
 /**
  * 
  */
-package com.cloderia.helion.ide.generator;
+package com.cloderia.helion.ide.generators;
 
-import com.cloderia.helion.ide.data.ArtifactData;
+import com.cloderia.helion.ide.artifacts.Artifact;
 
 /**
  * @author adrian
@@ -11,7 +11,7 @@ import com.cloderia.helion.ide.data.ArtifactData;
  */
 public class ArtifactGeneratorData {
 
-	private ArtifactData data;
+	private Artifact data;
 	private String inputFile;
 	private String outputFile;
 	private String outputDir;
@@ -23,7 +23,7 @@ public class ArtifactGeneratorData {
 	 * @param outputFile
 	 * @param outputDir
 	 */
-	public ArtifactGeneratorData(ArtifactData data, String inputFile, String outputFile, String outputDir) {
+	public ArtifactGeneratorData(Artifact data, String inputFile, String outputFile, String outputDir) {
 		super();
 		this.data = data;
 		this.inputFile = inputFile;
@@ -69,13 +69,13 @@ public class ArtifactGeneratorData {
 	/**
 	 * @return the data
 	 */
-	public ArtifactData getData() {
+	public Artifact getData() {
 		return data;
 	}
 	/**
 	 * @param data the data to set
 	 */
-	public void setData(ArtifactData data) {
+	public void setData(Artifact data) {
 		this.data = data;
 	}
 

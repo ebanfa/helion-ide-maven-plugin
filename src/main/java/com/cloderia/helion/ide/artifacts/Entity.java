@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.cloderia.helion.ide.data;
+package com.cloderia.helion.ide.artifacts;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,23 +15,24 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author adrian
  *
  */
-public class EntityData implements ArtifactData {
+public class Entity implements Artifact {
 
 	private String name;
+	private String tableName;
 	private boolean hasUI;
 	private boolean hasEndpoint;
 	private boolean hasServices;
 	private String parentName;
 	private String displayName;
 	private String description;
-	private ModuleData moduleData;
+	private Module moduleData;
 	private List<FieldData> fieldDatas = new ArrayList<FieldData>();
-	private Map<String, EntityData> relatedChildEntities = new HashMap<String, EntityData>();
+	private Map<String, Entity> relatedChildEntities = new HashMap<String, Entity>();
 
 	/**
 	 * 
 	 */
-	public EntityData() {
+	public Entity() {
 	}
 
 	/**
@@ -147,16 +148,32 @@ public class EntityData implements ArtifactData {
 	}
 
 	/**
+	 * @return the tableName
+	 */
+	public String getTableName() {
+		return tableName;
+	}
+
+	/**
+	 * @param tableName the tableName to set
+	 */
+	@XmlElement
+	public void setTableName(String tableName) {
+		this.tableName = tableName;
+	}
+
+	/**
 	 * @return the moduleData
 	 */
-	public ModuleData getModule() {
+	public Module getModule() {
 		return moduleData;
 	}
 
 	/**
 	 * @param moduleData the moduleData to set
 	 */
-	public void setModule(ModuleData moduleData) {
+	@XmlTransient   
+	public void setModule(Module moduleData) {
 		this.moduleData = moduleData;
 	}
 
@@ -175,21 +192,29 @@ public class EntityData implements ArtifactData {
 		this.fieldDatas = fieldDatas;
 	}
 
-	public String getArtifactDataType() {
+	public String getArtifactType() {
 		return "entity";
 	}
 
 	/**
 	 * @return the relatedChildEntities
 	 */
-	public Map<String, EntityData> getRelatedChildEntities() {
+	public Map<String, Entity> getRelatedChildEntities() {
 		return relatedChildEntities;
 	}
 
 	/**
 	 * @param relatedChildEntities the relatedChildEntities to set
 	 */
-	public void setRelatedChildEntities(Map<String, EntityData> relatedChildEntities) {
+	public void setRelatedChildEntities(Map<String, Entity> relatedChildEntities) {
 		this.relatedChildEntities = relatedChildEntities;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "EntityData [name=" + name + "]";
 	}
 }

@@ -4,11 +4,11 @@
 package com.cloderia.helion.ide.build.processors.a4;
 
 import com.cloderia.helion.ide.IDEException;
+import com.cloderia.helion.ide.artifacts.ContainerData;
+import com.cloderia.helion.ide.artifacts.UiConfig;
 import com.cloderia.helion.ide.build.BuildContext;
 import com.cloderia.helion.ide.build.processors.AbstractBuildProcessorDecorator;
 import com.cloderia.helion.ide.build.processors.BuildProcessor;
-import com.cloderia.helion.ide.data.PageData;
-import com.cloderia.helion.ide.data.UiConfig;
 import com.cloderia.helion.ide.util.FileUtil;
 import com.cloderia.helion.ide.util.IDEUtil;
 import com.cloderia.helion.ide.util.StringUtil;
@@ -40,16 +40,16 @@ public class A4UiPagesGenerator extends AbstractBuildProcessorDecorator {
 	 */
 	@Override
 	protected BuildContext decorate(BuildContext context) {
-		UiConfig  config = context.getApplicationData().getUiConfig();
+		/*UiConfig  config = context.getApplication().getUiConfig();*/
 		// 1. Get the base component directory
-		String frontendDir = context.getTargetDir().concat(A4ProjectDirectoryBuilder.A4_COMPONENTS_FRONTEND_DIR);
+		/*String frontendDir = context.getTargetDir().concat(A4ProjectDirectoryBuilder.A4_COMPONENTS_FRONTEND_DIR);
 		String portalDir = context.getTargetDir().concat(A4ProjectDirectoryBuilder.A4_COMPONENTS_PORTAL_DIR);
 		String commonDir = context.getTargetDir().concat(A4ProjectDirectoryBuilder.A4_COMPONENTS_COMMON_DIR);
 		System.out.println("Frontend dir is " + frontendDir);
 		System.out.println("portalDir dir is " + portalDir);
 		System.out.println("commonDir dir is " + commonDir);
 		// 2. For all pages
-		for (PageData page : config.getPageDatas()) {
+		for (ContainerData page : config.getPageDatas()) {
 			String siteDir = null;
 			
 			if(page.getSite().equals("common")) siteDir = commonDir;
@@ -66,7 +66,7 @@ public class A4UiPagesGenerator extends AbstractBuildProcessorDecorator {
 			// 7. Check if custom template for html template file exists
 			// 8. Generate the html template
 			
-		}
+		}*/
 		
 		return context;
 	}
@@ -76,11 +76,11 @@ public class A4UiPagesGenerator extends AbstractBuildProcessorDecorator {
 	 * @param page
 	 * @param pageDir
 	 */
-	protected void generatePageTemplate(BuildContext context, PageData page, String pageDir) {
+	protected void generatePageTemplate(BuildContext context, ContainerData page, String pageDir) {
 		String htmlTarget = page.getName() + ".component.html";
 		String componentTarget = page.getName() + ".component.ts";
 		// 5. Check if custom component template exists
-		try {
+		/*try {
 			if(page.isHasDataModel()) {
 				if(page.getDataModelAction().equals("list")){
 					IDEUtil.generateArtifact(context, page, DATAMODEL_LIST_PAGE_COMPONENT_HTML_TMPL_FTL, htmlTarget, pageDir);
@@ -105,7 +105,7 @@ public class A4UiPagesGenerator extends AbstractBuildProcessorDecorator {
 			}
 		} catch (IDEException e) {
 			e.printStackTrace();
-		}
+		}*/
 	}
 
 }

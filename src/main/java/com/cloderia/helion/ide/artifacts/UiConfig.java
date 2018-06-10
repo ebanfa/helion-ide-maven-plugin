@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.cloderia.helion.ide.data;
+package com.cloderia.helion.ide.artifacts;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,11 +12,11 @@ import javax.xml.bind.annotation.XmlElement;
  * @author adrian
  *
  */
-public class UiConfig implements ArtifactData {
+public class UiConfig implements Artifact {
 	
 	private String themeColor;
 	private String defaultPage;
-	private List<PageData> pageDatas = new ArrayList<PageData>();
+	private List<ContainerData> containerDatas = new ArrayList<ContainerData>();
 	
 
 	/**
@@ -52,22 +52,22 @@ public class UiConfig implements ArtifactData {
 	/**
 	 * @return the pageDatas
 	 */
-	public List<PageData> getPageDatas() {
-		return pageDatas;
+	public List<ContainerData> getContainerDatas() {
+		return containerDatas;
 	}
 
 	/**
 	 * @param pageDatas the pageDatas to set
 	 */
-	@XmlElement(name="page")
-	public void setPageDatas(List<PageData> pageDatas) {
-		this.pageDatas = pageDatas;
+	@XmlElement(name="container")
+	public void setContainerDatas(List<ContainerData> containerDatas) {
+		this.containerDatas = containerDatas;
 	}
 
 	/* (non-Javadoc)
 	 * @see com.cloderia.helion.ide.data.ArtifactData#getArtifactDataType()
 	 */
-	public String getArtifactDataType() {
+	public String getArtifactType() {
 		// TODO Auto-generated method stub
 		return null;
 	}

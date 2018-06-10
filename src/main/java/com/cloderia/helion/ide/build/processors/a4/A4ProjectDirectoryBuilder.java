@@ -4,11 +4,11 @@
 package com.cloderia.helion.ide.build.processors.a4;
 
 import com.cloderia.helion.ide.IDEException;
+import com.cloderia.helion.ide.artifacts.Entity;
+import com.cloderia.helion.ide.artifacts.Module;
 import com.cloderia.helion.ide.build.BuildContext;
 import com.cloderia.helion.ide.build.processors.AbstractBuildProcessorDecorator;
 import com.cloderia.helion.ide.build.processors.BuildProcessor;
-import com.cloderia.helion.ide.data.EntityData;
-import com.cloderia.helion.ide.data.ModuleData;
 import com.cloderia.helion.ide.util.FileUtil;
 import com.cloderia.helion.ide.util.IDEUtil;
 import com.cloderia.helion.ide.util.StringUtil;
@@ -42,7 +42,7 @@ public class A4ProjectDirectoryBuilder extends AbstractBuildProcessorDecorator {
 	@Override
 	protected BuildContext decorate(BuildContext context) {
 		System.out.println("############################## A4ProjectDirectoryBuilder");
-		for(ModuleData moduleData: context.getApplicationData().getModules()){
+		for(Module moduleData: context.getApplication().getModules()){
 			this.buildModuleDir(context, moduleData);
 		}
 		//FileUtil.deleteDir(context.getTargetDir());
@@ -56,7 +56,7 @@ public class A4ProjectDirectoryBuilder extends AbstractBuildProcessorDecorator {
 		return context;
 	}
 	
-	private void buildModuleDir(BuildContext context, ModuleData module){
+	private void buildModuleDir(BuildContext context, Module module){
 		String appDir = context.getTargetDir().concat(A4_APP_DIR);
 		String moduleDir = appDir.concat(StringUtil.trailingSlashIt(module.getName().toLowerCase()));
 		FileUtil.createDirectoryIfNeeded(moduleDir);

@@ -29,11 +29,11 @@ public class A4ModuleResourcesProcessor extends AbstractBuildProcessorDecorator 
 	@Override
 	protected BuildContext decorate(BuildContext context) {
 		// Copy the main and ua src/app folders
-		String sourceDir = context.getResourcesDir().concat(A4ProjectDirectoryBuilder.A4_APP_DIR);
+		/*String sourceDir = context.getResourcesDir().concat(A4ProjectDirectoryBuilder.A4_APP_DIR);
 		String uaResourceDir = context.getUaResourcesDir().concat(StringUtil.trailingSlashIt(context.getArtifactId()));
 		
 		FileUtil.copyDirectory(sourceDir, context.getTargetDir().concat(A4ProjectDirectoryBuilder.A4_APP_DIR));
-		FileUtil.copyDirectory(uaResourceDir.concat(A4ProjectDirectoryBuilder.A4_APP_DIR), context.getTargetDir().concat(A4ProjectDirectoryBuilder.A4_APP_DIR));
+		FileUtil.copyDirectory(uaResourceDir.concat(A4ProjectDirectoryBuilder.A4_APP_DIR), context.getTargetDir().concat(A4ProjectDirectoryBuilder.A4_APP_DIR));*/
 		return context;
 	}
 }

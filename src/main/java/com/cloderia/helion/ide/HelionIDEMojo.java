@@ -30,7 +30,6 @@ public class HelionIDEMojo extends AbstractIDEMojo {
 	 */
 	protected void build(BuildContext buildContext) {
 		List<BuildProcessor<BuildContext>> processors = IDEUtil.getBuildProcessors(buildContext);
-		System.out.println("######### Processors" + processors);
 		HelionIDEBuildPipeline pipeline = new HelionIDEBuildPipeline(processors);
 		pipeline.build(buildContext);
 	}

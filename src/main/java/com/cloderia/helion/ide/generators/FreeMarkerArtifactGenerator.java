@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.cloderia.helion.ide.generator;
+package com.cloderia.helion.ide.generators;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -71,9 +71,9 @@ public class FreeMarkerArtifactGenerator implements ArtifactGenerator {
 			Map<String, Object> root = new HashMap<String, Object>();
 			
 			if(artifactGeneratorData.getData() != null)
-				root.put(artifactGeneratorData.getData().getArtifactDataType(), artifactGeneratorData.getData());
+				root.put(artifactGeneratorData.getData().getArtifactType(), artifactGeneratorData.getData());
 			// This is for templates the need a reference to the application object
-			root.put("applicationRef", context.getApplicationData());
+			root.put("applicationRef", context.getApplication());
 			FileUtil.createDirectoryIfNeeded(artifactGeneratorData.getOutputDir());
 			// Try to load the entity specific file
 			try{

@@ -5,10 +5,10 @@ package com.cloderia.helion.ide.util;
 
 import java.util.List;
 
-import com.cloderia.helion.ide.data.ApplicationData;
-import com.cloderia.helion.ide.data.EntityData;
-import com.cloderia.helion.ide.data.FieldData;
-import com.cloderia.helion.ide.data.ModuleData;
+import com.cloderia.helion.ide.artifacts.Application;
+import com.cloderia.helion.ide.artifacts.Entity;
+import com.cloderia.helion.ide.artifacts.FieldData;
+import com.cloderia.helion.ide.artifacts.Module;
 
 /**
  * @author adrian
@@ -20,9 +20,9 @@ public class ArtifactUtil {
 	 * @param application
 	 * @return
 	 */
-	public static void preProcess(ApplicationData application) {
-		List<ModuleData> modules = application.getModules();
-		ModuleData[] modulesArray = modules.toArray(new ModuleData[0]);
+	public static void preProcess(Application application) {
+		List<Module> modules = application.getModules();
+		Module[] modulesArray = modules.toArray(new Module[0]);
 		for (int i = 0; i < modulesArray.length; i++) {
 			System.out.println(">>>>>>>>>>>>>>>>>>>" + modulesArray[i].getName());
 			preProcessModule(modulesArray[i]);
@@ -32,8 +32,8 @@ public class ArtifactUtil {
 	/**
 	 * @param module
 	 */
-	private static void preProcessModule(ModuleData module) {
-		for (EntityData entity : module.getEntities()) {
+	private static void preProcessModule(Module module) {
+		for (Entity entity : module.getEntities()) {
 			preProcessEntity(entity, module);
 		}
 	}
@@ -42,7 +42,7 @@ public class ArtifactUtil {
 	 * @param entity
 	 * @param module
 	 */
-	private static void preProcessEntity(EntityData entity, ModuleData module){
+	private static void preProcessEntity(Entity entity, Module module){
 		for (FieldData field : entity.getFields()) {
 			preProcessField(field);
 		}

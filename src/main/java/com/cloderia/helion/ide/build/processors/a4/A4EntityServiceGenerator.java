@@ -4,11 +4,11 @@
 package com.cloderia.helion.ide.build.processors.a4;
 
 import com.cloderia.helion.ide.IDEException;
+import com.cloderia.helion.ide.artifacts.Entity;
+import com.cloderia.helion.ide.artifacts.Module;
 import com.cloderia.helion.ide.build.BuildContext;
 import com.cloderia.helion.ide.build.processors.AbstractBuildProcessorDecorator;
 import com.cloderia.helion.ide.build.processors.BuildProcessor;
-import com.cloderia.helion.ide.data.EntityData;
-import com.cloderia.helion.ide.data.ModuleData;
 import com.cloderia.helion.ide.util.IDEUtil;
 
 /**
@@ -39,8 +39,8 @@ public class A4EntityServiceGenerator extends AbstractBuildProcessorDecorator {
 	 */
 	protected BuildContext generateServices(BuildContext context, String componentDir) {
 		
-		for(ModuleData moduleData: context.getApplicationData().getModules()){
-			for(EntityData entity : moduleData.getEntities()) {
+		for(Module moduleData: context.getApplication().getModules()){
+			for(Entity entity : moduleData.getEntities()) {
 				if(entity.isHasServices()) {
 					try {
 						generateEntityService(context, entity, componentDir.concat(IDEUtil.getEntityPath(entity)));
@@ -59,7 +59,7 @@ public class A4EntityServiceGenerator extends AbstractBuildProcessorDecorator {
 	 * @param moduleDir
 	 * @throws IDEException
 	 */
-	protected void generateEntityService(BuildContext context, EntityData entity, String moduleDir)
+	protected void generateEntityService(BuildContext context, Entity entity, String moduleDir)
 			throws IDEException {
 		String interfaceTarget = entity.getLCName() + "-interface.service.ts";
 		String implementationTarget = entity.getLCName() + "-implementation.service.ts";

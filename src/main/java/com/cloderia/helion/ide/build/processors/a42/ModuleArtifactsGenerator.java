@@ -6,11 +6,11 @@ package com.cloderia.helion.ide.build.processors.a42;
 import java.io.File;
 
 import com.cloderia.helion.ide.IDEException;
+import com.cloderia.helion.ide.artifacts.Entity;
+import com.cloderia.helion.ide.artifacts.Module;
 import com.cloderia.helion.ide.build.BuildContext;
 import com.cloderia.helion.ide.build.processors.AbstractBuildProcessorDecorator;
 import com.cloderia.helion.ide.build.processors.BuildProcessor;
-import com.cloderia.helion.ide.data.EntityData;
-import com.cloderia.helion.ide.data.ModuleData;
 import com.cloderia.helion.ide.util.IDEUtil;
 import com.cloderia.helion.ide.util.StringUtil;
 
@@ -39,7 +39,7 @@ public class ModuleArtifactsGenerator extends AbstractBuildProcessorDecorator {
 	 */
 	@Override
 	protected BuildContext decorate(BuildContext context) {
-		for(ModuleData moduleData: context.getApplicationData().getModules()) {
+		for(Module moduleData: context.getApplication().getModules()) {
 			String moduleDir = this.getModuleOutputDirectory(context, moduleData);
 			String frontPageDir = StringUtil.trailingSlashIt("components").concat(StringUtil.trailingSlashIt("page/front-page"));
 			String frontPagePanelDir = StringUtil.trailingSlashIt("components").concat(StringUtil.trailingSlashIt("ui-component/front-page"));
@@ -62,7 +62,7 @@ public class ModuleArtifactsGenerator extends AbstractBuildProcessorDecorator {
 	 * @param context
 	 * @param moduleData
 	 */
-	protected String getModuleOutputDirectory(BuildContext context, ModuleData moduleData) {
+	protected String getModuleOutputDirectory(BuildContext context, Module moduleData) {
 		String moduleDir = StringUtil.trailingSlashIt(moduleData.getId());
 		moduleDir = context.getTargetDir().concat(A4ProjectDirectoryBuilder.A4_APP_DIR);
 		moduleDir = moduleDir.concat(StringUtil.trailingSlashIt(moduleData.getId()));
@@ -71,7 +71,7 @@ public class ModuleArtifactsGenerator extends AbstractBuildProcessorDecorator {
 	}
 
 	
-	private void generateModuleArtifact(BuildContext context, ModuleData moduleData, String template, String outputFileName, String outputDir){
+	private void generateModuleArtifact(BuildContext context, Module moduleData, String template, String outputFileName, String outputDir){
 		try {
 			String baseTemplateDir = resolveBaseTemplateDir(context, moduleData, template);
 			System.out.println("Generating module artifact " +  outputFileName + " suing tmpl " + template + " base dir "+ baseTemplateDir);
@@ -81,7 +81,7 @@ public class ModuleArtifactsGenerator extends AbstractBuildProcessorDecorator {
 		}
 	}
 
-	private void generateEntityArtifact(BuildContext context, EntityData entityData, String template, String outputFileName, String outputDir){
+	private void generateEntityArtifact(BuildContext context, Entity entityData, String template, String outputFileName, String outputDir){
 		try {
 			String baseTemplateDir = resolveBaseTemplateDir(context, entityData.getModule(), template);
 			System.out.println("Generating module artifact " +  outputFileName + " suing tmpl " + template + " base dir "+ baseTemplateDir);
@@ -97,7 +97,7 @@ public class ModuleArtifactsGenerator extends AbstractBuildProcessorDecorator {
 	 * @param moduleData
 	 * @param template
 	 */
-	protected String resolveBaseTemplateDir(BuildContext context, ModuleData moduleData, String template) {
+	protected String resolveBaseTemplateDir(BuildContext context, Module moduleData, String template) {
 		String baseTemplateDir = StringUtil.trailingSlashIt("module");
 		if(this.hasOverrides(context, moduleData, template)) {
 			baseTemplateDir =  "modules/".concat(StringUtil.trailingSlashIt(moduleData.getId()));
@@ -105,8 +105,8 @@ public class ModuleArtifactsGenerator extends AbstractBuildProcessorDecorator {
 		return baseTemplateDir;
 	}
 	
-	private boolean hasOverrides(BuildContext context, ModuleData moduleData, String template){
-		String projectPath = StringUtil.trailingSlashIt(context.getArtifactId());
+	private boolean hasOverrides(BuildContext context, Module moduleData, String template){
+		/*String projectPath = StringUtil.trailingSlashIt(context.getArtifactId());
 		String uaTemplateDirectory = context.getProjectDir().concat("templates/a4-portal/a4-ua/");
 		uaTemplateDirectory = uaTemplateDirectory.concat(projectPath).concat("modules/").concat(StringUtil.trailingSlashIt(moduleData.getId()));
 		String templateFilePath = uaTemplateDirectory.concat(template);
@@ -115,7 +115,7 @@ public class ModuleArtifactsGenerator extends AbstractBuildProcessorDecorator {
 			System.out.println("Found override " +  templateFile);
 			return true;
 		}
-		System.out.println("Override not found " +  templateFile);
+		System.out.println("Override not found " +  templateFile);*/
 		return false;
 	}
 	
@@ -127,9 +127,9 @@ public class ModuleArtifactsGenerator extends AbstractBuildProcessorDecorator {
 	 * @param dataDir
 	 * @throws IDEException
 	 */
-	private void generateModelObjects(BuildContext context, ModuleData moduleData, String dataDir) 
+	private void generateModelObjects(BuildContext context, Module moduleData, String dataDir) 
 	{
-		for(EntityData entityData: moduleData.getEntities()) {
+		for(Entity entityData: moduleData.getEntities()) {
 			String overrideTmpl = "data/".concat(StringUtil.lowerCase(entityData.getName())).concat("-data-ts.ftl");
 			if(this.hasOverrides(context, moduleData, overrideTmpl))
 				this.generateEntityArtifact(context, entityData, overrideTmpl, StringUtil.lowerCase(entityData.getName()).concat(".ts"), dataDir);

@@ -5,8 +5,8 @@ package com.cloderia.helion.ide.build.processors.a4;
 
 import com.cloderia.helion.ide.build.BuildContext;
 import com.cloderia.helion.ide.build.processors.AbstractBuildProcessor;
-import com.cloderia.helion.ide.build.processors.BuildLogger;
-import com.cloderia.helion.ide.build.processors.EntityFieldProcessor;
+import com.cloderia.helion.ide.build.processors.misc.BuildLogger;
+import com.cloderia.helion.ide.build.processors.misc.EntityFieldProcessor;
 
 /**
  * @author adrian

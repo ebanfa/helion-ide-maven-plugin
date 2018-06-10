@@ -42,47 +42,41 @@ public class A4ProjectResourcesProcessor extends AbstractBuildProcessorDecorator
 	 * @param context
 	 */
 	protected void copyLocalProjectResources(BuildContext context) {
-		try {
 			String targetDir = context.getTargetDir().concat(A4ProjectDirectoryBuilder.A4_APP_DIR);
-			IDEUtil.generateArtifact(context, context.getApplicationData(), A4_APP_MODULE_TMPL_FTL, "app.module.ts", targetDir);
+			/*IDEUtil.generateArtifact(context, context.getApplicationData(), A4_APP_MODULE_TMPL_FTL, "app.module.ts", targetDir);
 			IDEUtil.generateArtifact(context, context.getApplicationData(), A4_APP_ROUTES_TMPL_FTL, "app.routes.ts", targetDir);
-			IDEUtil.generateArtifact(context, context.getApplicationData(), A4_APP_ROUTES_MODULE_TMPL_FTL, "app.routing.module.ts", targetDir);
+			IDEUtil.generateArtifact(context, context.getApplicationData(), A4_APP_ROUTES_MODULE_TMPL_FTL, "app.routing.module.ts", targetDir);*/
 
-			String sourceDir = context.getResourcesDir().concat(A4ProjectDirectoryBuilder.A4_SRC_DIR);
-			FileUtil.copyDirectory(context.getResourcesDir().concat(A4ProjectDirectoryBuilder.A4_E2E_DIR), context.getTargetDir().concat(A4ProjectDirectoryBuilder.A4_E2E_DIR));
+			/*String sourceDir = context.getResourcesDir().concat(A4ProjectDirectoryBuilder.A4_SRC_DIR);
+			FileUtil.copyDirectory(context.getResourcesDir().concat(A4ProjectDirectoryBuilder.A4_E2E_DIR), context.getTargetDir().concat(A4ProjectDirectoryBuilder.A4_E2E_DIR));*/
 			//FileUtil.copyDirectory(context.getResourcesDir().concat(A4ProjectDirectoryBuilder.A4_NODE_MODULES_DIR), context.getTargetDir().concat(A4ProjectDirectoryBuilder.A4_NODE_MODULES_DIR));
 			
-			FileUtil.copyFileToDirectory(context.getResourcesDir().concat("deploy.sh"), context.getTargetDir());
-			FileUtil.copyFileToDirectory(context.getResourcesDir().concat("README.md"), context.getTargetDir());
+			/* FileUtil.copyFileToDirectory(context.getResourcesDir().concat("deploy.sh"), context.getTargetDir()); */
+			/*FileUtil.copyFileToDirectory(context.getResourcesDir().concat("README.md"), context.getTargetDir());
 			FileUtil.copyFileToDirectory(context.getResourcesDir().concat("tslint.json"), context.getTargetDir());
 			FileUtil.copyFileToDirectory(context.getResourcesDir().concat("package.json"), context.getTargetDir());
 			FileUtil.copyFileToDirectory(context.getResourcesDir().concat("tsconfig.json"), context.getTargetDir());
 			FileUtil.copyFileToDirectory(context.getResourcesDir().concat("karma.conf.js"), context.getTargetDir());
 			FileUtil.copyFileToDirectory(context.getResourcesDir().concat("protractor.conf.js"), context.getTargetDir());
 			FileUtil.copyFileToDirectory(context.getResourcesDir().concat(".angular-cli.json"), context.getTargetDir());
-			FileUtil.copyFileToDirectory(context.getResourcesDir().concat(".editorconfig"), context.getTargetDir());
+			FileUtil.copyFileToDirectory(context.getResourcesDir().concat(".editorconfig"), context.getTargetDir());*/
 			//FileUtil.copyFileToDirectory(context.getResourcesDir().concat(".gitignore"), context.getTargetDir());
 			
 			// Resources under source folder
-			FileUtil.copyFileToDirectory(sourceDir.concat("favicon.ico"), context.getTargetDir().concat(A4ProjectDirectoryBuilder.A4_SRC_DIR));
+			/*FileUtil.copyFileToDirectory(sourceDir.concat("favicon.ico"), context.getTargetDir().concat(A4ProjectDirectoryBuilder.A4_SRC_DIR));
 			FileUtil.copyFileToDirectory(sourceDir.concat("index.html"), context.getTargetDir().concat(A4ProjectDirectoryBuilder.A4_SRC_DIR));
 			FileUtil.copyFileToDirectory(sourceDir.concat("main.ts"), context.getTargetDir().concat(A4ProjectDirectoryBuilder.A4_SRC_DIR));
 			FileUtil.copyFileToDirectory(sourceDir.concat("polyfills.ts"), context.getTargetDir().concat(A4ProjectDirectoryBuilder.A4_SRC_DIR));
-			FileUtil.copyFileToDirectory(sourceDir.concat("styles.css"), context.getTargetDir().concat(A4ProjectDirectoryBuilder.A4_SRC_DIR));
+			FileUtil.copyFileToDirectory(sourceDir.concat("styles.scss"), context.getTargetDir().concat(A4ProjectDirectoryBuilder.A4_SRC_DIR));
 			FileUtil.copyFileToDirectory(sourceDir.concat("test.ts"), context.getTargetDir().concat(A4ProjectDirectoryBuilder.A4_SRC_DIR));
 			FileUtil.copyFileToDirectory(sourceDir.concat("tsconfig.app.json"), context.getTargetDir().concat(A4ProjectDirectoryBuilder.A4_SRC_DIR));
 			FileUtil.copyFileToDirectory(sourceDir.concat("tsconfig.spec.json"), context.getTargetDir().concat(A4ProjectDirectoryBuilder.A4_SRC_DIR));
-			FileUtil.copyFileToDirectory(sourceDir.concat("typings.d.ts"), context.getTargetDir().concat(A4ProjectDirectoryBuilder.A4_SRC_DIR));
+			FileUtil.copyFileToDirectory(sourceDir.concat("typings.d.ts"), context.getTargetDir().concat(A4ProjectDirectoryBuilder.A4_SRC_DIR));*/
 
 			
 			targetDir = context.getTargetDir().concat(A4ProjectDirectoryBuilder.A4_SRC_DIR);
-			FileUtil.copyDirectory(sourceDir.concat(A4ProjectDirectoryBuilder.A4_ASSETS_DIR), targetDir.concat(A4ProjectDirectoryBuilder.A4_ASSETS_DIR));
-			FileUtil.copyDirectory(sourceDir.concat(A4ProjectDirectoryBuilder.A4_ENV_DIR), targetDir.concat(A4ProjectDirectoryBuilder.A4_ENV_DIR));
-			
-		} catch (IDEException e) {
-			e.printStackTrace();
-		}
-		
+			/*FileUtil.copyDirectory(sourceDir.concat(A4ProjectDirectoryBuilder.A4_ASSETS_DIR), targetDir.concat(A4ProjectDirectoryBuilder.A4_ASSETS_DIR));
+			FileUtil.copyDirectory(sourceDir.concat(A4ProjectDirectoryBuilder.A4_ENV_DIR), targetDir.concat(A4ProjectDirectoryBuilder.A4_ENV_DIR));*/
 	}
 
 }

@@ -43,7 +43,7 @@ public class WPProjectResourceProcessor extends AbstractBuildProcessorDecorator 
 	@Override
 	protected BuildContext decorate(BuildContext context) {
 
-		FileUtil.copyFileToDirectory(context.getWpResourcesDir().concat("functions.php"), context.getWpTargetDir());
+		/*FileUtil.copyFileToDirectory(context.getWpResourcesDir().concat("functions.php"), context.getWpTargetDir());
 		FileUtil.copyFileToDirectory(context.getWpResourcesDir().concat("index.php"), context.getWpTargetDir());
 		FileUtil.copyFileToDirectory(context.getWpResourcesDir().concat("style.css"), context.getWpTargetDir());
 		FileUtil.copyFileToDirectory(context.getWpResourcesDir().concat("404.php"), context.getWpTargetDir());
@@ -56,17 +56,13 @@ public class WPProjectResourceProcessor extends AbstractBuildProcessorDecorator 
 		FileUtil.copyDirectory(context.getWpResourcesDir().concat(WP_VENDOR_PHP_DIR), context.getWpTargetDir().concat(WP_VENDOR_PHP_DIR));
 		FileUtil.copyDirectory(context.getWpUaResourcesDir().concat(wpUaAppPath.concat(WP_INCLUDES_DIR)), context.getWpTargetDir().concat(WP_INCLUDES_DIR));
 		FileUtil.copyDirectory(context.getWpUaResourcesDir().concat(wpUaAppPath.concat(WP_TEMPLATES_PHP_DIR)), context.getWpTargetDir().concat(WP_TEMPLATES_PHP_DIR));
-
+*/
 
 		//FileUtil.copyDirectory(context.getWpResourcesDir().concat(WP_TEMPLATES_PHP_DIR), context.getWpTargetDir().concat(WP_TEMPLATES_PHP_DIR));
-		try {
-			IDEUtil.generateArtifact(context, context.getApplicationData(), WP_INCLUDES_FTL, "wpee-classes.php", context.getWpTargetDir().concat(WP_INCLUDES_DIR));
-			IDEUtil.generateArtifact(context, context.getApplicationData(), WP_UTIL_FTL, "ServiceMap.php", context.getWpTargetDir().concat(WP_UTIL_DIR));
-			IDEUtil.generateArtifact(context, context.getApplicationData(), WP_STYLE_FTL, "style.css", context.getWpTargetDir());
-			IDEUtil.generateArtifact(context, context.getApplicationData(), WP_DDL_FTL, "ddl.sql", context.getWpTargetDir());
-		} catch (IDEException e) {
-			e.printStackTrace();
-		}
+			//IDEUtil.generateArtifact(context, context.getApplicationData(), WP_INCLUDES_FTL, "wpee-classes.php", context.getWpTargetDir().concat(WP_INCLUDES_DIR));
+			//IDEUtil.generateArtifact(context, context.getApplicationData(), WP_UTIL_FTL, "ServiceMap.php", context.getWpTargetDir().concat(WP_UTIL_DIR));
+			//IDEUtil.generateArtifact(context, context.getApplicationData(), WP_STYLE_FTL, "style.css", context.getWpTargetDir());
+			//IDEUtil.generateArtifact(context, context.getApplicationData(), WP_DDL_FTL, "ddl.sql", context.getWpTargetDir());
 
 		return context;
 	}

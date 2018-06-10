@@ -3,10 +3,10 @@
  */
 package com.cloderia.helion.ide.build.processors.a42;
 
+import com.cloderia.helion.ide.artifacts.Module;
 import com.cloderia.helion.ide.build.BuildContext;
 import com.cloderia.helion.ide.build.processors.AbstractBuildProcessorDecorator;
 import com.cloderia.helion.ide.build.processors.BuildProcessor;
-import com.cloderia.helion.ide.data.ModuleData;
 import com.cloderia.helion.ide.util.FileUtil;
 import com.cloderia.helion.ide.util.StringUtil;
 
@@ -60,7 +60,7 @@ public class A4ProjectDirectoryBuilder extends AbstractBuildProcessorDecorator {
 	 */
 	private void processModules(BuildContext context){
 		String appDir = context.getTargetDir().concat(A4_APP_DIR);
-		for(ModuleData moduleData: context.getApplicationData().getModules()){
+		for(Module moduleData: context.getApplication().getModules()){
 			String moduleDir = appDir.concat(StringUtil.trailingSlashIt(moduleData.getId()));
 			FileUtil.createDirectoryIfNeeded(moduleDir);
 			FileUtil.createDirectoryIfNeeded(moduleDir.concat(A4_DATA_DIR));

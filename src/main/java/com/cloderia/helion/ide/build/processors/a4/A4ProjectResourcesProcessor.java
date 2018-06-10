@@ -4,10 +4,10 @@
 package com.cloderia.helion.ide.build.processors.a4;
 
 import com.cloderia.helion.ide.IDEException;
+import com.cloderia.helion.ide.artifacts.Module;
 import com.cloderia.helion.ide.build.BuildContext;
 import com.cloderia.helion.ide.build.processors.AbstractBuildProcessorDecorator;
 import com.cloderia.helion.ide.build.processors.BuildProcessor;
-import com.cloderia.helion.ide.data.ModuleData;
 import com.cloderia.helion.ide.util.FileUtil;
 import com.cloderia.helion.ide.util.IDEUtil;
 import com.cloderia.helion.ide.util.StringUtil;
@@ -51,7 +51,7 @@ public class A4ProjectResourcesProcessor extends AbstractBuildProcessorDecorator
 	protected BuildContext decorate(BuildContext context) {
 		copyResources(context);
 		generateProjectArtefacts(context);
-		for(ModuleData moduleData: context.getApplicationData().getModules()){
+		for(Module moduleData: context.getApplication().getModules()){
 			this.generateModuleArtefacts(context, moduleData);
 		}
 		return context;
@@ -60,8 +60,8 @@ public class A4ProjectResourcesProcessor extends AbstractBuildProcessorDecorator
 	protected void generateProjectArtefacts(BuildContext context){
 		try {
 			String targetDir = context.getTargetDir().concat(A4_APP_RESOURCE_SRC_DIR + A4_APP_RESOURCE_SRC_APP_DIR);
-			IDEUtil.generateArtifact(context, context.getApplicationData(), A4_APP_MODULE_TMPL_FTL, "app.module.ts", targetDir);
-			IDEUtil.generateArtifact(context, context.getApplicationData(), A4_APP_ROUTES_TMPL_FTL, "app.routes.ts", targetDir);
+			IDEUtil.generateArtifact(context, context.getApplication(), A4_APP_MODULE_TMPL_FTL, "app.module.ts", targetDir);
+			IDEUtil.generateArtifact(context, context.getApplication(), A4_APP_ROUTES_TMPL_FTL, "app.routes.ts", targetDir);
 		} catch (IDEException e) {
 			e.printStackTrace();
 		}
@@ -72,7 +72,7 @@ public class A4ProjectResourcesProcessor extends AbstractBuildProcessorDecorator
 	 */
 	protected void copyResources(BuildContext context) {
 		
-		String targetDir = context.getTargetDir();
+		/*String targetDir = context.getTargetDir();
 		String resourcesDir = context.getResourcesDir();
 		String sourceResourceDir = context.getUaResourcesDir().concat(StringUtil.trailingSlashIt(context.getArtifactId()));
 
@@ -81,10 +81,10 @@ public class A4ProjectResourcesProcessor extends AbstractBuildProcessorDecorator
 		FileUtil.copyDirectory(resourcesDir.concat(A4_APP_RESOURCE_SRC_DIR), targetDir.concat(A4_APP_RESOURCE_SRC_DIR));
 		FileUtil.copyDirectory(sourceResourceDir.concat(A4_APP_RESOURCE_SRC_DIR), targetDir.concat(A4_APP_RESOURCE_SRC_DIR));
 		FileUtil.copyDirectory(resourcesDir.concat(A4_APP_RESOURCE_E2E_DIR), targetDir.concat(A4_APP_RESOURCE_E2E_DIR));
-		FileUtil.copyDirectory(resourcesDir.concat(A4_APP_RESOURCE_DIST_DIR), targetDir.concat(A4_APP_RESOURCE_DIST_DIR));
+		FileUtil.copyDirectory(resourcesDir.concat(A4_APP_RESOURCE_DIST_DIR), targetDir.concat(A4_APP_RESOURCE_DIST_DIR));*/
 	}
 	private void copyProjectConfigurationResources(String resourcesDir, String targetDir){
-		FileUtil.copyFileToDirectory(resourcesDir.concat("deploy.sh"), targetDir);
+		/* FileUtil.copyFileToDirectory(resourcesDir.concat("deploy.sh"), targetDir); */
 		FileUtil.copyFileToDirectory(resourcesDir.concat("README.md"), targetDir);
 		FileUtil.copyFileToDirectory(resourcesDir.concat("tslint.json"), targetDir);
 		FileUtil.copyFileToDirectory(resourcesDir.concat("package.json"), targetDir);
@@ -95,7 +95,7 @@ public class A4ProjectResourcesProcessor extends AbstractBuildProcessorDecorator
 		FileUtil.copyFileToDirectory(resourcesDir.concat(".editorconfig"), targetDir);
 		FileUtil.copyFileToDirectory(resourcesDir.concat(".gitignore"), targetDir);
 	}
-	private void generateModuleArtefacts(BuildContext context, ModuleData moduleData){
+	private void generateModuleArtefacts(BuildContext context, Module moduleData){
 		try {
 			String moduleName = moduleData.getName().toLowerCase();
 			String appDir = context.getTargetDir().concat(A4ProjectDirectoryBuilder.A4_APP_DIR);

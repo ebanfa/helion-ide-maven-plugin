@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.cloderia.helion.ide.data;
+package com.cloderia.helion.ide.artifacts;
 
 import javax.xml.bind.annotation.XmlElement;
 
@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.XmlElement;
  * @author adrian
  *
  */
-public class FieldData implements ArtifactData {
+public class FieldData implements Artifact {
 
 	private String name;
 	private String javaName;
@@ -29,7 +29,7 @@ public class FieldData implements ArtifactData {
 	private String relId;
 	private boolean relationshipField = false;
 	private boolean validateRequired = false;
-	private EntityData parentEntity;
+	private Entity parentEntity;
 	
 	/**
 	 * 
@@ -296,7 +296,7 @@ public class FieldData implements ArtifactData {
 	/* (non-Javadoc)
 	 * @see com.cloderia.helion.ide.app.ArtifactData#getArtifactDataType()
 	 */
-	public String getArtifactDataType() {
+	public String getArtifactType() {
 		return "field";
 	}
 
@@ -317,14 +317,14 @@ public class FieldData implements ArtifactData {
 	/**
 	 * @return the parentEntity
 	 */
-	public EntityData getParentEntity() {
+	public Entity getParentEntity() {
 		return parentEntity;
 	}
 
 	/**
 	 * @param parentEntity the parentEntity to set
 	 */
-	public void setParentEntity(EntityData parentEntity) {
+	public void setParentEntity(Entity parentEntity) {
 		this.parentEntity = parentEntity;
 	}
 

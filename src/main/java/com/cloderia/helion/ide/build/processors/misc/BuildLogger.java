@@ -1,9 +1,10 @@
 /**
  * 
  */
-package com.cloderia.helion.ide.build.processors;
+package com.cloderia.helion.ide.build.processors.misc;
 
 import com.cloderia.helion.ide.build.BuildContext;
+import com.cloderia.helion.ide.build.processors.AbstractBuildProcessor;
 
 /**
  * @author adrian

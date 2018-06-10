@@ -28,9 +28,9 @@ public class WPProjectDirectoryBuilder extends AbstractBuildProcessorDecorator {
 	@Override
 	protected BuildContext decorate(BuildContext context) {
 		System.out.println("############################## WPProjectDirectoryBuilder");
-		FileUtil.createDirectoryIfNeeded(context.getWpTargetDir());
-		FileUtil.createDirectoryIfNeeded(context.getWpTargetDir().concat(WPProjectResourceProcessor.WP_INCLUDES_DIR));
-		FileUtil.createDirectoryIfNeeded(context.getWpTargetDir().concat(WPProjectResourceProcessor.WP_ENDPOINTS_DIR));
+		//FileUtil.createDirectoryIfNeeded(context.getWpTargetDir());
+		//FileUtil.createDirectoryIfNeeded(context.getWpTargetDir().concat(WPProjectResourceProcessor.WP_INCLUDES_DIR));
+		//FileUtil.createDirectoryIfNeeded(context.getWpTargetDir().concat(WPProjectResourceProcessor.WP_ENDPOINTS_DIR));
 		return context;
 	}
 

@@ -1,17 +1,19 @@
 /**
  * 
  */
-package com.cloderia.helion.ide.build.processors;
+package com.cloderia.helion.ide.build.processors.misc;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.cloderia.helion.ide.artifacts.Application;
+import com.cloderia.helion.ide.artifacts.Entity;
+import com.cloderia.helion.ide.artifacts.FieldData;
+import com.cloderia.helion.ide.artifacts.Module;
 import com.cloderia.helion.ide.build.BuildContext;
-import com.cloderia.helion.ide.data.ApplicationData;
-import com.cloderia.helion.ide.data.EntityData;
-import com.cloderia.helion.ide.data.FieldData;
-import com.cloderia.helion.ide.data.ModuleData;
+import com.cloderia.helion.ide.build.processors.AbstractBuildProcessorDecorator;
+import com.cloderia.helion.ide.build.processors.BuildProcessor;
 import com.cloderia.helion.ide.util.StringUtil;
 
 /**
@@ -27,7 +29,7 @@ public class EntityFieldProcessor extends AbstractBuildProcessorDecorator {
 	@Override
 	protected BuildContext decorate(BuildContext context) {
 		// The target 'components' directory
-		for(ModuleData moduleData: context.getApplicationData().getModules()) {
+		for(Module moduleData: context.getApplication().getModules()) {
 			processEntitiesInModule(context, moduleData);
 			inspectRelatedChildEntities(moduleData);
 		}
@@ -38,8 +40,8 @@ public class EntityFieldProcessor extends AbstractBuildProcessorDecorator {
 	 * @param context
 	 * @param moduleData
 	 */
-	protected void processEntitiesInModule(BuildContext context, ModuleData moduleData) {
-		for(EntityData entity : moduleData.getEntities()) {
+	protected void processEntitiesInModule(BuildContext context, Module moduleData) {
+		for(Entity entity : moduleData.getEntities()) {
 			for(FieldData field: entity.getFields()) {
 				field.setJavaName(StringUtil.columnNameToJavaFieldName(field.getName()));
 				
@@ -52,7 +54,7 @@ public class EntityFieldProcessor extends AbstractBuildProcessorDecorator {
 				else if(field.getSize().equals("medium")) 
 					field.setSize("35");
 				if(field.isRelationshipField()){
-					field.setParentEntity(findEntityInApplication(field.getDataType(), context.getApplicationData()));
+					field.setParentEntity(findEntityInApplication(field.getDataType(), context.getApplication()));
 					field.setRelId(String.valueOf(new Date().getTime()));
 				}
 			}
@@ -64,9 +66,9 @@ public class EntityFieldProcessor extends AbstractBuildProcessorDecorator {
 	 * @param application
 	 * @return
 	 */
-	public EntityData findEntityInApplication(String name, ApplicationData application){
-		for(ModuleData module: application.getModules()){
-			for(EntityData entity: module.getEntities()){
+	public Entity findEntityInApplication(String name, Application application){
+		for(Module module: application.getModules()){
+			for(Entity entity: module.getEntities()){
 				if(entity.getName().equals(name)){
 					return entity;
 				}
@@ -75,11 +77,11 @@ public class EntityFieldProcessor extends AbstractBuildProcessorDecorator {
 		return null;
 	}
 
-	public ModuleData inspectRelatedChildEntities(ModuleData module) {
-		List<EntityData> entitiesInModule = module.getEntities();
-		List<EntityData> cloneOfEntitiesInModule = new ArrayList<EntityData>(entitiesInModule);
+	public Module inspectRelatedChildEntities(Module module) {
+		List<Entity> entitiesInModule = module.getEntities();
+		List<Entity> cloneOfEntitiesInModule = new ArrayList<Entity>(entitiesInModule);
 		// Loop through all the entities in the module
-		for(EntityData entity : module.getEntities()){
+		for(Entity entity : module.getEntities()){
 			List<FieldData> fieldsInEntity = entity.getFields();
 			// Process the fields in the entity
 			for(FieldData field : fieldsInEntity){
@@ -87,7 +89,7 @@ public class EntityFieldProcessor extends AbstractBuildProcessorDecorator {
 				if(field.isRelationshipField()){
 					String targetEntityPostName = field.getDataType();
 					
-					for(EntityData item: cloneOfEntitiesInModule){
+					for(Entity item: cloneOfEntitiesInModule){
 						if(item.getName().equals(targetEntityPostName)) {
 							String fieldName = field.getName(); //+ UUID.randomUUID().toString();
 							//item.getRelatedChildFields().put(fieldName, field);
