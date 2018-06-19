@@ -10,11 +10,11 @@ import org.apache.maven.plugins.annotations.Mojo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.cloderia.helion.ide.pipeline.util.PipelineUtil;
 import com.cloderia.helion.pipeline.Pipeline;
 import com.cloderia.helion.pipeline.PipelineContext;
-import com.cloderia.helion.pipeline.PipelineImpl;
 import com.cloderia.helion.pipeline.PipelineItem;
-import com.cloderia.helion.util.IDEUtil;
+import com.cloderia.helion.pipeline.SimplePipeline;
 
 /**
  * This class represents a Maven goal
@@ -30,20 +30,15 @@ public class ApplicationGeneratorMojo extends AbstractHelionMojo {
 
 	private static Logger logger = LoggerFactory.getLogger(ApplicationGeneratorMojo.class);
 	
-	@Override
-	public void execute(PipelineContext buildContext) throws HelionException {
-		logger.info("------------------------------------------------------------------------");
-		logger.info("HELION IDE");
-		logger.info("------------------------------------------------------------------------");
-		doExecute(buildContext);
-	}
-
 	/**
 	 * @param buildContext
 	 */
-	protected void doExecute(PipelineContext buildContext) {
-		List<PipelineItem> items = IDEUtil.getBuildProcessors(buildContext);
-		Pipeline pipeline = new PipelineImpl(items);
+	protected void doExecute(PipelineContext buildContext) throws HelionException {
+		logger.info("------------------------------------------------------------------------");
+		logger.info("                  HELION APPLICATION GENERATOR MOJO                     ");
+		logger.info("------------------------------------------------------------------------");
+		List<PipelineItem> items = PipelineUtil.getPipelineItems(buildContext);
+		Pipeline pipeline = new SimplePipeline(items);
 		pipeline.execute(buildContext);
 	}
 	

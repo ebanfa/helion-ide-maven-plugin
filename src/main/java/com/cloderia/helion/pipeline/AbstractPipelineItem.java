@@ -23,17 +23,8 @@ public abstract class AbstractPipelineItem implements PipelineItem {
 	 */
 	@Override
 	public PipelineContext execute(PipelineContext context) {
-		try {
-			// Execute the current build functionality
-			context = doExecute(context);
-			// If we are not at the end of the pipeline
-			// then execute the next build processor
-			if(getNextItem() != null) 
-				context = getNextItem().execute(context);
-		} catch (HelionException e) {
-			logger.error("Build pipeline execution error", e);
-		}
-		return context;
+		logger.debug("Executing pipeline item " + this);
+		return doExecute(context);
 	}
 
 	/* (non-Javadoc)
@@ -57,5 +48,5 @@ public abstract class AbstractPipelineItem implements PipelineItem {
 	 * @return
 	 * @throws HelionException
 	 */
-	protected abstract PipelineContext doExecute(PipelineContext context) throws HelionException;
+	protected abstract PipelineContext doExecute(PipelineContext context);
 }
