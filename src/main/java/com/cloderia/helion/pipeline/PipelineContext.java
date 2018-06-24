@@ -11,6 +11,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.cloderia.helion.ide.model.AbstractArtifact;
 import com.cloderia.helion.ide.model.Application;
 
 /**
@@ -19,16 +20,16 @@ import com.cloderia.helion.ide.model.Application;
  */
 @SuppressWarnings("restriction")
 @XmlRootElement(name="configuration")
-public class PipelineContext {
+public class PipelineContext extends AbstractArtifact {
 	
 	/** Application data */
 	private Application application;
 	
 	/** Directories */
 	private String projectDir;
-	private String configDir;
 	private String targetDir;
 	private List<String> templateDir;
+	private String modulesConfigFile;
 	
 	/** Build pipeline */
 	private List<String> processor;
@@ -40,21 +41,6 @@ public class PipelineContext {
 	 * 
 	 */
 	public PipelineContext() {
-	}
-
-	/**
-	 * @return the configDir
-	 */
-	public String getConfigDir() {
-		return configDir;
-	}
-
-	/**
-	 * @param configFile the configDir to set
-	 */
-	@XmlElement
-	public void setConfigDir(String configDir) {
-		this.configDir = configDir;
 	}
 	
 	/**
@@ -85,6 +71,21 @@ public class PipelineContext {
 	@XmlElement
 	public void setTargetDir(String targetDir) {
 		this.targetDir = targetDir;
+	}
+
+	/**
+	 * @return
+	 */
+	public String getModulesConfigFile() {
+		return modulesConfigFile;
+	}
+
+	/**
+	 * @param modulesConfigFile
+	 */
+	@XmlElement
+	public void setModulesConfigFile(String modulesConfigFile) {
+		this.modulesConfigFile = modulesConfigFile;
 	}
 
 	/**
@@ -152,9 +153,14 @@ public class PipelineContext {
 	 */
 	@Override
 	public String toString() {
-		return "BuildContext [application=" + application + ", projectDir=" + projectDir + ", configDir=" + configDir
+		return "BuildContext [application=" + application + ", projectDir=" + projectDir 
 				+ ", targetDir=" + targetDir + ", templateDir=" + templateDir + ", processor=" + processor
 				+ ", contextData=" + contextData + "]";
+	}
+
+	@Override
+	public String getArtifactType() {
+		return "pipelineContext";
 	}
 
 }

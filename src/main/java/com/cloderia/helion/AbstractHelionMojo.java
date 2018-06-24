@@ -37,7 +37,7 @@ public abstract class AbstractHelionMojo extends AbstractMojo {
 	 */
 	public void execute() throws MojoExecutionException, MojoFailureException {
 		try {
-			doExecute(ConfigurationUtil.loadBuildData(ideConfiguration));
+			doExecute(ConfigurationUtil.loadArtifact(ideConfiguration, PipelineContext.class));
 		} catch (HelionException e) {
 			e.printStackTrace();
 		}

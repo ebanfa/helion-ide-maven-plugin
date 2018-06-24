@@ -14,18 +14,6 @@ import com.cloderia.helion.pipeline.PipelineContext;
  *
  */
 public class WebModuleUtil {
-
-	public static final String WEB_MODULE = "web";
-
-	/**
-	 * Returns true if this is a web module
-	 * 
-	 * @param module
-	 * @return
-	 */
-	public static Boolean isWebModule(Module module) {
-		return module.getType().equals(WEB_MODULE) ? true: false;
-	}
 	
 	/**
 	 * @param module

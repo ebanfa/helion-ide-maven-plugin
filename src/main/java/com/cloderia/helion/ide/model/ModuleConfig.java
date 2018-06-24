@@ -19,6 +19,9 @@ public class ModuleConfig {
 	
 	private String pomTemplate;
 	private String readMeTemplate;
+	private String entitiesConfigFile;
+	private String servicesConfigFile;
+	private String webConfigFile;
 	private List<CopyDirectory> copyDirectories = new ArrayList<CopyDirectory>();
 	
 	/**
@@ -56,6 +59,51 @@ public class ModuleConfig {
 	@XmlElement
 	public void setReadMeTemplate(String readMeTemplate) {
 		this.readMeTemplate = readMeTemplate;
+	}
+
+	/**
+	 * @return the entitiesConfigFile
+	 */
+	public String getEntitiesConfigFile() {
+		return entitiesConfigFile;
+	}
+
+	/**
+	 * @param entitiesConfigFile the entitiesConfigFile to set
+	 */
+	@XmlElement
+	public void setEntitiesConfigFile(String entitiesConfigFile) {
+		this.entitiesConfigFile = entitiesConfigFile;
+	}
+
+	/**
+	 * @return the servicesConfigFile
+	 */
+	public String getServicesConfigFile() {
+		return servicesConfigFile;
+	}
+
+	/**
+	 * @param servicesConfigFile the servicesConfigFile to set
+	 */
+	@XmlElement
+	public void setServicesConfigFile(String servicesConfigFile) {
+		this.servicesConfigFile = servicesConfigFile;
+	}
+
+	/**
+	 * @return the webConfigFile
+	 */
+	public String getWebConfigFile() {
+		return webConfigFile;
+	}
+
+	/**
+	 * @param webConfigFile the webConfigFile to set
+	 */
+	@XmlElement
+	public void setWebConfigFile(String webConfigFile) {
+		this.webConfigFile = webConfigFile;
 	}
 
 	/**

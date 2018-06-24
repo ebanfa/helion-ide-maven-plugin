@@ -22,12 +22,11 @@ public class ModuleArtifactsUtil {
 	 * @return
 	 * @throws HelionException
 	 */
-	public static Module generateModuleArtifacts(PipelineContext context, Module module) throws HelionException {
+	public static void generateModuleArtifacts(PipelineContext context, Module module) throws HelionException {
 		// Generate POM and README files
 		String projectDir = ModuleUtil.getProjectDir(module, context);
 		TemplateUtil.generateArtifact(context, module, getPomTemplate(module), IDEConstants.MODULE_POM_XML, projectDir);
 		TemplateUtil.generateArtifact(context, module, getReadMeTemplate(module), IDEConstants.MODULE_README_MD,	projectDir);
-		return module;
 	}
 
 	/**

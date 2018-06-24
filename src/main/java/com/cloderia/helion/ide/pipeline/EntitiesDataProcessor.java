@@ -95,8 +95,8 @@ public class EntitiesDataProcessor extends AbstractPipelineItem {
 	}
 
 	private List<Module> loadModulesConfiguration(PipelineContext context) throws HelionException {
-		String entitiesConfigFile = context.getConfigDir().concat(IDEConstants.ENTITY_CONFIG_FILE);
-		return ConfigurationUtil.loadConfiguredModules(context);
+		//String entitiesConfigFile = context.getConfigDir().concat(IDEConstants.ENTITY_CONFIG_FILE);
+		return ConfigurationUtil.loadModules(context);
 	}
 
 }

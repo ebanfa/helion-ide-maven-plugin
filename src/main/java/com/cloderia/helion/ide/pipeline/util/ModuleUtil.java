@@ -15,6 +15,9 @@ import com.cloderia.helion.pipeline.PipelineContext;
  */
 public class ModuleUtil {
 
+	public static final String WEB_MODULE = "web";
+	public static final String SERVICE_MODULE = "service";
+	
 	/**
 	 * Get the module project directory.
 	 * 
@@ -74,5 +77,25 @@ public class ModuleUtil {
 	public static String getProjectSourceMainDir(Module module, PipelineContext context) {
 		String projectDir = getProjectDir(module, context);
 		return projectDir.concat(IDEConstants.SRC_MAIN_DIR);
+	}
+	
+	/**
+	 * Returns true if this is a service module
+	 * 
+	 * @param module
+	 * @return
+	 */
+	public static Boolean isServiceModule(Module module) {
+		return module.getType().equals(SERVICE_MODULE) ? true: false;
+	}
+
+	/**
+	 * Returns true if this is a web module
+	 * 
+	 * @param module
+	 * @return
+	 */
+	public static Boolean isWebModule(Module module) {
+		return module.getType().equals(WEB_MODULE) ? true: false;
 	}
 }

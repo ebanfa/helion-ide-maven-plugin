@@ -24,10 +24,10 @@ public class ModuleProjectDirectoryUtil {
 	 * @param directoryName
 	 * @param context
 	 */
-	public static Module createProjectDirectories(Module module, PipelineContext context) throws HelionException {
+	public static void createProjectDirectories(Module module, PipelineContext context) throws HelionException {
 		String moduleDir = ModuleUtil.getProjectDir(module, context);
 		String packageDir = ModuleUtil.getPackageDir(module, moduleDir);
-		logger.debug("Create project directory for module " + module.getId());
+		logger.debug("Create project directory for module {} ", module.getId());
 		
 		FileUtil.deleteDir(moduleDir);
 		FileUtil.createDirectoryIfNeeded(moduleDir);
@@ -36,7 +36,5 @@ public class ModuleProjectDirectoryUtil {
 		FileUtil.createDirectoryIfNeeded(moduleDir.concat(IDEConstants.JAVA_DIR));
 		FileUtil.createDirectoryIfNeeded(moduleDir.concat(IDEConstants.RESOURCES_DIR));
 		FileUtil.createDirectoryIfNeeded(packageDir);
-
-		return module;
 	}
 }
