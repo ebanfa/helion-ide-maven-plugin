@@ -20,9 +20,9 @@ import org.apache.ddlutils.model.ForeignKey;
 import org.apache.ddlutils.model.Table;
 
 import com.cloderia.helion.HelionException;
-import com.cloderia.helion.ide.model.DBConfigData;
+import com.cloderia.helion.ide.model.DatabaseData;
 import com.cloderia.helion.ide.model.Entity;
-import com.cloderia.helion.ide.model.FieldData;
+import com.cloderia.helion.ide.model.Field;
 import com.cloderia.helion.ide.util.StringUtil;
 import com.cloderia.helion.pipeline.PipelineContext;
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
@@ -80,15 +80,18 @@ public class DBUtil {
 	 */
 	public static Entity tableToEntity(Table table) {
 		Entity entity = new Entity();
-		entity.setName(StringUtil.tableNameToJavaClassName(table.getName()));
+		String entityName = StringUtil.tableNameToJavaClassName(table.getName());
+		entity.setName(entityName);
+		entity.setId(entityName);
+		entity.setTableName(table.getName());
 		if (StringUtil.isValidString(table.getDescription()))
 			entity.setDescription(table.getDescription());
 		else
 			entity.setDescription(entity.getName());
-		List<FieldData> fields = new ArrayList<FieldData>();
+		List<Field> fields = new ArrayList<Field>();
 		// Process columns
 		for (Column column : table.getColumns()) {
-			if (!column.getName().equals("id"))
+			if (!column.getName().equalsIgnoreCase("id"))
 				fields.add(columnToField(column));
 		}
 		// Process foreign keys
@@ -102,8 +105,8 @@ public class DBUtil {
 	 * @param foreignKey
 	 * @param fields
 	 */
-	private static void foreignKeyToField(ForeignKey foreignKey, List<FieldData> fields) {
-		for (FieldData field : fields) {
+	private static void foreignKeyToField(ForeignKey foreignKey, List<Field> fields) {
+		for (Field field : fields) {
 			if (foreignKey.getFirstReference().getLocalColumnName().equals(field.getName())) {
 				field.setRelationshipField(true);
 				field.setDataType(StringUtil.tableNameToJavaClassName(foreignKey.getForeignTableName()));
@@ -115,8 +118,8 @@ public class DBUtil {
 	 * @param column
 	 * @return
 	 */
-	private static FieldData columnToField(Column column) {
-		FieldData field = new FieldData();
+	private static Field columnToField(Column column) {
+		Field field = new Field();
 		field.setName(StringUtil.columnNameToJavaFieldName(column.getName()));
 		field.setJavaName(field.getName());
 		if (StringUtil.isValidString(column.getDescription()))
@@ -125,32 +128,6 @@ public class DBUtil {
 			field.setDescription(field.getJavaName());
 		field.setRequired(column.isRequired());
 		field.setSize(String.valueOf(column.getSizeAsInt()));
-		field.setIsFormField(true);
-		field.setIsVisible(false);
-
-		if (defaultCreateFields.contains(field.getName())) {
-			field.setIsVisible(true);
-			field.setCreateField(true);
-		} else
-			field.setCreateField(false);
-
-		if (defaultEditFields.contains(field.getName())) {
-			field.setIsVisible(true);
-			field.setEditField(true);
-		} else
-			field.setEditField(false);
-
-		if (defaultViewFields.contains(field.getName())) {
-			field.setIsVisible(true);
-			field.setViewField(true);
-		} else
-			field.setViewField(false);
-
-		if (defaultListFields.contains(field.getName())) {
-			field.setIsVisible(true);
-			field.setListField(true);
-		} else
-			field.setListField(false);
 
 		field.setRelationshipField(false);
 		return processColumnDataType(field, column);
@@ -161,7 +138,7 @@ public class DBUtil {
 	 * @param column
 	 * @return
 	 */
-	public static FieldData processColumnDataType(FieldData field, Column column) {
+	public static Field processColumnDataType(Field field, Column column) {
 		if (column.getType().equals(DBUtil.INTEGER))
 			return processIntColumn(field, column);
 		else if (column.getType().equals(DBUtil.DECIMAL))
@@ -180,8 +157,8 @@ public class DBUtil {
 			return processIntColumn(field, column);
 	}
 
-	public static FieldData processCharColumn(FieldData field, Column column) {
-		if (column.getName().equalsIgnoreCase("rec_st")) {
+	public static Field processCharColumn(Field field, Column column) {
+		if (column.getName().equalsIgnoreCase("status")) {
 			field.setDataType(DBUtil.DATA_TYPE_CODE);
 		} else {
 			field.setDataType(DBUtil.DATA_TYPE_FG);
@@ -193,7 +170,7 @@ public class DBUtil {
 	 * @param field
 	 * @param column
 	 */
-	private static FieldData processTextColumn(FieldData field, Column column) {
+	private static Field processTextColumn(Field field, Column column) {
 		if (column.getName().equalsIgnoreCase("name")) {
 			field.setDataType(DBUtil.DATA_TYPE_NAME);
 		} else if (column.getName().equalsIgnoreCase("entity_code")) {
@@ -220,7 +197,7 @@ public class DBUtil {
 	 * @param field
 	 * @param column
 	 */
-	private static FieldData processIntColumn(FieldData field, Column column) {
+	private static Field processIntColumn(Field field, Column column) {
 		if (column.isPrimaryKey())
 			field.setDataType(DBUtil.DATA_TYPE_ID);
 		else if (column.getSizeAsInt() < 12)
@@ -234,7 +211,7 @@ public class DBUtil {
 	 * @param field
 	 * @param column
 	 */
-	private static FieldData processDateColumn(FieldData field, Column column) {
+	private static Field processDateColumn(Field field, Column column) {
 		if (column.getType().equals(DBUtil.DATE))
 			field.setDataType(DBUtil.DATA_TYPE_DATE);
 		else if (column.getType().equals(DBUtil.DATETIME))
@@ -248,7 +225,7 @@ public class DBUtil {
 	 * @param field
 	 * @param column
 	 */
-	private static FieldData processDecimalColumn(FieldData field, Column column) {
+	private static Field processDecimalColumn(Field field, Column column) {
 		field.setDataType(DBUtil.DATA_TYPE_MONEY);
 		return field;
 	}
@@ -276,7 +253,7 @@ public class DBUtil {
 	 * @return
 	 */
 	public static DataSource getMySQLDataSource(PipelineContext context) {
-		DBConfigData dbConfig = context.getApplication().getDatabase();
+		DatabaseData dbConfig = context.getApplication().getDatabase();
 		MysqlDataSource mysqlDS = new MysqlDataSource();
 		mysqlDS.setURL(dbConfig.getUrl());
 		mysqlDS.setUser(dbConfig.getUserName());

@@ -16,8 +16,7 @@ public class UiPage extends AbstractArtifact {
 	 */
 	@Override
 	public String getArtifactType() {
-		// TODO Auto-generated method stub
-		return null;
+		return "uiPage";
 	}
 
 }

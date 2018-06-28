@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import com.cloderia.helion.ide.model.web.WebModule;
 
@@ -16,12 +17,16 @@ import com.cloderia.helion.ide.model.web.WebModule;
  * @author adrian
  *
  */
+@SuppressWarnings("restriction")
+@XmlRootElement(name="module")
 public class Module extends AbstractArtifact {
 	
 	private String type;
 	private String packageName;
+	private String className;
 	private WebModule webModule;
-	private ModuleConfig extraConfig;
+	private ModuleConfig artifactConfig;
+	private List<String> dependencies = new ArrayList<String>();
 	
 	/** UI configuration*/
 	List<Entity> entities = new ArrayList<Entity>();
@@ -74,16 +79,30 @@ public class Module extends AbstractArtifact {
 	/**
 	 * @return the extraConfig
 	 */
-	public ModuleConfig getExtraConfig() {
-		return extraConfig;
+	public ModuleConfig getArtifactConfig() {
+		return artifactConfig;
 	}
 
 	/**
 	 * @param extraConfig the extraConfig to set
 	 */
 	@XmlElement
-	public void setExtraConfig(ModuleConfig extraConfig) {
-		this.extraConfig = extraConfig;
+	public void setArtifactConfig(ModuleConfig artifactConfig) {
+		this.artifactConfig = artifactConfig;
+	}
+
+	/**
+	 * @return the className
+	 */
+	public String getClassName() {
+		return className;
+	}
+
+	/**
+	 * @param className the className to set
+	 */
+	public void setClassName(String className) {
+		this.className = className;
 	}
 
 	/**
@@ -115,13 +134,30 @@ public class Module extends AbstractArtifact {
 		return true;
 	}
 
+	/**
+	 * @return the dependencies
+	 */
+	public List<String> getDependencies() {
+		return dependencies;
+	}
+
+	/**
+	 * @param dependencies the dependencies to set
+	 */
+	@XmlElement(name="dependency")
+	@XmlElementWrapper(name="dependencies")
+	public void setDependencies(List<String> dependencies) {
+		this.dependencies = dependencies;
+	}
+
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "Module [type=" + type + ", packageName=" + packageName + ", webModule=" + webModule + ", extraConfig="
-				+ extraConfig + ", entities=" + entities + "]";
+		return "Module [type=" + type + ", packageName=" + packageName + ", webModule=" + webModule + ", artifactConfig="
+				+ artifactConfig + ", entities=" + entities + "]";
 	}
 
 

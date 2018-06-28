@@ -9,26 +9,10 @@ import javax.xml.bind.annotation.XmlElement;
  * @author Edward Banfa
  *
  */
-public class CopyDirectory implements Artifact {
+public class CopyDirectory  {
 	
 	private String source;
 	private String target;
-
-	/* (non-Javadoc)
-	 * @see com.cloderia.helion.ide.model.Artifact#getArtifactType()
-	 */
-	@Override
-	public String getArtifactType() {
-		return "copyDirectory";
-	}
-
-	/* (non-Javadoc)
-	 * @see com.cloderia.helion.ide.model.Artifact#getName()
-	 */
-	@Override
-	public String getName() {
-		return "copyDirectory";
-	}
 
 	/**
 	 * @return the source

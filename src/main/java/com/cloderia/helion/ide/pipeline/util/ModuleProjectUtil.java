@@ -17,16 +17,16 @@ import com.cloderia.helion.pipeline.PipelineContext;
  * 
  * @author adrian
  */
-public class ModuleProjectDirectoryUtil {
+public class ModuleProjectUtil {
 	
-	private static Logger logger = LoggerFactory.getLogger(ModuleProjectDirectoryUtil.class);
+	private static Logger logger = LoggerFactory.getLogger(ModuleProjectUtil.class);
 	/**
 	 * @param directoryName
 	 * @param context
 	 */
 	public static void createProjectDirectories(Module module, PipelineContext context) throws HelionException {
 		String moduleDir = ModuleUtil.getProjectDir(module, context);
-		String packageDir = ModuleUtil.getPackageDir(module, moduleDir);
+		String packageDir = ModuleUtil.getPackageDir(module, context);
 		logger.debug("Create project directory for module {} ", module.getId());
 		
 		FileUtil.deleteDir(moduleDir);

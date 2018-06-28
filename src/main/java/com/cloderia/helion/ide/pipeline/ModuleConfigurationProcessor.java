@@ -3,15 +3,13 @@
  */
 package com.cloderia.helion.ide.pipeline;
 
-import java.util.stream.Collectors;
-
 import com.cloderia.helion.HelionException;
-import com.cloderia.helion.ide.model.Application;
 import com.cloderia.helion.ide.model.Module;
 import com.cloderia.helion.ide.pipeline.util.ModuleArtifactsUtil;
-import com.cloderia.helion.ide.pipeline.util.ModuleProjectDirectoryUtil;
-import com.cloderia.helion.ide.pipeline.util.ModuleResourcesUtil;
-import com.cloderia.helion.pipeline.AbstractPipelineItem;
+import com.cloderia.helion.ide.pipeline.util.ModuleProjectUtil;
+import com.cloderia.helion.ide.pipeline.util.ModuleUtil;
+import com.cloderia.helion.ide.pipeline.util.ResourcesUtil;
+import com.cloderia.helion.ide.util.StringUtil;
 import com.cloderia.helion.pipeline.PipelineContext;
 import com.cloderia.helion.pipeline.PipelineException;
 
@@ -20,34 +18,14 @@ import com.cloderia.helion.pipeline.PipelineException;
  * 
  * @author Edward Banfa
  */
-public class ModuleConfigurationProcessor extends AbstractPipelineItem {
-
-	/* (non-Javadoc)
-	 * @see com.cloderia.helion.pipeline.AbstractPipelineItem#doExecute(com.cloderia.helion.pipeline.PipelineContext)
-	 */
+public class ModuleConfigurationProcessor extends ModulePipelineItem {
+	
 	@Override
-	protected PipelineContext doExecute(PipelineContext context) {
-		Application application = context.getApplication();
-		// For each module create its directory structure
-		application.getModules()
-			.stream()
-			.map(module -> {
-				return processConfiguration(context, module);
-		}).collect(Collectors.toList());
-		return context;
-	}
-
-	/**
-	 * Do the actual copying.
-	 * 
-	 * @param context
-	 * @param module
-	 * @return
-	 */
-	private Module processConfiguration(PipelineContext context, Module module) {
+	protected Module processModule(Module module, PipelineContext context) {
 		try {
-			ModuleProjectDirectoryUtil.createProjectDirectories(module, context);
-			ModuleResourcesUtil.copyDirectories(module, context);
+			module.setClassName(StringUtil.moduleIdToJavaClassName(module.getId()));
+			ModuleProjectUtil.createProjectDirectories(module, context);
+			ResourcesUtil.copyDirectories(module, ModuleUtil.getProjectDir(module, context));
 			ModuleArtifactsUtil.generateModuleArtifacts(context, module);
 			return module;
 		} catch (HelionException e) {

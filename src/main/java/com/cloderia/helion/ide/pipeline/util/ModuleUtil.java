@@ -17,6 +17,7 @@ public class ModuleUtil {
 
 	public static final String WEB_MODULE = "web";
 	public static final String SERVICE_MODULE = "service";
+	public static final String DATA_MODULE = "persistence";
 	
 	/**
 	 * Get the module project directory.
@@ -51,7 +52,8 @@ public class ModuleUtil {
 	 * @param moduleDir
 	 * @return
 	 */
-	public static String getPackageDir(Module module, String moduleDir) {
+	public static String getPackageDir(Module module, PipelineContext context) {
+		String moduleDir = ModuleUtil.getProjectDir(module, context);
 		String packageName = module.getPackageName();
 		String packageDir = StringUtil.packageNameToFilePath(packageName);
 		return moduleDir.concat(IDEConstants.JAVA_DIR).concat(packageDir);
@@ -97,5 +99,15 @@ public class ModuleUtil {
 	 */
 	public static Boolean isWebModule(Module module) {
 		return module.getType().equals(WEB_MODULE) ? true: false;
+	}
+	
+	/**
+	 * Returns true if this is a data module
+	 * 
+	 * @param module
+	 * @return
+	 */
+	public static Boolean isDataModule(Module module) {
+		return module.getType().equals(DATA_MODULE) ? true: false;
 	}
 }

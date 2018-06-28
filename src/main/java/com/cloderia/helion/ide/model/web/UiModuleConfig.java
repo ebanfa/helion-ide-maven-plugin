@@ -5,11 +5,13 @@ package com.cloderia.helion.ide.model.web;
 
 import javax.xml.bind.annotation.XmlElement;
 
+import com.cloderia.helion.ide.model.AbstractArtifactConfig;
+
 /**
  * @author Edward Banfa
  *
  */
-public class UiModuleConfig {
+public class UiModuleConfig extends AbstractArtifactConfig {
 	
 	private String pagesConfigFile;
 	private String widgetsConfigFile;

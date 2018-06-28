@@ -15,7 +15,8 @@ public abstract class AbstractArtifact implements Artifact {
 	private String name;
 	private String title;
 	private String description;
-	
+	private	AbstractArtifactConfig artifactConfig;
+
 	/**
 	 * @return the id
 	 */
@@ -75,6 +76,13 @@ public abstract class AbstractArtifact implements Artifact {
 	@XmlElement
 	public String getName() {
 		return name;
+	}
+
+	/**
+	 * @return the artifactConfig
+	 */
+	public AbstractArtifactConfig getArtifactConfig() {
+		return artifactConfig;
 	}
 
 	/* (non-Javadoc)

@@ -3,11 +3,7 @@
  */
 package com.cloderia.helion.ide.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
 
 /**
  * Extra configuration information that 
@@ -15,21 +11,13 @@ import javax.xml.bind.annotation.XmlElementWrapper;
  * 
  * @author adrian
  */
-public class ModuleConfig {
+public class ModuleConfig extends AbstractArtifactConfig {
 	
 	private String pomTemplate;
 	private String readMeTemplate;
 	private String entitiesConfigFile;
 	private String servicesConfigFile;
 	private String webConfigFile;
-	private List<CopyDirectory> copyDirectories = new ArrayList<CopyDirectory>();
-	
-	/**
-	 * 
-	 */
-	public ModuleConfig() {
-		// TODO Auto-generated constructor stub
-	}
 
 	/**
 	 * @return the pomTemplate
@@ -105,22 +93,4 @@ public class ModuleConfig {
 	public void setWebConfigFile(String webConfigFile) {
 		this.webConfigFile = webConfigFile;
 	}
-
-	/**
-	 * @return the copyDirectories
-	 */
-	public List<CopyDirectory> getCopyDirectories() {
-		return copyDirectories;
-	}
-
-	/**
-	 * @param copyResources the copyDirectories to set
-	 */
-	@XmlElement(name="copyDirectory")
-	@XmlElementWrapper(name="copyResources")
-	public void setCopyDirectories(List<CopyDirectory> copyDirectories) {
-		this.copyDirectories = copyDirectories;
-	}
-
-
 }

@@ -3,23 +3,19 @@
  */
 package com.cloderia.helion.ide.model.web;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
 
-import com.cloderia.helion.ide.model.CopyDirectory;
+import com.cloderia.helion.ide.model.AbstractArtifactConfig;
 
 /**
  * @author Edward Banfa
  *
  */
-public class WebModuleConfig {
-
-	private String servicesConfigFile;
-	private List<CopyDirectory> copyDirectories = new ArrayList<CopyDirectory>();
+public class WebModuleConfig extends AbstractArtifactConfig {
 	
+	private String wsPath;
+	private String servicesConfigFile;
+	private String rsApplicationTemplateFile;
 
 	/**
 	 * @return the servicesConfigFile
@@ -37,18 +33,32 @@ public class WebModuleConfig {
 	}
 
 	/**
-	 * @return the copyDirectories
+	 * @return the wsPath
 	 */
-	public List<CopyDirectory> getCopyDirectories() {
-		return copyDirectories;
+	public String getWsPath() {
+		return wsPath;
 	}
 
 	/**
-	 * @param copyResources the copyDirectories to set
+	 * @param wsPath the wsPath to set
 	 */
-	@XmlElement(name="copyDirectory")
-	@XmlElementWrapper(name="copyResources")
-	public void setCopyDirectories(List<CopyDirectory> copyDirectories) {
-		this.copyDirectories = copyDirectories;
+	@XmlElement
+	public void setWsPath(String wsPath) {
+		this.wsPath = wsPath;
+	}
+
+	/**
+	 * @return the rsApplicationTemplateFile
+	 */
+	public String getRsApplicationTemplateFile() {
+		return rsApplicationTemplateFile;
+	}
+
+	/**
+	 * @param rsApplicationTemplateFile the rsApplicationTemplateFile to set
+	 */
+	@XmlElement
+	public void setRsApplicationTemplateFile(String rsApplicationTemplateFile) {
+		this.rsApplicationTemplateFile = rsApplicationTemplateFile;
 	}
 }

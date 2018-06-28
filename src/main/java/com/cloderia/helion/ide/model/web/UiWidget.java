@@ -16,8 +16,7 @@ public class UiWidget extends AbstractArtifact {
 	 */
 	@Override
 	public String getArtifactType() {
-		// TODO Auto-generated method stub
-		return null;
+		return "uiWidget";
 	}
 
 }

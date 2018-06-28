@@ -10,6 +10,7 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import com.cloderia.helion.ide.model.AbstractArtifact;
+import com.cloderia.helion.ide.model.ModuleConfig;
 
 /**
  * @author Edward Banfa
@@ -67,15 +68,15 @@ public class UiModule extends AbstractArtifact {
 	/**
 	 * @return the extraConfig
 	 */
-	@XmlElement
-	public UiModuleConfig getExtraConfig() {
+	public UiModuleConfig getArtifactConfig() {
 		return extraConfig;
 	}
 
 	/**
 	 * @param extraConfig the extraConfig to set
 	 */
-	public void setExtraConfig(UiModuleConfig extraConfig) {
+	@XmlElement
+	public void setArtifactConfig(UiModuleConfig extraConfig) {
 		this.extraConfig = extraConfig;
 	}
 

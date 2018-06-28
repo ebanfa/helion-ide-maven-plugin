@@ -9,23 +9,13 @@ import javax.xml.bind.annotation.XmlElement;
  * @author adrian
  *
  */
-public class DBConfigData implements Artifact {
+public class DatabaseData extends AbstractArtifact {
 	
-	private String name;
 	private String url;
 	private String userName;
 	private String password;
-	
-	public String getArtifactType() {
-		return "dbData";
-	}
-
-	/**
-	 * @return the name
-	 */
-	public String getName() {
-		return name;
-	}
+	private String persistenceUnitName;
+	private String dataSource;
 
 	/**
 	 * @return the userName
@@ -70,6 +60,43 @@ public class DBConfigData implements Artifact {
 	@XmlElement
 	public void setUrl(String url) {
 		this.url = url;
+	}
+	
+	/**
+	 * @return the persistenceUnitName
+	 */
+	public String getPersistenceUnitName() {
+		return persistenceUnitName;
+	}
+
+	/**
+	 * @param persistenceUnitName the persistenceUnitName to set
+	 */
+	@XmlElement
+	public void setPersistenceUnitName(String persistenceUnitName) {
+		this.persistenceUnitName = persistenceUnitName;
+	}
+
+	/**
+	 * @return the dataSource
+	 */
+	public String getDataSource() {
+		return dataSource;
+	}
+
+	/**
+	 * @param dataSource the dataSource to set
+	 */
+	@XmlElement
+	public void setDataSource(String dataSource) {
+		this.dataSource = dataSource;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.cloderia.helion.ide.model.Artifact#getArtifactType()
+	 */
+	public String getArtifactType() {
+		return "database";
 	}
 
 }

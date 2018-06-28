@@ -8,7 +8,7 @@ package com.cloderia.helion.ide.model;
  *
  */
 public interface Artifact {
-
+	
 	/**
 	 * @return
 	 */
@@ -18,4 +18,9 @@ public interface Artifact {
 	 * @return
 	 */
 	public String getName();
+	
+	/**
+	 * @return
+	 */
+	public ArtifactConfig getArtifactConfig();
 }

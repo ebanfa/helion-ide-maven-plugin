@@ -49,17 +49,39 @@ public class StringUtil {
 		return StringUtil.trailingSlashIt(packageName.replace('.', '/'));
 	}
 
+	/**
+	 * @param tableName
+	 * @return
+	 */
 	public static String tableNameToJavaClassName(String tableName) {
 		tableName = WordUtils.capitalize(tableName.toLowerCase(), '_');
-		String[] parts = tableName.split("_");
-		if (parts.length == 1)
-			return tableName;
-		String javaClassName = "";
-		for (int i = 0; i < parts.length; i++) {
-			javaClassName = javaClassName.concat(parts[i]);
-		}
-		return javaClassName;
+		return concatDelimitedString(tableName, "_");
 	}
+	
+	/**
+	 * @param moduleId
+	 * @return
+	 */
+	public static String moduleIdToJavaClassName(String moduleId) {
+		moduleId = WordUtils.capitalize(moduleId.toLowerCase(), '-');
+		return concatDelimitedString(moduleId, "-");
+	}
+
+	/**
+	 * @param tableName
+	 * @return
+	 */
+	private static String concatDelimitedString(String delimitedString, String delimiter) {
+		String[] parts = delimitedString.split(delimiter);
+		if (parts.length == 1)
+			return delimitedString;
+		String newString = "";
+		for (int i = 0; i < parts.length; i++) {
+			newString = newString.concat(parts[i]);
+		}
+		return newString;
+	}
+	
 
 	public static String columnNameToJavaFieldName(String colName) {
 		colName = WordUtils.capitalize(colName.toLowerCase(), '_');

@@ -5,6 +5,7 @@ package com.cloderia.helion.ide.pipeline.util;
 
 import java.io.File;
 import java.util.List;
+import java.util.Optional;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -17,11 +18,14 @@ import com.cloderia.helion.HelionException;
 import com.cloderia.helion.HelionRuntimeException;
 import com.cloderia.helion.ide.model.Application;
 import com.cloderia.helion.ide.model.Artifact;
+import com.cloderia.helion.ide.model.Entity;
 import com.cloderia.helion.ide.model.Module;
+import com.cloderia.helion.ide.model.ModuleConfig;
 import com.cloderia.helion.ide.model.web.UiModule;
 import com.cloderia.helion.ide.model.web.UiModuleConfig;
 import com.cloderia.helion.ide.model.web.WebModule;
 import com.cloderia.helion.ide.model.web.WebModuleConfig;
+import com.cloderia.helion.ide.model.web.WebService;
 import com.cloderia.helion.ide.util.StringUtil;
 import com.cloderia.helion.pipeline.PipelineContext;
 
@@ -44,6 +48,24 @@ public class ConfigurationUtil {
 		Application application = loadArtifact(context.getModulesConfigFile(), Application.class);
 		return application.getModules();
 	}
+
+	/**
+	 * @param module
+	 * @param context
+	 * @return
+	 * @throws HelionException
+	 */
+	public static List<Entity> loadEntities(Module module, PipelineContext context) throws HelionException {
+		try {
+			// Verify the presence of the entity config file or throw exception
+			Optional<ModuleConfig> extraConfig = Optional.of(module.getArtifactConfig()); 
+			Optional<String> entityConfigFileOpt = Optional.of(extraConfig.get().getEntitiesConfigFile());
+			Module loadedModule = loadArtifact(entityConfigFileOpt.get(), Module.class);
+			return loadedModule.getEntities();
+		} catch (NullPointerException e) {
+			throw new HelionRuntimeException("Data module configuration file not found for web module " + module.getId(), e);
+		}
+	}
 	
 	/**
 	 * Loads the WebModule configuration
@@ -52,12 +74,19 @@ public class ConfigurationUtil {
 	 * @return
 	 * @throws HelionException
 	 */
-	public static WebModule loadWebModule(String webModuleConfigFile, PipelineContext context) throws HelionException {
-		// Load the web module and all its dependences
-		WebModule webModule = loadArtifact(webModuleConfigFile, WebModule.class);
-		webModule = loadWebModuleServicesConfiguration(webModule, context);
-		loadWebModuleUiConfiguration(webModule, context);
-		return webModule;
+	public static WebModule loadWebModule(Module module, PipelineContext context) throws HelionException {
+		try {
+			Optional<ModuleConfig> extraConfig = Optional.of(module.getArtifactConfig()); 
+			Optional<String> webConfigFileOpt = Optional.of(extraConfig.get().getWebConfigFile());
+			
+			WebModule webModule = loadArtifact(webConfigFileOpt.get(), WebModule.class);
+			webModule.setParentModule(module);
+			webModule = loadWebModuleServicesConfiguration(webModule, context);
+			loadWebModuleUiConfiguration(webModule, context);
+			return webModule;
+		} catch (NullPointerException e) {
+			throw new HelionRuntimeException("Web module configuration not found for web module " + module.getId(), e);
+		}
 	}
 	
 	/**
@@ -65,11 +94,14 @@ public class ConfigurationUtil {
 	 * @param extraConfig
 	 */
 	public static WebModule loadWebModuleServicesConfiguration(WebModule webModule, PipelineContext context) throws HelionException {
-		WebModuleConfig extraConfig = webModule.getExtraConfig();
+		WebModuleConfig extraConfig = (WebModuleConfig) webModule.getArtifactConfig();
 		if(!StringUtil.isValidString(extraConfig.getServicesConfigFile())) return webModule;
 		
 		WebModule loadedWebModule = loadArtifact(extraConfig.getServicesConfigFile(), WebModule.class);
 		webModule.setWebServices(loadedWebModule.getWebServices());
+		for(WebService webService: webModule.getWebServices()) {
+			webService.setWebModule(webModule);
+		}
 		return webModule;
 	}
 
@@ -82,11 +114,11 @@ public class ConfigurationUtil {
 	public static void loadWebModuleUiConfiguration(WebModule webModule, PipelineContext context ) throws HelionException {
 
 		for(UiModule uiModule : webModule.getUiModules()) {
-			if(uiModule.getExtraConfig() == null) continue;
+			if(uiModule.getArtifactConfig() == null) continue;
 			// Load the pages, containers and the widgets
-			loadUiPages(uiModule, uiModule.getExtraConfig());
-			loadUiContainers(uiModule, uiModule.getExtraConfig());
-			loadUiWidgets(uiModule, uiModule.getExtraConfig());
+			loadUiPages(uiModule, uiModule.getArtifactConfig());
+			loadUiContainers(uiModule, uiModule.getArtifactConfig());
+			loadUiWidgets(uiModule, uiModule.getArtifactConfig());
 		}
 		return;
 	}
@@ -118,7 +150,6 @@ public class ConfigurationUtil {
 	public static void loadUiWidgets(UiModule uiModule, UiModuleConfig extraConfig) throws HelionException {
 		if(!StringUtil.isValidString(extraConfig.getContainersConfigFile())) return;
 		UiModule loadedUiModule = loadArtifact(extraConfig.getWidgetsConfigFile(), UiModule.class);
-		logger.debug("Loaded Ui module >>>>>>>>>> {}", loadedUiModule);
 		uiModule.setWidgets(loadedUiModule.getWidgets());
 	}
 	

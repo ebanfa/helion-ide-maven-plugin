@@ -16,19 +16,13 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @SuppressWarnings("restriction")
 @XmlRootElement(name="application")
-public class Application implements Artifact {
+public class Application extends AbstractArtifact {
 	
-	private String name;
 	private String groupId;
 	private String artifactId;
-	private String description;
 	private String version;
-	
-	/** Database configuration */
-	private DBConfigData database;
-	
-	/** Modules in the application */
-	List<Module> modules = new ArrayList<Module>();
+	private DatabaseData database;
+	private List<Module> modules = new ArrayList<Module>();
 
 	/**
 	 * 
@@ -36,21 +30,6 @@ public class Application implements Artifact {
 	public Application() {
 	}
 	
-	/**
-	 * @return the name
-	 */
-	public String getName() {
-		return name;
-	}
-
-	/**
-	 * @param name the name to set
-	 */
-	@XmlElement
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	/**
 	 * @return the groupId
 	 */
@@ -81,20 +60,6 @@ public class Application implements Artifact {
 		this.artifactId = artifactId;
 	}
 
-	/**
-	 * @return the description
-	 */
-	public String getDescription() {
-		return description;
-	}
-
-	/**
-	 * @param description the description to set
-	 */
-	@XmlElement
-	public void setDescription(String description) {
-		this.description = description;
-	}
 
 	/**
 	 * @return the version
@@ -114,7 +79,7 @@ public class Application implements Artifact {
 	/**
 	 * @return the database
 	 */
-	public DBConfigData getDatabase() {
+	public DatabaseData getDatabase() {
 		return database;
 	}
 
@@ -122,7 +87,7 @@ public class Application implements Artifact {
 	 * @param database the database to set
 	 */
 	@XmlElement
-	public void setDatabase(DBConfigData database) {
+	public void setDatabase(DatabaseData database) {
 		this.database = database;
 	}
 
@@ -154,8 +119,8 @@ public class Application implements Artifact {
 	 */
 	@Override
 	public String toString() {
-		return "Application [name=" + name + ", groupId=" + groupId + ", artifactId=" + artifactId + ", description="
-				+ description + ", version=" + version + ", database=" + database + ", modules=" + modules + "]";
+		return "Application [" + ", groupId=" + groupId + ", artifactId=" + artifactId 
+				+ ", version=" + version + ", database=" + database + ", modules=" + modules + "]";
 	}
 
 }

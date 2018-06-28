@@ -35,9 +35,9 @@ public class ModuleArtifactsUtil {
 	 * @return
 	 */
 	private static String getPomTemplate(Module module) {
-		if(module.getExtraConfig() != null) {
-			if(StringUtil.isValidString(module.getExtraConfig().getPomTemplate()))
-				return module.getExtraConfig().getPomTemplate();
+		if(module.getArtifactConfig() != null) {
+			if(StringUtil.isValidString(module.getArtifactConfig().getPomTemplate()))
+				return module.getArtifactConfig().getPomTemplate();
 		}
 		return IDEConstants.MODULE_POM_TMPL_FTL;
 	}
@@ -48,9 +48,9 @@ public class ModuleArtifactsUtil {
 	 * @return
 	 */
 	private static String getReadMeTemplate(Module module) {
-		if(module.getExtraConfig() != null) {
-			if(StringUtil.isValidString(module.getExtraConfig().getReadMeTemplate()))
-				return module.getExtraConfig().getReadMeTemplate();
+		if(module.getArtifactConfig() != null) {
+			if(StringUtil.isValidString(module.getArtifactConfig().getReadMeTemplate()))
+				return module.getArtifactConfig().getReadMeTemplate();
 		}
 		return IDEConstants.MODULE_README_TMPL_FTL;
 	}
