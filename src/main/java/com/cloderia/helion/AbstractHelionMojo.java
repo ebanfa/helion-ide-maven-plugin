@@ -5,8 +5,9 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Parameter;
 
-import com.cloderia.helion.ide.pipeline.util.ConfigurationUtil;
-import com.cloderia.helion.pipeline.PipelineContext;
+import com.cloderia.helion.exception.HelionException;
+import com.cloderia.helion.model.pipeline.PipelineContext;
+import com.cloderia.helion.pipeline.util.ConfigurationUtil;
 
 public abstract class AbstractHelionMojo extends AbstractMojo {
 
@@ -37,7 +38,7 @@ public abstract class AbstractHelionMojo extends AbstractMojo {
 	 */
 	public void execute() throws MojoExecutionException, MojoFailureException {
 		try {
-			doExecute(ConfigurationUtil.loadArtifact(ideConfiguration, PipelineContext.class));
+			doExecute(ConfigurationUtil.loadPipelineContext(ideConfiguration, PipelineContext.class));
 		} catch (HelionException e) {
 			e.printStackTrace();
 		}

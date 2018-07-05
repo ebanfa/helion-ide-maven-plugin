@@ -10,11 +10,12 @@ import org.apache.maven.plugins.annotations.Mojo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.cloderia.helion.ide.pipeline.util.PipelineUtil;
-import com.cloderia.helion.pipeline.Pipeline;
-import com.cloderia.helion.pipeline.PipelineContext;
-import com.cloderia.helion.pipeline.PipelineItem;
-import com.cloderia.helion.pipeline.SimplePipeline;
+import com.cloderia.helion.exception.HelionException;
+import com.cloderia.helion.model.pipeline.Pipeline;
+import com.cloderia.helion.model.pipeline.PipelineContext;
+import com.cloderia.helion.model.pipeline.PipelineItem;
+import com.cloderia.helion.model.pipeline.HelionPipeline;
+import com.cloderia.helion.pipeline.util.PipelineUtil;
 
 /**
  * This class represents a Maven goal
@@ -38,7 +39,7 @@ public class ApplicationGeneratorMojo extends AbstractHelionMojo {
 		logger.info("                  HELION APPLICATION GENERATOR MOJO                     ");
 		logger.info("------------------------------------------------------------------------");
 		List<PipelineItem> items = PipelineUtil.getPipelineItems(buildContext);
-		Pipeline pipeline = new SimplePipeline(items);
+		Pipeline pipeline = new HelionPipeline(items);
 		pipeline.execute(buildContext);
 	}
 	
