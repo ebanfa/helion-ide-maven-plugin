@@ -88,9 +88,7 @@ public class MavenProjectProcessor extends AbstractPipelineItem {
 			
 			MavenUtil.createMavenProjectFileSystem(targetDir, false, packageDir);
 			MavenUtil.createMavenWebProjectFileSystem(child, context);
-			
-			TemplateUtil.generateArtifact(context, child, TemplateUtil.getModulePomTemplateFile(child), IDEConstants.POM_XML_FILE_NAME, targetDir);
-			TemplateUtil.generateArtifact(context, child, IDEConstants.MODULE_README_TMPL_FTL, IDEConstants.README_MD_FILE_NAME, targetDir);
+			MavenUtil.generateMavenProjectArtifacts(child, context);
 		} catch (HelionException e) {
 			throw new PipelineException(e);
 		}

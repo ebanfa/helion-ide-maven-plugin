@@ -3,12 +3,15 @@
  */
 package com.cloderia.helion.pipeline.util;
 
+import com.cloderia.helion.exception.HelionException;
 import com.cloderia.helion.model.module.Module;
 import com.cloderia.helion.model.module.WebModule;
 import com.cloderia.helion.model.pipeline.PipelineContext;
 import com.cloderia.helion.util.FileUtil;
 import com.cloderia.helion.util.IDEConstants;
+import com.cloderia.helion.util.ResourcesUtil;
 import com.cloderia.helion.util.StringUtil;
+import com.cloderia.helion.util.TemplateUtil;
 
 /**
  * This class contains utility methods for dealing with application modules.
@@ -96,6 +99,24 @@ public class MavenUtil {
 			FileUtil.createDirectoryIfNeeded(packageDir);
 		}
 	}
+
+	/**
+	 * @param module
+	 * @param context
+	 * @throws HelionException
+	 */
+	public static void generateMavenProjectArtifacts(Module module, PipelineContext context) throws HelionException {
+		String targetDir = MavenUtil.getProjectDir(module, context);
+		TemplateUtil.generateArtifact(context, module, TemplateUtil.getModulePomTemplateFile(module), IDEConstants.POM_XML_FILE_NAME, targetDir);
+		TemplateUtil.generateArtifact(context, module, IDEConstants.MODULE_README_TMPL_FTL, IDEConstants.README_MD_FILE_NAME, targetDir);
+		
+		if(module instanceof WebModule) {
+			String webInfDir = MavenUtil.getModuleWebInfDir(module, context);
+			TemplateUtil.generateArtifact(context, module, IDEConstants.WEB_XML_TMPL_FTL, IDEConstants.WEB_XML,	webInfDir);
+			TemplateUtil.generateArtifact(context, module, IDEConstants.JBOSS_WEB_XML_TMPL_FTL, IDEConstants.JBOSS_WEB_XML,	webInfDir);
+		}
+	}
+	
 	
 	/**
 	 * Will on create the filesystem if the module provided is an instance of WebModule
