@@ -14,7 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.cloderia.helion.exception.HelionException;
-import com.cloderia.helion.model.Artifact;
+import com.cloderia.ide.Artifact;
 
 /**
  * @author Edward Banfa
@@ -65,4 +65,5 @@ public class JAXBUtil {
 		JAXBContext jaxbContext = JAXBContext.newInstance(clazz);
 		return jaxbContext.createUnmarshaller();
 	}
+
 }

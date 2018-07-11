@@ -12,9 +12,9 @@ import java.util.Map;
 
 import com.cloderia.helion.exception.ArtifactConfigException;
 import com.cloderia.helion.exception.HelionException;
-import com.cloderia.helion.model.Artifact;
-import com.cloderia.helion.model.entity.Entity;
-import com.cloderia.helion.model.pipeline.PipelineContext;
+import com.cloderia.ide.Artifact;
+import com.cloderia.ide.config.ArtifactLite;
+import com.cloderia.ide.pipeline.PipelineContext;
 
 import freemarker.cache.FileTemplateLoader;
 import freemarker.cache.MultiTemplateLoader;
@@ -38,7 +38,7 @@ public class TemplateUtil {
 	 * @param artifact
 	 * @return
 	 */
-	public static String getModulePomTemplateFile(Artifact artifact) {
+	public static String getModulePomTemplateFile(ArtifactLite artifact) {
 		try {
 			return ArtifactConfigUtil.getConfigParameterValue(IDEConstants.POM_TMPL_FILE_CONFIG_PARAM, artifact);
 		} catch (ArtifactConfigException e) {
@@ -50,7 +50,7 @@ public class TemplateUtil {
 	 * @param entity
 	 * @return
 	 */
-	public static String getEntityTemplate(Entity entity) {
+	public static String getEntityTemplate(ArtifactLite entity) {
 		try {
 			return ArtifactConfigUtil.getConfigParameterValue(IDEConstants.ENTITY_TMPL_FILE_CONFIG_PARAM, entity);
 		} catch (ArtifactConfigException e) {
@@ -62,7 +62,7 @@ public class TemplateUtil {
 	 * @param entity
 	 * @return
 	 */
-	public static String getEntityOpsTemplate(Entity entity) {
+	public static String getEntityOpsTemplate(ArtifactLite entity) {
 		try {
 			return ArtifactConfigUtil.getConfigParameterValue(IDEConstants.ENTITY_OPS_TMPL_FILE_CONFIG_PARAM, entity);
 		} catch (ArtifactConfigException e) {
@@ -74,7 +74,7 @@ public class TemplateUtil {
 	 * @param entity
 	 * @return
 	 */
-	public static String getEntityServiceTemplate(Entity entity) {
+	public static String getEntityServiceTemplate(ArtifactLite entity) {
 		try {
 			return ArtifactConfigUtil.getConfigParameterValue(IDEConstants.ENTITY_SERVICE_TMPL_FILE_CONFIG_PARAM, entity);
 		} catch (ArtifactConfigException e) {
@@ -86,7 +86,7 @@ public class TemplateUtil {
 	 * @param entity
 	 * @return
 	 */
-	public static String getEntityServiceImplTemplate(Entity entity) {
+	public static String getEntityServiceImplTemplate(ArtifactLite entity) {
 		try {
 			return ArtifactConfigUtil.getConfigParameterValue(IDEConstants.ENTITY_SERVICE_IMPL_TMPL_FILE_CONFIG_PARAM, entity);
 		} catch (ArtifactConfigException e) {
@@ -146,10 +146,11 @@ public class TemplateUtil {
 	 * @throws IOException
 	 */
 	public static TemplateLoader[] getTemplateLoaders(PipelineContext context) throws IOException {
-		int idx = 0;
-		TemplateLoader[] loaders = new TemplateLoader[context.getTemplateDir().size()];
-		for (String templateDir : context.getTemplateDir())
-			loaders[idx++] = new FileTemplateLoader(new File(templateDir));
+
+		String templatestDir = ArtifactConfigUtil.getConfigParameterValue(
+				IDEConstants.TEMPLATES_DIR_PARAM, context.getContextConfig());
+		
+		TemplateLoader[] loaders = { new FileTemplateLoader(new File(templatestDir)) };
 		return loaders;
 	}
 

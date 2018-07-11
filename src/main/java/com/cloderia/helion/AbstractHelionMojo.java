@@ -6,47 +6,36 @@ import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Parameter;
 
 import com.cloderia.helion.exception.HelionException;
-import com.cloderia.helion.model.pipeline.PipelineContext;
-import com.cloderia.helion.pipeline.util.ConfigurationUtil;
+import com.cloderia.ide.config.ContextConfig;
 
 public abstract class AbstractHelionMojo extends AbstractMojo {
 
-	private PipelineContext buildContext;
-	
     /**
      * The buildConfiguration.
      */
-    @Parameter(property = "helion.ideConfiguration")
-    protected String ideConfiguration;
+    @Parameter(property = "helion.configurationFile")
+    protected String configurationFile;
 
-	/**
-	 * @return the buiderConfig
-	 */
-	public PipelineContext getBuildConfiguration() {
-		return buildContext;
-	}
-
-	/**
-	 * @param buiderConfig the buiderConfig to set
-	 */
-	public void setBuildConfiguration(PipelineContext buildContext) {
-		this.buildContext = buildContext;
-	}
+    @Parameter(property = "helion.configurationClass")
+    protected String configurationClass;
 	
+
 	/* (non-Javadoc)
 	 * @see org.apache.maven.plugin.Mojo#execute()
 	 */
 	public void execute() throws MojoExecutionException, MojoFailureException {
 		try {
-			doExecute(ConfigurationUtil.loadPipelineContext(ideConfiguration, PipelineContext.class));
+			ContextConfig contextConfig = ContextConfigFactory.getInstance(configurationFile, configurationClass);
+			BuildContext context = BuildContextFactory.getInstance(contextConfig);
+			this.doExecute(context);
 		} catch (HelionException e) {
 			e.printStackTrace();
 		}
 	}
+	
 	/**
 	 * @param buildConfiguration
 	 */
-	protected abstract void doExecute(PipelineContext buildContext) throws HelionException;
-	
-	
+	protected abstract void doExecute(BuildContext context) throws HelionException;
+
 }

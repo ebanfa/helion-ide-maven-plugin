@@ -69,4 +69,14 @@ public class IDEConstants {
 	public static final String ENTITY_SERVICE_TMPL_FILE_CONFIG_PARAM = "entityServiceTemplateFile";
 	public static final String ENTITY_SERVICE_IMPL_TMPL_FILE_CONFIG_PARAM = "entityServiceImplTemplateFile";
 	
+	public static final String PIPELINE_CLASS_PARAM = "pipelineClass";
+	public static final String PROJECT_DIR_PARAM = "projectDir";
+	public static final String TARGET_DIR_PARAM = "targetDir";
+	public static final String TEMPLATES_DIR_PARAM = "templatesDir";
+	
+	public static String APP_GEN_HEADER = 
+			"------------------------------------------------------------------------\n"
+			+ "                  HELION APPLICATION GENERATOR MOJO                     \n"
+			+ "------------------------------------------------------------------------\n";
+	
 }

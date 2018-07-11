@@ -4,14 +4,12 @@
 package com.cloderia.helion.pipeline.util;
 
 import com.cloderia.helion.exception.HelionException;
-import com.cloderia.helion.model.module.Module;
-import com.cloderia.helion.model.module.WebModule;
-import com.cloderia.helion.model.pipeline.PipelineContext;
+import com.cloderia.helion.util.ArtifactConfigUtil;
 import com.cloderia.helion.util.FileUtil;
 import com.cloderia.helion.util.IDEConstants;
-import com.cloderia.helion.util.ResourcesUtil;
 import com.cloderia.helion.util.StringUtil;
-import com.cloderia.helion.util.TemplateUtil;
+import com.cloderia.ide.module.Module;
+import com.cloderia.ide.pipeline.PipelineContext;
 
 /**
  * This class contains utility methods for dealing with application modules.
@@ -27,7 +25,10 @@ public class MavenUtil {
 	 * @return
 	 */
 	public static String getProjectDir(Module module, PipelineContext context) {
-		return context.getTargetDir().concat(StringUtil.trailingSlashIt(module.getId()));
+		String targetDir = ArtifactConfigUtil.getConfigParameterValue(
+				IDEConstants.TARGET_DIR_PARAM, context.getContextConfig());
+		
+		return targetDir.concat(StringUtil.trailingSlashIt(module.getId()));
 	}
 
 	/**
@@ -107,28 +108,9 @@ public class MavenUtil {
 	 */
 	public static void generateMavenProjectArtifacts(Module module, PipelineContext context) throws HelionException {
 		String targetDir = MavenUtil.getProjectDir(module, context);
-		TemplateUtil.generateArtifact(context, module, TemplateUtil.getModulePomTemplateFile(module), IDEConstants.POM_XML_FILE_NAME, targetDir);
-		TemplateUtil.generateArtifact(context, module, IDEConstants.MODULE_README_TMPL_FTL, IDEConstants.README_MD_FILE_NAME, targetDir);
-		
-		if(module instanceof WebModule) {
-			String webInfDir = MavenUtil.getModuleWebInfDir(module, context);
-			TemplateUtil.generateArtifact(context, module, IDEConstants.WEB_XML_TMPL_FTL, IDEConstants.WEB_XML,	webInfDir);
-			TemplateUtil.generateArtifact(context, module, IDEConstants.JBOSS_WEB_XML_TMPL_FTL, IDEConstants.JBOSS_WEB_XML,	webInfDir);
-		}
-	}
+		//TemplateUtil.generateArtifact(context, module, TemplateUtil.getModulePomTemplateFile(module), IDEConstants.POM_XML_FILE_NAME, targetDir);
+		//TemplateUtil.generateArtifact(context, module, IDEConstants.MODULE_README_TMPL_FTL, IDEConstants.README_MD_FILE_NAME, targetDir);
 	
-	
-	/**
-	 * Will on create the filesystem if the module provided is an instance of WebModule
-	 * @param targetDir
-	 * @param isParentModule
-	 */
-	public static void createMavenWebProjectFileSystem(Module module, PipelineContext context) {
-		if(module instanceof WebModule) {
-			String targetDir = MavenUtil.getWebAppDir(module, context);
-			FileUtil.createDirectoryIfNeeded(targetDir);
-			FileUtil.createDirectoryIfNeeded(targetDir.concat(IDEConstants.WEB_INF_DIR));
-		}
 	}
 	
 }

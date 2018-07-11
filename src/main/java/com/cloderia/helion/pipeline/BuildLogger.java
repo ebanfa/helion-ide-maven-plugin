@@ -4,8 +4,9 @@
 package com.cloderia.helion.pipeline;
 
 import com.cloderia.helion.exception.PipelineException;
-import com.cloderia.helion.model.pipeline.AbstractPipelineItem;
-import com.cloderia.helion.model.pipeline.PipelineContext;
+import com.cloderia.ide.config.PipelineItemConfig;
+import com.cloderia.ide.pipeline.AbstractPipelineItem;
+import com.cloderia.ide.pipeline.PipelineContext;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -15,6 +16,10 @@ import com.fasterxml.jackson.databind.SerializationFeature;
  *
  */
 public class BuildLogger extends AbstractPipelineItem {
+
+	public BuildLogger(PipelineItemConfig config) {
+		super(config);
+	}
 
 	@Override
 	protected PipelineContext doExecute(PipelineContext context)  {
