@@ -10,11 +10,12 @@ import java.io.OutputStreamWriter;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.cloderia.helion.exception.ArtifactConfigException;
-import com.cloderia.helion.exception.HelionException;
-import com.cloderia.ide.Artifact;
-import com.cloderia.ide.config.ArtifactLite;
-import com.cloderia.ide.pipeline.PipelineContext;
+import com.cloderia.helion.HelionException;
+import com.cloderia.helion.application.model.Component;
+import com.cloderia.helion.config.Artifact;
+import com.cloderia.helion.config.ArtifactException;
+import com.cloderia.helion.context.Context;
+import com.cloderia.helion.context.PipelineContext;
 
 import freemarker.cache.FileTemplateLoader;
 import freemarker.cache.MultiTemplateLoader;
@@ -38,10 +39,10 @@ public class TemplateUtil {
 	 * @param artifact
 	 * @return
 	 */
-	public static String getModulePomTemplateFile(ArtifactLite artifact) {
+	public static String getModulePomTemplateFile(Artifact artifact) {
 		try {
 			return ArtifactConfigUtil.getConfigParameterValue(IDEConstants.POM_TMPL_FILE_CONFIG_PARAM, artifact);
-		} catch (ArtifactConfigException e) {
+		} catch (ArtifactException e) {
 			return IDEConstants.MODULE_POM_TMPL_FTL;
 		}
 	}
@@ -50,10 +51,10 @@ public class TemplateUtil {
 	 * @param entity
 	 * @return
 	 */
-	public static String getEntityTemplate(ArtifactLite entity) {
+	public static String getEntityTemplate(Artifact entity) {
 		try {
 			return ArtifactConfigUtil.getConfigParameterValue(IDEConstants.ENTITY_TMPL_FILE_CONFIG_PARAM, entity);
-		} catch (ArtifactConfigException e) {
+		} catch (ArtifactException e) {
 			return IDEConstants.ENTITY_JAVA_TMPL_FTL;
 		}
 	}
@@ -62,10 +63,10 @@ public class TemplateUtil {
 	 * @param entity
 	 * @return
 	 */
-	public static String getEntityOpsTemplate(ArtifactLite entity) {
+	public static String getEntityOpsTemplate(Artifact entity) {
 		try {
 			return ArtifactConfigUtil.getConfigParameterValue(IDEConstants.ENTITY_OPS_TMPL_FILE_CONFIG_PARAM, entity);
-		} catch (ArtifactConfigException e) {
+		} catch (ArtifactException e) {
 			return IDEConstants.ENTITY_OPS_JAVA_TMPL_FTL;
 		}
 	}
@@ -74,10 +75,10 @@ public class TemplateUtil {
 	 * @param entity
 	 * @return
 	 */
-	public static String getEntityServiceTemplate(ArtifactLite entity) {
+	public static String getEntityServiceTemplate(Artifact entity) {
 		try {
 			return ArtifactConfigUtil.getConfigParameterValue(IDEConstants.ENTITY_SERVICE_TMPL_FILE_CONFIG_PARAM, entity);
-		} catch (ArtifactConfigException e) {
+		} catch (ArtifactException e) {
 			return IDEConstants.ENTITY_JAVA_SERVICE_TMPL_FTL;
 		}
 	}
@@ -86,10 +87,10 @@ public class TemplateUtil {
 	 * @param entity
 	 * @return
 	 */
-	public static String getEntityServiceImplTemplate(ArtifactLite entity) {
+	public static String getEntityServiceImplTemplate(Artifact entity) {
 		try {
 			return ArtifactConfigUtil.getConfigParameterValue(IDEConstants.ENTITY_SERVICE_IMPL_TMPL_FILE_CONFIG_PARAM, entity);
-		} catch (ArtifactConfigException e) {
+		} catch (ArtifactException e) {
 			return IDEConstants.ENTITY_JAVA_SERVICE_IMPL_TMPL_FTL;
 		}
 	}
@@ -104,15 +105,15 @@ public class TemplateUtil {
 	 * @param outputDirectory
 	 * @throws HelionException
 	 */
-	public static void generateArtifact(PipelineContext context, Artifact data, 
+	public static void generateArtifact(Context context, Component data, 
 			String templateFile, String outputFile, String outputDirectory) throws HelionException  {
 		try {
 			if (configuration == null)
 				configuration = loadFMConfiguration(context);
 
 			Map<String, Object> root = new HashMap<String, Object>();
-			root.put(data.getArtifactType(), data);
-			root.put("applicationRef", context.getApplication());
+			root.put(data.getConfig().getType(), data);
+			//root.put("applicationRef", context.getApplication());
 
 			FileUtil.createDirectoryIfNeeded(outputDirectory);
 			Template template = configuration.getTemplate(templateFile);
@@ -130,7 +131,7 @@ public class TemplateUtil {
 	 * @return
 	 * @throws IOException
 	 */
-	public static Configuration loadFMConfiguration(PipelineContext context) throws IOException {
+	public static Configuration loadFMConfiguration(Context context) throws IOException {
 		configuration = new Configuration();
 		configuration.setDefaultEncoding("UTF-8");
 		configuration.setObjectWrapper(new DefaultObjectWrapper());
@@ -145,7 +146,7 @@ public class TemplateUtil {
 	 * @return
 	 * @throws IOException
 	 */
-	public static TemplateLoader[] getTemplateLoaders(PipelineContext context) throws IOException {
+	public static TemplateLoader[] getTemplateLoaders(Context context) throws IOException {
 
 		String templatestDir = ArtifactConfigUtil.getConfigParameterValue(
 				IDEConstants.TEMPLATES_DIR_PARAM, context.getContextConfig());

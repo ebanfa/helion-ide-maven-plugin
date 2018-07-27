@@ -11,7 +11,9 @@ public class IDEConstants {
 	public static final String MODULE_CONFIG_FILE = "module-config.xml";
 	public static final String ENTITY_CONFIG_FILE = "entities-config.xml";
 	/** Build context keys */
-	public static final String ENTITIES_IN_DB_CONTEXT_KEY = "ENTITIES_IN_DB";
+	public static final String ENTITIES_IN_DB_CONTEXT_KEY = "entitiesReadFromTheDatabase";
+	public static final String APPLICATION_CONFIG_KEY = "applicationConfiguration";
+	public static final String APPLICATION_OBJ_KEY = "application";
 	/** Maven directory structure constants */
 	public static final String SRC_DIR = StringUtil.trailingSlashIt("src");
 	public static final String SRC_MAIN_DIR = SRC_DIR + StringUtil.trailingSlashIt("main");
@@ -73,6 +75,10 @@ public class IDEConstants {
 	public static final String PROJECT_DIR_PARAM = "projectDir";
 	public static final String TARGET_DIR_PARAM = "targetDir";
 	public static final String TEMPLATES_DIR_PARAM = "templatesDir";
+	public static final String CONFIG_READER_CLASS_PARAM = "configReaderClass";
+	public static final String CONFIG_READER_FILE_PARAM = "configFile";
+	
+	public static final String APPLICATION_BUILDER_CLASS_PARAM = "applicationBuilderClass";
 	
 	public static String APP_GEN_HEADER = 
 			"------------------------------------------------------------------------\n"

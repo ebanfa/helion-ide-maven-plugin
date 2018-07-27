@@ -5,8 +5,10 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Parameter;
 
-import com.cloderia.helion.exception.HelionException;
-import com.cloderia.ide.config.ContextConfig;
+import com.cloderia.helion.config.Artifact;
+import com.cloderia.helion.context.Context;
+import com.cloderia.helion.context.ContextFactory;
+import com.cloderia.helion.util.JAXBUtil;
 
 public abstract class AbstractHelionMojo extends AbstractMojo {
 
@@ -15,9 +17,6 @@ public abstract class AbstractHelionMojo extends AbstractMojo {
      */
     @Parameter(property = "helion.configurationFile")
     protected String configurationFile;
-
-    @Parameter(property = "helion.configurationClass")
-    protected String configurationClass;
 	
 
 	/* (non-Javadoc)
@@ -25,8 +24,10 @@ public abstract class AbstractHelionMojo extends AbstractMojo {
 	 */
 	public void execute() throws MojoExecutionException, MojoFailureException {
 		try {
-			ContextConfig contextConfig = ContextConfigFactory.getInstance(configurationFile, configurationClass);
-			BuildContext context = BuildContextFactory.getInstance(contextConfig);
+			// Load the configuration from a file (e.g build.xml) and use it to initialize a build context
+			Artifact contextConfig = JAXBUtil.loadArtifact(configurationFile, Artifact.class);
+			Context context = ContextFactory.getInstance(contextConfig);
+			// Pass the build context to the subclass
 			this.doExecute(context);
 		} catch (HelionException e) {
 			e.printStackTrace();
@@ -36,6 +37,6 @@ public abstract class AbstractHelionMojo extends AbstractMojo {
 	/**
 	 * @param buildConfiguration
 	 */
-	protected abstract void doExecute(BuildContext context) throws HelionException;
+	protected abstract void doExecute(Context context) throws HelionException;
 
 }
