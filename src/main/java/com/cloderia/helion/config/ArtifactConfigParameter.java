@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.XmlAttribute;
  * @author Edward Banfa
  *
  */
-public class ArtifactDataParameter  {
+public class ArtifactConfigParameter  {
 
 	private String paramName;
 	private String paramValue;

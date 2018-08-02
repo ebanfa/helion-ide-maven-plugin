@@ -12,11 +12,12 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 /**
  * @author Edward Banfa
  */
-public class ArtifactData  {
+public class ArtifactConfig  {
 	
 	private String configFile;
 	private List<String> dependencies = new ArrayList<String>();
-	private List<ArtifactDataParameter> configParameters = new ArrayList<ArtifactDataParameter>();
+	private List<Action> actions = new ArrayList<Action>();
+	private List<ArtifactConfigParameter> params = new ArrayList<ArtifactConfigParameter>();
 	
 	/**
 	 * @return the configFile
@@ -52,8 +53,8 @@ public class ArtifactData  {
 	/**
 	 * @return the configParameters
 	 */
-	public List<ArtifactDataParameter> getConfigParameters() {
-		return configParameters;
+	public List<ArtifactConfigParameter> getParams() {
+		return params;
 	}
 
 	/**
@@ -61,7 +62,23 @@ public class ArtifactData  {
 	 */
 	@XmlElement(name="param")
 	@XmlElementWrapper(name="params")
-	public void setConfigParameters(List<ArtifactDataParameter> configParameters) {
-		this.configParameters = configParameters;
+	public void setParams(List<ArtifactConfigParameter> configParameters) {
+		this.params = configParameters;
+	}
+
+	/**
+	 * @return the actions
+	 */
+	public List<Action> getActions() {
+		return actions;
+	}
+
+	/**
+	 * @param actions the actions to set
+	 */
+	@XmlElement(name="action")
+	@XmlElementWrapper(name="actions")
+	public void setActions(List<Action> actions) {
+		this.actions = actions;
 	}
 }

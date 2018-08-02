@@ -3,11 +3,8 @@
  */
 package com.cloderia.helion.util;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
 import com.cloderia.helion.HelionException;
+import com.cloderia.helion.HelionRuntimeException;
 import com.cloderia.helion.config.Artifact;
 
 /**
@@ -18,20 +15,20 @@ import com.cloderia.helion.config.Artifact;
 public class ConfigurationUtil {
 
 	/**
-	 * @param configFile
+	 * @param artifactConfigFileOpt
 	 * @return
 	 * @throws HelionException
 	 */
-	public static Artifact readApplicationConfig(String applicationConfigFile) throws HelionException {
-		List<Artifact> modules = new ArrayList<Artifact>();
-		Artifact applicationConfig = JAXBUtil.loadArtifact(applicationConfigFile, Artifact.class);
+	public static Artifact readArtifact(String artifactConfigFile) throws HelionException {
+		Artifact artifact = JAXBUtil.loadArtifact(artifactConfigFile, Artifact.class);
 		
-		for(Artifact moduleConfig: applicationConfig.getArtifacts()) {
-			modules.add(readModuleConfig(moduleConfig));
-		}
+		artifact.getArtifacts()
+		.stream()
+		.map(childArtifact -> {
+			return readArtifactConfig(childArtifact);
+		});		
 		
-		applicationConfig.setArtifacts(modules);
-		return applicationConfig;
+		return artifact;
 	}
 	
 	/**
@@ -39,44 +36,17 @@ public class ConfigurationUtil {
 	 * @return
 	 * @throws HelionException
 	 */
-	public static Artifact readModuleConfig(Artifact moduleLite)  throws HelionException {
-		String moduleConfigFile = ArtifactConfigUtil.getArtifactConfigFile(moduleLite);
-		Artifact moduleConfig = JAXBUtil.loadArtifact(moduleConfigFile, Artifact.class);
-
-		List<Artifact> subModules = new ArrayList<Artifact>();
+	public static Artifact readArtifactConfig(Artifact artifact) {
+		if(!ArtifactConfigUtil.hasArtifactConfigFile(artifact))
+			return artifact;
 		
-		for(Artifact subModuleConfig: moduleConfig.getArtifacts()) {
-			subModules.add(readSubModuleConfig(subModuleConfig, moduleConfig));
+		String artifactConfigFile = ArtifactConfigUtil.getArtifactConfigFile(artifact);
+		
+		try {
+			return readArtifact(artifactConfigFile);
+		} catch (HelionException e) {
+			throw new HelionRuntimeException();
 		}
-		
-		moduleConfig.setArtifacts(subModules);
-		return moduleConfig;
-	}
-
-	/**
-	 * @param subModuleConfig
-	 * @param moduleConfig
-	 * @return
-	 * @throws HelionException
-	 */
-	public static Artifact readSubModuleConfig(Artifact subModuleConfig, Artifact moduleConfig) throws HelionException {
-		Optional<String> subModuleConfigFileOpt = Optional.ofNullable(
-				ArtifactConfigUtil.getArtifactConfigFileOrNull(subModuleConfig));
-		
-		if(subModuleConfigFileOpt.isPresent()) {
-			Artifact loadedSubModuleConfig = JAXBUtil.loadArtifact(subModuleConfigFileOpt.get(), Artifact.class);
-			return readArtifactsInSubModule(moduleConfig, loadedSubModuleConfig);
-		}
-		return subModuleConfig;
-	}
-
-	/**
-	 * @param moduleConfig
-	 * @param subModuleConfig
-	 * @return
-	 */
-	private static Artifact readArtifactsInSubModule(Artifact moduleConfig, Artifact subModuleConfig) {
-		return subModuleConfig;
 	}
 	
 }

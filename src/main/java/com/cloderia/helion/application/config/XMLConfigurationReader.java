@@ -22,7 +22,7 @@ public class XMLConfigurationReader implements ConfigurationReader {
 	public Artifact readConfiguration(Artifact artifactConfig) throws HelionException {
 		String applicationConfigFile =  
 				ArtifactConfigUtil.getConfigParameterValue(IDEConstants.CONFIG_READER_FILE_PARAM, artifactConfig);
-		return ConfigurationUtil.readApplicationConfig(applicationConfigFile);
+		return ConfigurationUtil.readArtifact(applicationConfigFile);
 	}
 
 }

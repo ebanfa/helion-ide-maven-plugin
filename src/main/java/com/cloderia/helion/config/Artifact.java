@@ -24,7 +24,7 @@ public class Artifact {
 	private String description;
 	private String version;
 	private String type;
-	private ArtifactData artifactConfig  = new ArtifactData();
+	private ArtifactConfig artifactConfig  = new ArtifactConfig();
 	private List<Artifact> artifacts = new ArrayList<Artifact>();
 
 	/**
@@ -142,14 +142,14 @@ public class Artifact {
 	/**
 	 * @return the artifactConfig
 	 */
-	public ArtifactData getArtifactConfig() {
+	public ArtifactConfig getArtifactConfig() {
 		return artifactConfig;
 	}
 
 	/**
 	 * @param artifactConfig the artifactConfig to set
 	 */
-	public void setArtifactConfig(ArtifactData artifactConfig) {
+	public void setArtifactConfig(ArtifactConfig artifactConfig) {
 		this.artifactConfig = artifactConfig;
 	}
 

@@ -9,8 +9,8 @@ import java.util.Optional;
 import com.cloderia.helion.HelionRuntimeException;
 import com.cloderia.helion.application.model.Component;
 import com.cloderia.helion.config.Artifact;
-import com.cloderia.helion.config.ArtifactData;
-import com.cloderia.helion.config.ArtifactDataParameter;
+import com.cloderia.helion.config.ArtifactConfig;
+import com.cloderia.helion.config.ArtifactConfigParameter;
 import com.cloderia.helion.config.ArtifactException;
 
 /**
@@ -26,7 +26,7 @@ public class ArtifactConfigUtil {
 	public static String getArtifactConfigFile(Artifact artifact) {
 		try {
 			// Verify the presence of the entity config file or throw exception
-			Optional<ArtifactData> artifactConfigOpt = Optional.of(artifact.getArtifactConfig()); 
+			Optional<ArtifactConfig> artifactConfigOpt = Optional.of(artifact.getArtifactConfig()); 
 			Optional<String> configFileOpt = Optional.of(artifactConfigOpt.get().getConfigFile());
 			return configFileOpt.get();
 		} catch (NullPointerException e) {
@@ -38,14 +38,15 @@ public class ArtifactConfigUtil {
 	 * @param artifact
 	 * @return
 	 */
-	public static String getArtifactConfigFileOrNull(Artifact artifact) {
+	public static boolean hasArtifactConfigFile(Artifact artifact) {
 		try {
-			// Verify the presence of the entity config file or throw exception
-			Optional<ArtifactData> artifactConfigOpt = Optional.ofNullable(artifact.getArtifactConfig()); 
-			if(!artifactConfigOpt.isPresent()) return null;
+			Optional<ArtifactConfig> artifactConfigOpt = Optional.ofNullable(artifact.getArtifactConfig()); 
+			if(!artifactConfigOpt.isPresent()) return false;
+			
 			Optional<String> configFileOpt = Optional.ofNullable(artifactConfigOpt.get().getConfigFile());
-			if(!configFileOpt.isPresent()) return null;
-			return configFileOpt.get();
+			if(!configFileOpt.isPresent()) return false;
+			
+			return true;
 		} catch (NullPointerException e) {
 			throw new ArtifactException("Configuration file not found for artifact " + artifact.getId(), e);
 		}
@@ -59,7 +60,7 @@ public class ArtifactConfigUtil {
 	 */
 	public static String getConfigParameterValue(String paramName, Artifact artifact) {
 		try {
-			Optional<List<ArtifactDataParameter>> configParamsListOpt = getAsOptional(artifact);
+			Optional<List<ArtifactConfigParameter>> configParamsListOpt = getAsOptional(artifact);
 			String paramValue = findConfigParameterValue(paramName, artifact, configParamsListOpt);
 			
 			// Nothing found we throw an exception
@@ -79,8 +80,8 @@ public class ArtifactConfigUtil {
 	 * @param artifact
 	 * @param configParamsListOpt
 	 */
-	private static String findConfigParameterValue(String paramName, Artifact artifact,	Optional<List<ArtifactDataParameter>> configParamsListOpt) {
-		for(ArtifactDataParameter configParameter: configParamsListOpt.get()) {
+	private static String findConfigParameterValue(String paramName, Artifact artifact,	Optional<List<ArtifactConfigParameter>> configParamsListOpt) {
+		for(ArtifactConfigParameter configParameter: configParamsListOpt.get()) {
 			if(configParameter.getParamName().equalsIgnoreCase(paramName)) {
 				if(!StringUtil.isValidString(configParameter.getParamValue()))
 					throw new ArtifactException("Invalid config parameter value for param " + paramName + " on artifact " + artifact.getId());
@@ -94,10 +95,10 @@ public class ArtifactConfigUtil {
 	 * @param artifact
 	 * @return
 	 */
-	private static Optional<List<ArtifactDataParameter>> getAsOptional(Artifact artifact) {
+	private static Optional<List<ArtifactConfigParameter>> getAsOptional(Artifact artifact) {
 		// Verify the presence of the entity config file or throw exception
-		Optional<ArtifactData> artifactConfigOpt = Optional.of(artifact.getArtifactConfig()); 
-		Optional<List<ArtifactDataParameter>> configParamsListOpt = Optional.of(artifactConfigOpt.get().getConfigParameters());
+		Optional<ArtifactConfig> artifactConfigOpt = Optional.of(artifact.getArtifactConfig()); 
+		Optional<List<ArtifactConfigParameter>> configParamsListOpt = Optional.of(artifactConfigOpt.get().getParams());
 		return configParamsListOpt;
 	}
 }
